@@ -112,26 +112,26 @@ export default function DoubleBlindChallengeModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md overflow-y-auto">
-      <div className="w-full max-w-xl bg-black p-6 border border-white/20 text-white font-mono animate-in fade-in zoom-in-95 duration-150 my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-xl overflow-y-auto">
+      <div className="w-full max-w-xl nothing-widget !bg-black/90 p-7 text-white font-mono animate-in fade-in zoom-in-95 duration-150 my-8">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-white/10">
-          <div className="flex items-center gap-2">
-            <ShieldCheck className="h-5 w-5 text-white" />
+        <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
+          <div className="flex items-center gap-2.5">
+            <span className="nothing-red-dot"></span>
             <div>
-              <h3 className="font-bold text-xs uppercase tracking-[0.2em] text-white">
+              <h3 className="font-ndot text-xs tracking-[0.16em] text-white">
                 OWNERSHIP VERIFICATION PROTOCOL
               </h3>
-              <p className="text-[10px] text-zinc-500 uppercase tracking-widest">
+              <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">
                 ZERO-TRUST MULTI-FACTOR ENGINE // KIIT SECURITY
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-zinc-400 hover:text-white"
+            className="rounded-full p-1.5 border border-white/10 text-zinc-400 hover:text-white hover:border-white transition-colors"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4" />
           </button>
         </div>
 
@@ -346,18 +346,18 @@ export default function DoubleBlindChallengeModal({
             <button
               type="button"
               onClick={onClose}
-              className="spacex-btn-secondary !py-2 !px-4 !text-[11px]"
+              className="nothing-btn-secondary !py-2.5 !px-5 !text-[10px]"
             >
               CANCEL
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="spacex-btn-primary !py-2 !px-5 !text-[11px]"
+              className="nothing-btn-primary !py-2.5 !px-6 !text-[10px]"
             >
               {submitting ? (
                 <>
-                  <Loader2 className="h-3.5 w-3.5 inline mr-1 animate-spin" /> CRYPTOGRAPHIC EVALUATION...
+                  <Loader2 className="h-3.5 w-3.5 inline mr-1 animate-spin" /> EVALUATING...
                 </>
               ) : (
                 <>

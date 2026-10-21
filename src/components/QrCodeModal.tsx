@@ -62,18 +62,18 @@ export default function QrCodeModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md">
-      <div className="w-full max-w-sm bg-black p-6 border border-white/20 text-center font-mono text-white animate-in fade-in zoom-in-95 duration-150">
-        <div className="flex items-center justify-between pb-3 border-b border-white/10">
-          <div className="flex items-center gap-1.5 text-white font-bold text-xs uppercase tracking-[0.2em]">
-            <ShieldCheck className="h-4 w-4" />
-            HANDOVER TELEMETRY PASS
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-xl">
+      <div className="w-full max-w-sm nothing-widget !bg-black/90 p-7 text-center font-mono text-white animate-in fade-in zoom-in-95 duration-150">
+        <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
+          <div className="flex items-center gap-2 text-white font-bold text-xs uppercase tracking-[0.2em]">
+            <span className="nothing-red-dot"></span>
+            HANDOVER PASS
           </div>
           <button
             onClick={onClose}
-            className="text-zinc-400 hover:text-white"
+            className="rounded-full p-1 border border-white/10 text-zinc-400 hover:text-white hover:border-white transition-colors"
           >
-            <X className="h-5 w-5" />
+            <X className="h-4 w-4" />
           </button>
         </div>
 
@@ -85,13 +85,13 @@ export default function QrCodeModal({
         </p>
 
         {/* QR Code Canvas */}
-        <div className="my-5 flex items-center justify-center p-3 border border-white/20 bg-white">
-          <canvas ref={canvasRef} className="shadow-sm" />
+        <div className="my-5 flex items-center justify-center p-3 rounded-2xl border border-white/20 bg-white">
+          <canvas ref={canvasRef} className="shadow-sm rounded-lg" />
         </div>
 
         <div className="flex items-center justify-center gap-1.5 text-[10px] text-zinc-300 font-medium uppercase tracking-widest">
           <Clock className="h-3 w-3" />
-          <span>VALID FOR 24 HOURS // ONE-TIME SCAN</span>
+          <span>VALID 24H // ONE-TIME SCAN</span>
         </div>
 
         <p className="mt-2 text-[10px] text-zinc-500 leading-tight uppercase tracking-wider">
@@ -101,14 +101,14 @@ export default function QrCodeModal({
         <div className="mt-5 grid grid-cols-2 gap-2 pt-3 border-t border-white/10">
           <button
             onClick={handleCopy}
-            className="spacex-btn-secondary !py-2 !px-2 !text-[10px]"
+            className="nothing-btn-secondary !py-2 !px-2 !text-[9px]"
           >
             {copied ? "COPIED" : "COPY TOKEN"}
           </button>
 
           <button
             onClick={handleDownload}
-            className="spacex-btn-primary !py-2 !px-2 !text-[10px]"
+            className="nothing-btn-primary !py-2 !px-2 !text-[9px]"
           >
             DOWNLOAD QR
           </button>

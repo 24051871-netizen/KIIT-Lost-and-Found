@@ -6,6 +6,10 @@ export interface IClaimDocument extends Document {
   claimantName: string;
   claimantRollNumber?: string;
   challengeAnswer: string;
+  proofType?: string;
+  hardwareSerialSubmitted?: string;
+  proofDocumentUrl?: string;
+  physicalUnlockConfirmed?: boolean;
   proofDescription?: string;
   proofImageUrl?: string;
   status: "PENDING" | "APPROVED" | "REJECTED" | "COMPLETED";
@@ -21,6 +25,20 @@ const ClaimSchema = new Schema<IClaimDocument>(
     claimantName: { type: String, required: true },
     claimantRollNumber: { type: String },
     challengeAnswer: { type: String, required: true },
+    proofType: {
+      type: String,
+      enum: [
+        "INSTITUTIONAL_ROLL_MATCH",
+        "HARDWARE_SERIAL_HASH",
+        "PRE_LOSS_INVOICE_PROOF",
+        "PHYSICAL_DEVICE_UNLOCK",
+        "DOUBLE_BLIND_CHALLENGE",
+      ],
+      default: "DOUBLE_BLIND_CHALLENGE",
+    },
+    hardwareSerialSubmitted: { type: String },
+    proofDocumentUrl: { type: String },
+    physicalUnlockConfirmed: { type: Boolean, default: false },
     proofDescription: { type: String },
     proofImageUrl: { type: String },
     status: {

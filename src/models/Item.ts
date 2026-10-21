@@ -13,6 +13,9 @@ export interface IItemDocument extends Document {
   status: ItemStatus;
   secretChallengeQuestion?: string;
   secretAnswerHash?: string;
+  verificationProofType?: string;
+  targetRollNumber?: string;
+  hardwareIdentifierHash?: string;
   contactEmail: string;
   contactName: string;
   reporterRollNumber?: string;
@@ -61,6 +64,19 @@ const ItemSchema = new Schema<IItemDocument>(
     },
     secretChallengeQuestion: { type: String },
     secretAnswerHash: { type: String },
+    verificationProofType: {
+      type: String,
+      enum: [
+        "INSTITUTIONAL_ROLL_MATCH",
+        "HARDWARE_SERIAL_HASH",
+        "PRE_LOSS_INVOICE_PROOF",
+        "PHYSICAL_DEVICE_UNLOCK",
+        "DOUBLE_BLIND_CHALLENGE",
+      ],
+      default: "DOUBLE_BLIND_CHALLENGE",
+    },
+    targetRollNumber: { type: String, index: true },
+    hardwareIdentifierHash: { type: String },
     contactEmail: { type: String, required: true, index: true },
     contactName: { type: String, required: true },
     reporterRollNumber: { type: String },

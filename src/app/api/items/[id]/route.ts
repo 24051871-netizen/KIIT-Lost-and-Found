@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase } from "@/lib/db";
 import Item from "@/models/Item";
+import Claim from "@/models/Claim";
 import { mockStore } from "@/lib/mock-store";
 
 export async function GET(
@@ -16,7 +17,8 @@ export async function GET(
       if (!item) {
         return NextResponse.json({ success: false, error: "Item not found" }, { status: 404 });
       }
-      return NextResponse.json({ success: true, item });
+      const claims = await Claim.find({ itemId: id }).sort({ createdAt: -1 });
+      return NextResponse.json({ success: true, item, claims });
     }
 
     const item = mockStore.getItemById(id);

@@ -20,6 +20,10 @@ import {
   AlertTriangle,
   HelpCircle,
   Building,
+  KeyRound,
+  FileText,
+  Smartphone,
+  ShieldAlert,
 } from "lucide-react";
 
 export default function ItemDetailPage({
@@ -159,7 +163,7 @@ export default function ItemDetailPage({
               fill
               priority
               className={`object-cover ${
-                isSensitive && !isReturned ? "filter blur-[3px] hover:blur-none transition-all" : ""
+                isSensitive && !isReturned ? "filter blur-[6px] select-none pointer-events-none transition-all" : ""
               }`}
             />
 
@@ -215,6 +219,125 @@ export default function ItemDetailPage({
                   {new Date(item.createdAt).toLocaleString("en-IN")}
                 </span>
               </div>
+            </div>
+          </div>
+
+          {/* Zero-Trust Security Protocol Card (ZK-MOP) */}
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-emerald-600" />
+                Zero-Trust Ownership Protocol (ZK-MOP)
+              </h3>
+              <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 uppercase tracking-wider">
+                Active Defense
+              </span>
+            </div>
+
+            <p className="text-[11px] text-slate-500 leading-relaxed">
+              To eliminate false ownership claims and subjective description guessing, this item is protected by multi-factor cryptographic and physical verification:
+            </p>
+
+            <div className="space-y-2 text-xs">
+              {/* Tier 1: Roll Lock */}
+              <div
+                className={`p-3 rounded-xl border flex items-start gap-2.5 ${
+                  item.category === "KIIT_ID_CARD"
+                    ? "border-emerald-300 bg-emerald-50/60 dark:border-emerald-900 dark:bg-emerald-950/20"
+                    : "border-slate-200 bg-slate-50/40 dark:border-slate-800 dark:bg-slate-850 opacity-70"
+                }`}
+              >
+                <div className="mt-0.5 rounded-md bg-emerald-100 p-1 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300">
+                  <Lock className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    Tier 1: Institutional Roll Lock
+                    {item.category === "KIIT_ID_CARD" && (
+                      <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
+                        (Active &amp; Enforced)
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Restricted strictly to the student roll holder. Mismatched KIIT emails are rejected at API level.
+                  </p>
+                </div>
+              </div>
+
+              {/* Tier 2: SHA-256 Serial Hash */}
+              <div
+                className={`p-3 rounded-xl border flex items-start gap-2.5 ${
+                  item.hardwareIdentifierHash
+                    ? "border-emerald-300 bg-emerald-50/60 dark:border-emerald-900 dark:bg-emerald-950/20"
+                    : "border-slate-200 bg-slate-50/40 dark:border-slate-800 dark:bg-slate-850 opacity-70"
+                }`}
+              >
+                <div className="mt-0.5 rounded-md bg-kiit-100 p-1 text-kiit-700 dark:bg-kiit-900/60 dark:text-kiit-300">
+                  <KeyRound className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    Tier 2: SHA-256 Hardware Serial Matching
+                    {item.hardwareIdentifierHash && (
+                      <span className="text-[10px] font-semibold text-kiit-600 dark:text-kiit-400">
+                        (Hash Active)
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Deterministic zero-knowledge verification against device Serial or IMEI without exposing numbers publicly.
+                  </p>
+                </div>
+              </div>
+
+              {/* Tier 3: Pre-Loss Evidence */}
+              <div className="p-3 rounded-xl border border-slate-200 bg-slate-50/40 dark:border-slate-800 dark:bg-slate-850 opacity-80 flex items-start gap-2.5">
+                <div className="mt-0.5 rounded-md bg-amber-100 p-1 text-amber-700 dark:bg-amber-900/60 dark:text-amber-300">
+                  <FileText className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="font-bold text-slate-900 dark:text-white">
+                    Tier 3: Pre-Loss Invoice / Documentation
+                  </p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Supports claimant retail invoices, purchase receipts, or pre-loss timestamped photos.
+                  </p>
+                </div>
+              </div>
+
+              {/* Tier 4: Safe Zone Physical Unlock */}
+              <div
+                className={`p-3 rounded-xl border flex items-start gap-2.5 ${
+                  item.category === "ELECTRONICS"
+                    ? "border-blue-300 bg-blue-50/60 dark:border-blue-900 dark:bg-blue-950/20"
+                    : "border-slate-200 bg-slate-50/40 dark:border-slate-800 dark:bg-slate-850 opacity-70"
+                }`}
+              >
+                <div className="mt-0.5 rounded-md bg-blue-100 p-1 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300">
+                  <Smartphone className="h-3.5 w-3.5" />
+                </div>
+                <div>
+                  <p className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                    Tier 4: Physical Unlock Challenge
+                    {item.category === "ELECTRONICS" && (
+                      <span className="text-[10px] font-semibold text-blue-600 dark:text-blue-400">
+                        (Safe Zone Mandate)
+                      </span>
+                    )}
+                  </p>
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Claimant must physically unlock device with passcode/biometric in front of the Campus Safe Zone Guard.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-3 text-[11px] text-amber-900 dark:text-amber-300 flex items-center gap-2">
+              <ShieldAlert className="h-4 w-4 shrink-0 text-amber-600" />
+              <span>
+                <strong>Anti-Brute-Force:</strong> 3 failed attempts lock claimant account and initiate academic disciplinary review under KIIT Statute 14.
+              </span>
             </div>
           </div>
         </div>
@@ -318,26 +441,61 @@ export default function ItemDetailPage({
                     className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-xs space-y-2"
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-semibold text-slate-900 dark:text-white">
-                        {claim.claimantName}
-                      </span>
-                      <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded ${
-                          claim.status === "APPROVED"
-                            ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
-                            : claim.status === "REJECTED"
-                            ? "bg-rose-100 text-rose-800"
-                            : "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
-                        }`}
-                      >
-                        {claim.status}
-                      </span>
+                      <div>
+                        <span className="font-semibold text-slate-900 dark:text-white">
+                          {claim.claimantName}
+                        </span>
+                        <p className="text-[10px] text-slate-500">{claim.claimantEmail}</p>
+                      </div>
+                      <div className="flex items-center gap-1.5">
+                        {claim.proofType && (
+                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-kiit-50 text-kiit-700 dark:bg-kiit-950 dark:text-kiit-300 border border-kiit-200 dark:border-kiit-900">
+                            {claim.proofType === "HARDWARE_SERIAL_HASH"
+                              ? "Serial Hash"
+                              : claim.proofType === "INSTITUTIONAL_ROLL_MATCH"
+                              ? "Roll Match"
+                              : claim.proofType === "PHYSICAL_DEVICE_UNLOCK"
+                              ? "Unlock Pledged"
+                              : claim.proofType === "PRE_LOSS_INVOICE_PROOF"
+                              ? "Invoice Proof"
+                              : "Double-Blind"}
+                          </span>
+                        )}
+                        <span
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                            claim.status === "APPROVED"
+                              ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+                              : claim.status === "REJECTED"
+                              ? "bg-rose-100 text-rose-800"
+                              : "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
+                          }`}
+                        >
+                          {claim.status}
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-[11px] text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-2 rounded-lg">
-                      <span className="font-bold">Answer:</span> {claim.challengeAnswer}
+                    <div className="text-[11px] text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-2.5 rounded-lg space-y-1">
+                      <div>
+                        <span className="font-bold text-slate-700 dark:text-slate-300">Answer/Input:</span> {claim.challengeAnswer}
+                      </div>
+                      {claim.hardwareSerialSubmitted && (
+                        <div>
+                          <span className="font-bold text-slate-700 dark:text-slate-300">Submitted Serial:</span>{" "}
+                          <span className="font-mono text-[10px] bg-slate-200 dark:bg-slate-700 px-1 py-0.5 rounded">
+                            {claim.hardwareSerialSubmitted.length > 4
+                              ? `••••${claim.hardwareSerialSubmitted.slice(-4)}`
+                              : claim.hardwareSerialSubmitted}
+                          </span>
+                        </div>
+                      )}
+                      {claim.physicalUnlockConfirmed && (
+                        <div className="text-[10px] text-blue-600 dark:text-blue-400 font-medium flex items-center gap-1">
+                          <CheckCircle2 className="h-3 w-3" /> Pledged physical unlock at Campus Safe Zone
+                        </div>
+                      )}
                       {claim.proofDescription && (
-                        <div className="mt-1">
-                          <span className="font-bold">Proof Note:</span> {claim.proofDescription}
+                        <div className="pt-0.5">
+                          <span className="font-bold text-slate-700 dark:text-slate-300">Proof Note:</span> {claim.proofDescription}
                         </div>
                       )}
                     </div>

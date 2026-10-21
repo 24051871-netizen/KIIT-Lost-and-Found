@@ -30,3 +30,6 @@ scripts/
 .agents/
 
 
+
+.vercel
+.env*

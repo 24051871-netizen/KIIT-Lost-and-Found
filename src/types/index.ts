@@ -17,6 +17,13 @@ export type ItemCategory =
   | "BAGS_BOOKS"
   | "OTHER";
 
+export type VerificationProofType =
+  | "INSTITUTIONAL_ROLL_MATCH" // Auto-enforced for KIIT ID Cards
+  | "HARDWARE_SERIAL_HASH"     // Deterministic zero-knowledge matching for Electronics
+  | "PRE_LOSS_INVOICE_PROOF"   // Original purchase receipt / box photo
+  | "PHYSICAL_DEVICE_UNLOCK"   // Biometric / PIN unlock in front of Security Guard
+  | "DOUBLE_BLIND_CHALLENGE";  // Asymmetric hidden detail challenge
+
 export interface Item {
   _id: string;
   title: string;
@@ -30,6 +37,9 @@ export interface Item {
   status: ItemStatus;
   secretChallengeQuestion?: string; // Double-blind question
   secretAnswerHash?: string;
+  verificationProofType?: VerificationProofType;
+  targetRollNumber?: string; // If ID Card: only this roll number can claim
+  hardwareIdentifierHash?: string; // SHA-256 hash of serial number / IMEI
   contactEmail: string;
   contactName: string;
   reporterRollNumber?: string;
@@ -53,6 +63,10 @@ export interface Claim {
   claimantName: string;
   claimantRollNumber?: string;
   challengeAnswer: string;
+  proofType?: VerificationProofType;
+  hardwareSerialSubmitted?: string;
+  proofDocumentUrl?: string; // Invoice / original photo URL from Cloudinary
+  physicalUnlockConfirmed?: boolean;
   proofDescription?: string;
   status: "PENDING" | "APPROVED" | "REJECTED" | "COMPLETED";
   qrToken?: string;

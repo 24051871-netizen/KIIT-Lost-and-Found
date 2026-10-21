@@ -320,24 +320,66 @@ Provides search, filtering, and pagination over active campus items.
 
 ---
 
-### 4.5 FR-05: Double-Blind Ownership Challenge-Response Protocol
+### 4.5 FR-05: Multi-Tiered Zero-Trust Ownership Verification Protocol (ZK-MOP)
 
 #### Description:
-Asymmetric verification preventing fraudulent claims on high-value found property.
+A multi-layered cryptographic, institutional, and physical verification engine designed to eliminate false ownership claims, parrot descriptions, and subjective finder collusion. Rather than relying on simple text descriptions or single-question guessing, the protocol verifies ownership across four orthogonal vectors:
+
+```mermaid
+flowchart TD
+    Claimant["Claimant submits ownership claim at /api/items/:id/claim"] --> CheckRate["1. Anti-Brute-Force Guard<br/>(Rejects if failed attempts >= 3)"]
+    CheckRate --> TypeCheck{"2. Proof Vector Resolution"}
+
+    TypeCheck -->|"Category: KIIT_ID_CARD"| RollLock["Vector 1: Institutional Roll Lock<br/>Verify claimantEmail Roll == Target Roll<br/>(403 Forbidden if mismatched)"]
+    TypeCheck -->|"Category: ELECTRONICS (Serial)"| SerialHash["Vector 2: Deterministic SHA-256 Serial Hash<br/>Compute SHA256(SubmittedSerial)<br/>Compare against Stored hardwareIdentifierHash"]
+    TypeCheck -->|"Invoice / Bill Upload"| DocProof["Vector 3: Pre-Loss Digital Evidence<br/>Retail invoice, purchase receipt, IMEI sticker"]
+    TypeCheck -->|"Feature Question"| BlindChallenge["Vector 4: Double-Blind Challenge<br/>Concealed question & hashed answer match"]
+
+    RollLock --> AutoApprove["Deterministic Match Confirmed<br/>Auto-Approve Claim & Issue Handover Pass"]
+    SerialHash --> AutoApprove
+    DocProof --> ManualReview["Flagged for Verified Review"]
+    BlindChallenge --> AutoApprove
+
+    AutoApprove --> SafeZoneMandate{"Is Category ELECTRONICS?"}
+    SafeZoneMandate -->|"Yes"| PhysicalUnlock["Mandatory Safe Zone Physical Unlock Challenge<br/>Claimant must unlock biometric/PIN before guard"]
+    SafeZoneMandate -->|"No"| IssueToken["Generate HMAC-SHA256 Handover QR Token"]
+    PhysicalUnlock --> IssueToken
+```
+
+#### Verification Vectors:
+1. **Vector 1: Institutional Roll Lock (Zero-Trust Identity Match):**
+   - For all sensitive academic credentials (`KIIT_ID_CARD`), the system matches the claimant's institutional roll number parsed from their authenticated session email (`/^(\d{7})@kiit\.ac\.in$/`) against the target roll on the card.
+   - Any claim from a mismatched email is rejected immediately with HTTP 403 Forbidden and logged as `FRAUD_CLAIM_BLOCKED`.
+2. **Vector 2: Cryptographic Hardware Serial Hash (Zero-Knowledge Matching):**
+   - For high-value consumer electronics, finders record the device Serial/IMEI, which is immediately digested into an SHA-256 hash (`hardwareIdentifierHash`) and stored in MongoDB. The plaintext serial is never stored or exposed in the public catalog.
+   - The claimant enters their hardware serial number (obtained from their original purchase invoice or packaging). The server computes `SHA-256(normalize(submittedSerial))` and performs constant-time comparison against the stored hash. Exact match triggers automated, non-subjective claim approval.
+3. **Vector 3: Pre-Loss Purchase Invoice and Digital Evidence Submission:**
+   - Claimants can upload authentic pre-loss purchase receipts, GST retail invoices, or warranty registration documents containing matching timestamps and item details.
+4. **Vector 4: Physical Device Unlock Challenge at Campus Safe Zone:**
+   - For all electronic gadgets (laptops, phones, tablets, smart watches), approval mandates physical biometric or passcode unlocking in the presence of an institutional Security Officer at designated Campus Safe Zones (Campus 15 Gate, Campus 6 Library) before final QR scan completion.
+
+#### Anti-Brute-Force & Rate Limiting:
+- Strict per-user and per-item rate limiting: more than **3 rejected/failed claim attempts** results in an immediate **HTTP 429 Too Many Requests**, account-level claim suspension, and an automated audit alert flagged for Dean of Student Affairs review under KIIT Disciplinary Statute 14.
 
 #### Inputs:
 - `itemId` (MongoDB ObjectId)
-- `claimantAnswer` (String submitted by the claimant)
+- `claimantEmail`, `claimantName`, `claimantRollNumber` (from authenticated session)
+- `proofType` (`INSTITUTIONAL_ROLL_MATCH`, `HARDWARE_SERIAL_HASH`, `PRE_LOSS_INVOICE_PROOF`, `PHYSICAL_DEVICE_UNLOCK`, `DOUBLE_BLIND_CHALLENGE`)
+- `challengeAnswer` (String)
+- `hardwareSerialSubmitted` (String, optional)
+- `proofDocumentUrl` (String, optional)
+- `physicalUnlockConfirmed` (Boolean, mandatory for electronics)
+- `proofDescription` (String, optional)
 
 #### Processing:
-1. Claimant views item details; public view displays `secretChallengeQuestion` (e.g. *"What sticker is on the back?"*) while `secretAnswerHash` remains concealed.
-2. Claimant submits answer via `POST /api/items/:id/claim`.
-3. The server compares normalized hash of `claimantAnswer` with stored `secretAnswerHash`:
-   - If exact match: Item automatically updates to status `"CLAIM_APPROVED"` and generates a handover token.
-   - If partial/manual review required: Creates a record in `claims` collection with status `"PENDING"` for the finder to manually review and approve.
+1. Verify claimant has less than 3 previous failed attempts on `itemId`.
+2. Execute vector validation rules based on `proofType` and `category`.
+3. If deterministic match (Roll Lock or Serial Hash), update claim status to `"APPROVED"` and item status to `"CLAIM_APPROVED"`.
+4. Generate signed cryptographic QR token for Safe Zone verification.
+5. Record persistent audit ledger entry in `auditlogs` collection.
 
 #### Outputs:
-- Claim confirmation status and notification to both parties.
+- HTTP 200 OK with approval confirmation, or HTTP 403 / 429 error with security diagnostic logging.
 
 ---
 
@@ -423,6 +465,16 @@ Records an immutable chronological ledger of all lifecycle events for accountabi
 2. **NoSQL Injection Prevention:** All database queries **SHALL** use parameterized Mongoose model queries with strict typecasting, preventing MongoDB operator injection (`$gt`, `$where`).
 3. **Cross-Site Scripting (XSS) Mitigation:** All user inputs rendered in the DOM **SHALL** be auto-escaped via React's JSX virtual DOM sanitization engine.
 4. **Environment Isolation:** All production secrets (`GOOGLE_CLIENT_SECRET`, `CLOUDINARY_API_SECRET`, `MONGODB_URI`) **SHALL** be stored exclusively in server environment variables and excluded from source control (`.gitignore`).
+
+#### 5.3.1 Anti-Fraud Ownership Threat Model & Mitigations
+
+| Threat Vector ID | Threat Description & Attack Scenario | Traditional Lost & Found Flaw | KIIT-Find Zero-Trust Mitigation Protocol |
+| :--- | :--- | :--- | :--- |
+| **THREAT-01** | **Visual Eavesdropping & Description Parrot**<br/>Attacker reads item title/photo details (e.g., "Black Dell charger found at Campus 6") and parrots back description to claim ownership. | Relies on subjective description matching by finder. Attacker describes what they saw in photo. | **Deterministic Hash Matching & Permanent PII Blur:** Sensitive identifiers are blurred in catalog. Claim requires pre-loss invoice upload or exact serial match, rendering public text useless. |
+| **THREAT-02** | **Finder-Claimant Collusion & Subjective Bias**<br/>Dishonest finder approves claim submitted by their friend to fraudulently claim high-value item (laptop, earbuds). | Finder has sole discretionary authority to approve or deny claims. | **Elimination of Discretionary Handover:** For electronics, the system mandates a physical unlock challenge at an institutional Safe Zone checkpoint. Both parties must execute a dual-scan QR protocol before the Campus Security Officer. |
+| **THREAT-03** | **Brute-Force Challenge Guessing**<br/>Attacker repeatedly submits common answers to secret challenge questions (e.g. "Sticker: Apple, Nike, Marvel"). | No rate-limiting; attackers can script automated submissions. | **Adaptive Rate Limiting & Account Lockout:** Maximum 3 failed attempts per identity. Exceeding threshold triggers HTTP 429 lockout, audit ledger alert, and account flag under KIIT Disciplinary Statute 14. |
+| **THREAT-04** | **Student Identity Impersonation**<br/>Attacker attempts to claim another student's lost KIIT Smart ID Card to misuse library/exam privileges. | Finder handovers card without verifying official roll number. | **Cryptographic Institutional Roll Lock:** The API extracts the claimant roll from their `@kiit.ac.in` OAuth token. If claimant roll does not match the target card roll, claim is rejected with HTTP 403 Forbidden. |
+| **THREAT-05** | **Plaintext Serial Leakage**<br/>Storing hardware serial numbers in database allows insider database leaks or scraping. | Plaintext database fields visible in query inspector or admin dump. | **Zero-Knowledge SHA-256 Hashing:** Hardware serial numbers are hashed at ingestion with SHA-256 (`hardwareIdentifierHash`). Server compares `SHA256(claimant_input) === stored_hash` without storing plaintext. |
 
 ### 5.4 Privacy & Regulatory Compliance (DPDP Act 2023)
 In compliance with the **Digital Personal Data Protection (DPDP) Act, 2023 (Government of India)**:

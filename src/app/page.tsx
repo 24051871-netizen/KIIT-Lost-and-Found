@@ -81,139 +81,149 @@ export default function HomePage() {
   });
 
   return (
-    <div className="flex flex-col gap-12 pb-16">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-kiit-50/80 via-white to-transparent pt-12 pb-16 dark:from-kiit-950/20 dark:via-slate-950 dark:to-transparent border-b border-slate-200/60 dark:border-slate-800/60">
+    <div className="flex flex-col gap-12 pb-20 bg-black text-white">
+      {/* Hero Section (SpaceX Atmospheric Dark Mode) */}
+      <section className="relative overflow-hidden border-b border-white/10 bg-black pt-16 pb-20 spacex-grid spacex-radial-glow">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-          {/* Tag */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-kiit-200 bg-white px-3.5 py-1 text-xs font-semibold text-kiit-800 shadow-sm dark:border-kiit-800 dark:bg-kiit-950 dark:text-kiit-300">
-            <Sparkles className="h-3.5 w-3.5 text-kiit-600" />
-            <span>KIIT Deemed to be University • Campus Recovery System</span>
+          {/* Mission Telemetry Badge */}
+          <div className="inline-flex items-center gap-2 border border-white/20 bg-white/5 px-4 py-1.5 text-xs font-mono tracking-[0.2em] uppercase text-zinc-300">
+            <Sparkles className="h-3.5 w-3.5 text-white" />
+            <span>KIIT CAMPUS RECOVERY // SYSTEM ACTIVE</span>
           </div>
 
-          <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-slate-900 sm:text-5xl lg:text-6xl dark:text-white">
-            Lost Something in Campus? <br className="hidden sm:inline" />
-            <span className="bg-gradient-to-r from-kiit-700 via-kiit-600 to-emerald-500 bg-clip-text text-transparent">
-              Claim it with QR Proof.
-            </span>
+          <h1 className="mt-8 text-4xl sm:text-6xl lg:text-7xl font-extrabold uppercase tracking-[0.18em] text-white">
+            LOST PROPERTY <br />
+            <span className="text-zinc-500">VERIFIED HANDOVER.</span>
           </h1>
 
-          <p className="mx-auto mt-4 max-w-2xl text-base text-slate-600 sm:text-lg dark:text-slate-300 leading-relaxed">
-            The dedicated platform for KIIT students, faculty, and hostel residents. Double-blind
-            ownership verification prevents fraudulent claims, and cryptographically signed QR codes
-            verify physical handovers.
+          <p className="mx-auto mt-6 max-w-2xl text-sm sm:text-base text-zinc-400 font-mono tracking-wide leading-relaxed">
+            Zero-Trust ownership verification protocol built for KIIT students, faculty, and hostel residents across 24 campuses. Protected with SHA-256 hardware hashes and HMAC handover passes.
           </p>
 
-          {/* Quick Search & Actions */}
-          <div className="mx-auto mt-8 max-w-xl">
-            <div className="flex flex-col sm:flex-row gap-2.5">
-              <div className="relative flex-1">
-                <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-slate-400" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search ID cards, calculators, chargers, keys..."
-                  className="w-full rounded-xl border border-slate-300 bg-white pl-10 pr-4 py-3 text-sm shadow-sm focus:border-kiit-600 focus:outline-none focus:ring-2 focus:ring-kiit-500/20 dark:border-slate-700 dark:bg-slate-900 dark:text-white"
-                />
-              </div>
+          {/* SpaceX Action Buttons & Search */}
+          <div className="mx-auto mt-10 max-w-2xl space-y-4">
+            <div className="relative">
+              <Search className="absolute left-4 top-4 h-4 w-4 text-zinc-500" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="SEARCH RECOVERY TELEMETRY (ROLL, GADGET, CHARGER, HOSTEL)..."
+                className="w-full border border-white/20 bg-black/80 pl-11 pr-4 py-3.5 text-xs font-mono uppercase tracking-wider text-white shadow-2xl focus:border-white focus:outline-none"
+              />
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-2">
               <Link
                 href="/report"
-                className="inline-flex items-center justify-center gap-2 rounded-xl bg-kiit-600 px-5 py-3 text-sm font-semibold text-white shadow-md shadow-kiit-600/20 hover:bg-kiit-700 transition-colors shrink-0"
+                className="spacex-btn-primary w-full sm:w-auto text-center"
               >
-                <PlusCircle className="h-4 w-4" />
-                Report Lost / Found
+                + REPORT PROPERTY
+              </Link>
+              <Link
+                href="/browse"
+                className="spacex-btn-secondary w-full sm:w-auto text-center"
+              >
+                EXPLORE CATALOG &rarr;
               </Link>
             </div>
           </div>
 
-          {/* Key Trust Signals */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-6 text-xs text-slate-500 dark:text-slate-400">
-            <span className="flex items-center gap-1.5">
-              <ShieldCheck className="h-4 w-4 text-kiit-600" />
-              Restricted to @kiit.ac.in
+          {/* Telemetry Status Bar */}
+          <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-[11px] font-mono tracking-widest uppercase text-zinc-500">
+            <span className="flex items-center gap-2">
+              <ShieldCheck className="h-3.5 w-3.5 text-white" />
+              AUTH: @KIIT.AC.IN ONLY
             </span>
-            <span className="flex items-center gap-1.5">
-              <Lock className="h-4 w-4 text-kiit-600" />
-              Double-Blind Ownership Checks
+            <span className="flex items-center gap-2">
+              <Lock className="h-3.5 w-3.5 text-white" />
+              ENCRYPTION: SHA-256 + HMAC
             </span>
-            <span className="flex items-center gap-1.5">
-              <QrCode className="h-4 w-4 text-kiit-600" />
-              Signed QR Handover Audit
+            <span className="flex items-center gap-2">
+              <QrCode className="h-3.5 w-3.5 text-white" />
+              SAFE ZONES: 24 CHECKPOINTS
             </span>
           </div>
         </div>
       </section>
 
-      {/* Live Campus Recovery Metrics */}
+      {/* SpaceX Mission Telemetry Metrics (HUD) */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 -mt-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <span className="text-xs font-semibold text-slate-500 uppercase tracking-wider">
-              Total Reported
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="border border-white/10 bg-[#070707] p-5 shadow-2xl">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">
+              01 // TOTAL LOGGED
             </span>
-            <p className="mt-2 text-3xl font-extrabold text-slate-900 dark:text-white">
-              {stats.total}
+            <p className="mt-2 text-3xl font-extrabold font-mono tracking-tight text-white">
+              {stats.total.toString().padStart(2, "0")}
             </p>
-            <span className="mt-1 block text-[11px] text-slate-400">Items across campuses</span>
+            <span className="mt-1 block text-[10px] font-mono uppercase tracking-wider text-zinc-500">
+              ACROSS 24 CAMPUSES
+            </span>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <span className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">
-              Items Returned
+          <div className="border border-white/10 bg-[#070707] p-5 shadow-2xl">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-emerald-400">
+              02 // RESOLVED HANDOVERS
             </span>
-            <p className="mt-2 text-3xl font-extrabold text-emerald-600 dark:text-emerald-400">
-              {stats.returned}
+            <p className="mt-2 text-3xl font-extrabold font-mono tracking-tight text-emerald-400">
+              {stats.returned.toString().padStart(2, "0")}
             </p>
-            <span className="mt-1 block text-[11px] text-slate-400">Verified via QR scan</span>
+            <span className="mt-1 block text-[10px] font-mono uppercase tracking-wider text-zinc-500">
+              VERIFIED VIA QR PASS
+            </span>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <span className="text-xs font-semibold text-blue-600 uppercase tracking-wider">
-              Recovery Rate
+          <div className="border border-white/10 bg-[#070707] p-5 shadow-2xl">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-300">
+              03 // RECOVERY RATE
             </span>
-            <p className="mt-2 text-3xl font-extrabold text-blue-600 dark:text-blue-400">
+            <p className="mt-2 text-3xl font-extrabold font-mono tracking-tight text-white">
               {stats.recoveryRate}%
             </p>
-            <span className="mt-1 block text-[11px] text-slate-400">Resolution efficiency</span>
+            <span className="mt-1 block text-[10px] font-mono uppercase tracking-wider text-zinc-500">
+              PROTOCOL EFFICIENCY
+            </span>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
-            <span className="text-xs font-semibold text-kiit-700 uppercase tracking-wider">
-              KIIT ID Cards
+          <div className="border border-white/10 bg-[#070707] p-5 shadow-2xl">
+            <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-300">
+              04 // ID CARDS RESTORED
             </span>
-            <p className="mt-2 text-3xl font-extrabold text-kiit-700 dark:text-kiit-400">
-              {stats.idCardsRecovered}
+            <p className="mt-2 text-3xl font-extrabold font-mono tracking-tight text-white">
+              {stats.idCardsRecovered.toString().padStart(2, "0")}
             </p>
-            <span className="mt-1 block text-[11px] text-slate-400">Protected roll numbers</span>
+            <span className="mt-1 block text-[10px] font-mono uppercase tracking-wider text-zinc-500">
+              ROLL LOCK SECURED
+            </span>
           </div>
         </div>
       </section>
 
       {/* Explore By Category */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between pb-3">
-          <h2 className="text-lg font-bold text-slate-900 dark:text-white">
-            Common Lost &amp; Found Categories
+        <div className="flex items-center justify-between pb-4 border-b border-white/10">
+          <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-white">
+            PROPERTY CATEGORIES
           </h2>
           <Link
             href="/browse"
-            className="text-xs font-semibold text-kiit-600 hover:text-kiit-700 dark:text-kiit-400"
+            className="text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white"
           >
-            See all &rarr;
+            VIEW ALL &rarr;
           </Link>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2.5 mt-4">
           {ITEM_CATEGORIES.map((cat) => (
             <Link
               key={cat.id}
               href={`/browse?category=${cat.id}`}
-              className="flex flex-col items-center justify-center p-3.5 rounded-2xl border border-slate-200 bg-white hover:border-kiit-500 hover:shadow-md transition-all text-center dark:border-slate-800 dark:bg-slate-900 group"
+              className="flex flex-col items-center justify-center p-3.5 border border-white/10 bg-[#060606] hover:border-white transition-all text-center group"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-slate-100 text-slate-700 group-hover:bg-kiit-100 group-hover:text-kiit-700 dark:bg-slate-800 dark:text-slate-300 dark:group-hover:bg-kiit-950 dark:group-hover:text-kiit-400 transition-colors">
-                <ShieldCheck className="h-5 w-5" />
+              <div className="flex h-9 w-9 items-center justify-center border border-white/20 bg-white/5 text-white group-hover:bg-white group-hover:text-black transition-colors">
+                <ShieldCheck className="h-4 w-4" />
               </div>
-              <span className="mt-2 text-[11px] font-semibold text-slate-800 dark:text-slate-200 line-clamp-1">
+              <span className="mt-2 text-[10px] font-mono uppercase tracking-wider text-zinc-300 line-clamp-1">
                 {cat.name.split("/")[0]}
               </span>
             </Link>
@@ -223,91 +233,60 @@ export default function HomePage() {
 
       {/* Campus Selector & Items Section */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-slate-200 dark:border-slate-800">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/10">
           <div>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white">
-              Recent Campus Activity
+            <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-white">
+              ACTIVE TELEMETRY FEED // RECENT SIGHTINGS
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-              Filter by specific KIIT school, hostel cluster, or central library.
+            <p className="text-xs font-mono text-zinc-400 mt-1 uppercase tracking-wider">
+              Filter by specific school, hostel cluster, or campus checkpoint.
             </p>
           </div>
 
           {/* Quick Filter Pills */}
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full">
-            <button
-              onClick={() => setSelectedCampus("ALL")}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-colors ${
-                selectedCampus === "ALL"
-                  ? "bg-kiit-600 text-white shadow-sm"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
-              }`}
-            >
-              All Campuses
-            </button>
-            <button
-              onClick={() => setSelectedCampus("campus-15")}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-colors ${
-                selectedCampus === "campus-15"
-                  ? "bg-kiit-600 text-white shadow-sm"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
-              }`}
-            >
-              Campus 15 (CSE)
-            </button>
-            <button
-              onClick={() => setSelectedCampus("campus-3")}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-colors ${
-                selectedCampus === "campus-3"
-                  ? "bg-kiit-600 text-white shadow-sm"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
-              }`}
-            >
-              Campus 3 (Mech/Civil)
-            </button>
-            <button
-              onClick={() => setSelectedCampus("campus-6")}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-colors ${
-                selectedCampus === "campus-6"
-                  ? "bg-kiit-600 text-white shadow-sm"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
-              }`}
-            >
-              Campus 6 (Library)
-            </button>
-            <button
-              onClick={() => setSelectedCampus("food-court-chintan")}
-              className={`rounded-lg px-3 py-1.5 text-xs font-semibold whitespace-nowrap transition-colors ${
-                selectedCampus === "food-court-chintan"
-                  ? "bg-kiit-600 text-white shadow-sm"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300"
-              }`}
-            >
-              Kathajodi / Food Court
-            </button>
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 max-w-full">
+            {[
+              { id: "ALL", label: "ALL CAMPUSES" },
+              { id: "campus-15", label: "CAMPUS 15 (CSE)" },
+              { id: "campus-3", label: "CAMPUS 3 (MECH/CIVIL)" },
+              { id: "campus-6", label: "CAMPUS 6 (LIBRARY)" },
+              { id: "food-court-chintan", label: "FOOD COURT" },
+            ].map((c) => (
+              <button
+                key={c.id}
+                onClick={() => setSelectedCampus(c.id)}
+                className={`border px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest whitespace-nowrap transition-colors ${
+                  selectedCampus === c.id
+                    ? "border-white bg-white text-black font-bold"
+                    : "border-white/15 bg-white/5 text-zinc-400 hover:border-white/40 hover:text-white"
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
           </div>
         </div>
 
         {/* Item Grid */}
         <div className="mt-8">
           {loading ? (
-            <div className="py-20 text-center text-sm text-slate-500">
-              Loading campus listings...
+            <div className="py-20 text-center text-xs font-mono uppercase tracking-widest text-zinc-500">
+              RECEIVING TELEMETRY FROM CLUSTER...
             </div>
           ) : filteredItems.length === 0 ? (
-            <div className="rounded-2xl border border-dashed border-slate-300 p-12 text-center dark:border-slate-800">
-              <HelpCircle className="mx-auto h-12 w-12 text-slate-400" />
-              <h3 className="mt-3 text-base font-bold text-slate-800 dark:text-slate-200">
-                No items found for this selection
+            <div className="border border-white/10 p-12 text-center bg-[#060606]">
+              <HelpCircle className="mx-auto h-10 w-10 text-zinc-600" />
+              <h3 className="mt-3 text-xs font-mono uppercase tracking-widest text-white">
+                NO LISTINGS ACTIVE FOR CURRENT FILTER
               </h3>
-              <p className="mt-1 text-xs text-slate-500">
-                Try switching the campus filter or report a new lost/found item.
+              <p className="mt-1 text-[11px] font-mono text-zinc-500">
+                Switch campus filter or report a newly sighted lost/found item.
               </p>
               <Link
                 href="/report"
-                className="mt-4 inline-flex items-center gap-1.5 rounded-xl bg-kiit-600 px-4 py-2 text-xs font-semibold text-white shadow hover:bg-kiit-700"
+                className="mt-6 spacex-btn-primary inline-block !py-2 !px-4 !text-[11px]"
               >
-                <PlusCircle className="h-4 w-4" /> Report an Item
+                + REPORT AN ITEM
               </Link>
             </div>
           ) : (
@@ -319,56 +298,54 @@ export default function HomePage() {
           )}
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-10 text-center">
           <Link
             href="/browse"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-kiit-700 hover:text-kiit-800 dark:text-kiit-400"
+            className="spacex-btn-secondary inline-block !py-3 !px-8 text-xs font-mono uppercase tracking-[0.2em]"
           >
-            View Complete Filterable Catalog &rarr;
+            EXPLORE FULL TELEMETRY CATALOG &rarr;
           </Link>
         </div>
       </section>
 
-      {/* Campus Security Checkpoints & Safe Handover Hubs */}
+      {/* Campus Security Checkpoints & Safe Handover Hubs (SpaceX Launch Control Style) */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-kiit-950 p-8 sm:p-12 text-white shadow-xl flex flex-col lg:flex-row items-center justify-between gap-8 border border-slate-800">
+        <div className="border border-white/20 bg-gradient-to-b from-[#0c0c0c] to-black p-8 sm:p-12 text-white shadow-2xl flex flex-col lg:flex-row items-center justify-between gap-8">
           <div className="space-y-4 max-w-xl">
-            <div className="inline-flex items-center gap-2 rounded-full bg-kiit-500/20 px-3 py-1 text-xs font-semibold text-kiit-300 border border-kiit-500/30">
-              <ShieldCheck className="h-4 w-4 text-kiit-400" />
-              Official Campus Safe Zones
+            <div className="inline-flex items-center gap-2 border border-white/20 bg-white/5 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-300">
+              <ShieldCheck className="h-3.5 w-3.5 text-white" />
+              CAMPUS SAFE ZONE PROTOCOL
             </div>
-            <h3 className="text-2xl sm:text-3xl font-extrabold tracking-tight">
-              Prefer Handing Over at Campus Gate Security?
+            <h3 className="text-2xl sm:text-3xl font-extrabold uppercase tracking-[0.15em]">
+              OFFICIAL PHYSICAL HANDOVER STATIONS
             </h3>
-            <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-              If you don&apos;t wish to meet in person, deposit the found item at your campus security desk or hostel caretaker office. Security staff can scan the owner&apos;s QR code directly upon collection.
+            <p className="text-xs sm:text-sm text-zinc-400 font-mono leading-relaxed">
+              Never conduct unverified exchanges. Deposit found items directly at Campus Gate Security Desks or Central Library circulation. Security Officers authenticate ownership via cryptographic QR scanner.
             </p>
-            <div className="flex flex-wrap gap-4 text-xs text-slate-300 pt-1">
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-kiit-400" /> Campus 15 Gate 1 Security Desk
+            <div className="flex flex-wrap gap-4 text-xs font-mono text-zinc-400 pt-2">
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="h-3.5 w-3.5 text-white" /> CAMPUS 15 GATE 1 DESK
               </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-kiit-400" /> Campus 6 Central Library Circulation Desk
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="h-3.5 w-3.5 text-white" /> CAMPUS 6 CENTRAL LIBRARY
               </span>
-              <span className="flex items-center gap-1.5">
-                <CheckCircle2 className="h-4 w-4 text-kiit-400" /> KSAC Student Desk
+              <span className="flex items-center gap-2">
+                <CheckCircle2 className="h-3.5 w-3.5 text-white" /> KSAC STUDENT COUNTER
               </span>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0 w-full sm:w-auto">
             <Link
               href="/report"
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-kiit-600 px-6 py-3.5 text-xs font-bold text-white shadow-lg shadow-kiit-600/30 hover:bg-kiit-500 transition-colors"
+              className="spacex-btn-primary text-center"
             >
-              <PlusCircle className="h-4 w-4" />
-              Report Found Item Now
+              + INITIATE REPORT
             </Link>
             <Link
               href="/scan"
-              className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-700 bg-slate-800/80 px-6 py-3.5 text-xs font-semibold text-slate-200 hover:bg-slate-700/80 transition-colors"
+              className="spacex-btn-secondary text-center"
             >
-              <QrCode className="h-4 w-4 text-kiit-400" />
-              Open Security QR Scanner
+              OPEN QR SCANNER &rarr;
             </Link>
           </div>
         </div>

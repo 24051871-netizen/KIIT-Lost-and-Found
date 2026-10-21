@@ -112,24 +112,24 @@ export default function DoubleBlindChallengeModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm overflow-y-auto">
-      <div className="w-full max-w-xl rounded-2xl bg-white p-6 shadow-2xl dark:bg-slate-900 border border-slate-200 dark:border-slate-800 animate-in fade-in zoom-in-95 duration-150 my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-md overflow-y-auto">
+      <div className="w-full max-w-xl bg-black p-6 border border-white/20 text-white font-mono animate-in fade-in zoom-in-95 duration-150 my-8">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-800">
+        <div className="flex items-center justify-between pb-3 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="h-5 w-5 text-kiit-600" />
+            <ShieldCheck className="h-5 w-5 text-white" />
             <div>
-              <h3 className="font-bold text-base text-slate-900 dark:text-white">
-                Multi-Factor Ownership Verification Protocol
+              <h3 className="font-bold text-xs uppercase tracking-[0.2em] text-white">
+                OWNERSHIP VERIFICATION PROTOCOL
               </h3>
-              <p className="text-[11px] text-slate-500">
-                Zero-Trust Verification Engine • KIIT Security Standard
+              <p className="text-[10px] text-zinc-500 uppercase tracking-widest">
+                ZERO-TRUST MULTI-FACTOR ENGINE // KIIT SECURITY
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="rounded-lg p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200"
+            className="p-1.5 text-zinc-400 hover:text-white"
           >
             <X className="h-5 w-5" />
           </button>
@@ -342,26 +342,26 @@ export default function DoubleBlindChallengeModal({
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-100 dark:border-slate-800">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10 font-mono">
             <button
               type="button"
               onClick={onClose}
-              className="rounded-xl px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-slate-800"
+              className="spacex-btn-secondary !py-2 !px-4 !text-[11px]"
             >
-              Cancel
+              CANCEL
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="inline-flex items-center gap-1.5 rounded-xl bg-kiit-600 px-5 py-2 text-xs font-semibold text-white shadow hover:bg-kiit-700 disabled:opacity-50 transition-colors"
+              className="spacex-btn-primary !py-2 !px-5 !text-[11px]"
             >
               {submitting ? (
                 <>
-                  <Loader2 className="h-3.5 w-3.5 animate-spin" /> Cryptographic Evaluation...
+                  <Loader2 className="h-3.5 w-3.5 inline mr-1 animate-spin" /> CRYPTOGRAPHIC EVALUATION...
                 </>
               ) : (
                 <>
-                  <ShieldCheck className="h-3.5 w-3.5" /> Submit Multi-Factor Claim
+                  <ShieldCheck className="h-3.5 w-3.5 inline mr-1" /> SUBMIT PROOF VECTOR
                 </>
               )}
             </button>

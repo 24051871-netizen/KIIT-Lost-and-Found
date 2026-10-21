@@ -166,24 +166,24 @@ export default function ItemDetailPage({
     item.imageUrls && item.imageUrls.length > 0 ? item.imageUrls[0] : fallbackImage;
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8 bg-black text-white">
       {/* Back button */}
       <div className="mb-6">
         <Link
           href="/browse"
-          className="inline-flex items-center gap-1 text-xs font-semibold text-slate-600 hover:text-kiit-600 dark:text-slate-400 dark:hover:text-kiit-400"
+          className="inline-flex items-center gap-1.5 text-xs font-mono uppercase tracking-widest text-zinc-400 hover:text-white transition-colors"
         >
-          <ArrowLeft className="h-4 w-4" /> Back to Catalog
+          <ArrowLeft className="h-3.5 w-3.5" /> &lt; RETURN TO TELEMETRY CATALOG
         </Link>
       </div>
 
       {notification && (
-        <div className="mb-6 rounded-xl bg-emerald-50 border border-emerald-200 p-4 text-xs font-medium text-emerald-800 dark:bg-emerald-950/40 dark:border-emerald-900 dark:text-emerald-300 flex items-center justify-between">
+        <div className="mb-6 border border-emerald-500/40 bg-emerald-950/40 p-4 text-xs font-mono text-emerald-300 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-600" />
-            <span>{notification}</span>
+            <CheckCircle2 className="h-4 w-4 shrink-0 text-emerald-400" />
+            <span className="uppercase tracking-wider">{notification}</span>
           </div>
-          <button onClick={() => setNotification(null)} className="text-emerald-700 font-bold">
+          <button onClick={() => setNotification(null)} className="text-emerald-400 font-bold">
             &times;
           </button>
         </div>
@@ -192,13 +192,13 @@ export default function ItemDetailPage({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left Column: Image & Location Details (7 cols) */}
         <div className="lg:col-span-7 space-y-6">
-          <div className="relative h-80 sm:h-96 w-full rounded-3xl overflow-hidden border border-slate-200 bg-slate-100 dark:border-slate-800 dark:bg-slate-900">
+          <div className="relative h-80 sm:h-96 w-full overflow-hidden border border-white/10 bg-black">
             <Image
               src={displayImage}
               alt={item.title}
               fill
               priority
-              className={`object-cover ${
+              className={`object-cover opacity-90 ${
                 isSensitive && !isReturned ? "filter blur-[6px] select-none pointer-events-none transition-all" : ""
               }`}
             />
@@ -206,96 +206,97 @@ export default function ItemDetailPage({
             {/* Top badges */}
             <div className="absolute top-4 left-4 flex gap-2">
               <span
-                className={`rounded-lg px-3 py-1 text-xs font-extrabold uppercase tracking-wider text-white shadow ${
-                  isFound ? "bg-emerald-600" : "bg-rose-600"
+                className={`px-3 py-1 text-[10px] font-mono font-bold uppercase tracking-widest border ${
+                  isFound
+                    ? "border-emerald-500/80 bg-emerald-950/90 text-emerald-300"
+                    : "border-rose-500/80 bg-rose-950/90 text-rose-300"
                 }`}
               >
-                {item.itemType}
+                [{item.itemType}]
               </span>
 
               {isReturned ? (
-                <span className="flex items-center gap-1 rounded-lg bg-blue-600 px-3 py-1 text-xs font-bold text-white shadow">
-                  <CheckCircle2 className="h-4 w-4" /> Handover Complete
+                <span className="flex items-center gap-1.5 border border-blue-400 bg-blue-950/90 px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-blue-300">
+                  <CheckCircle2 className="h-3.5 w-3.5" /> HANDOVER COMPLETED
                 </span>
               ) : isApproved ? (
-                <span className="flex items-center gap-1 rounded-lg bg-amber-500 px-3 py-1 text-xs font-bold text-white shadow">
-                  <Clock className="h-4 w-4" /> Awaiting Handover Scan
+                <span className="flex items-center gap-1.5 border border-amber-400 bg-amber-950/90 px-3 py-1 text-[10px] font-mono uppercase tracking-widest text-amber-300">
+                  <Clock className="h-3.5 w-3.5" /> AWAITING SAFE ZONE SCAN
                 </span>
               ) : null}
             </div>
 
             {isSensitive && !isReturned && (
-              <div className="absolute bottom-4 left-4 rounded-xl bg-slate-900/80 px-3 py-1 text-xs text-white backdrop-blur flex items-center gap-1.5">
-                <Lock className="h-3.5 w-3.5 text-amber-400" />
-                PII Protected (Roll number &amp; photo masked)
+              <div className="absolute bottom-4 left-4 border border-white/20 bg-black/90 px-3 py-1.5 text-[10px] font-mono uppercase tracking-widest text-zinc-300 backdrop-blur flex items-center gap-2">
+                <Lock className="h-3.5 w-3.5 text-white" />
+                PII PROTECTED // ROLL &amp; PHOTO MASKED
               </div>
             )}
           </div>
 
           {/* Micro-Location & Campus Card */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-4">
-            <h3 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-kiit-600" />
-              Location on KIIT Campus
+          <div className="border border-white/10 bg-[#070707] p-6 space-y-4">
+            <h3 className="font-bold text-xs uppercase tracking-[0.2em] text-white flex items-center gap-2">
+              <MapPin className="h-4 w-4 text-white" />
+              CAMPUS SPATIAL COORDINATES
             </h3>
-            <div className="rounded-xl bg-slate-50 p-4 dark:bg-slate-800/60 space-y-2">
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-500">Campus Zone:</span>
-                <span className="font-semibold text-slate-900 dark:text-white">{item.campusName}</span>
+            <div className="border border-white/10 bg-white/[0.02] p-4 font-mono space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="text-zinc-500 uppercase tracking-wider">CAMPUS ZONE:</span>
+                <span className="font-semibold text-white uppercase">{item.campusName}</span>
               </div>
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-500">Specific Landmark:</span>
-                <span className="font-semibold text-kiit-700 dark:text-kiit-400">
+              <div className="flex items-center justify-between">
+                <span className="text-zinc-500 uppercase tracking-wider">SPECIFIC LANDMARK:</span>
+                <span className="font-semibold text-zinc-200">
                   {item.specificLocation}
                 </span>
               </div>
-              <div className="flex items-center justify-between text-xs">
-                <span className="text-slate-500">Date Logged:</span>
-                <span className="text-slate-700 dark:text-slate-300">
-                  {new Date(item.createdAt).toLocaleString("en-IN")}
+              <div className="flex items-center justify-between">
+                <span className="text-zinc-500 uppercase tracking-wider">TIMESTAMP:</span>
+                <span className="text-zinc-400">
+                  {new Date(item.createdAt).toLocaleString("en-IN").toUpperCase()}
                 </span>
               </div>
             </div>
           </div>
-
           {/* Zero-Trust Security Protocol Card (ZK-MOP) */}
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-                <ShieldCheck className="h-4 w-4 text-emerald-600" />
-                Zero-Trust Ownership Protocol (ZK-MOP)
+          <div className="border border-white/10 bg-[#070707] p-6 space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <h3 className="font-bold text-xs uppercase tracking-[0.2em] text-white flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-white" />
+                ZERO-TRUST OWNERSHIP PROTOCOL (ZK-MOP)
               </h3>
-              <span className="rounded-full bg-emerald-100 px-2.5 py-0.5 text-[10px] font-extrabold text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300 uppercase tracking-wider">
-                Active Defense
+              <span className="border border-emerald-400 bg-emerald-950/60 px-2 py-0.5 text-[9px] font-mono font-bold text-emerald-300 uppercase tracking-widest">
+                ACTIVE DEFENSE
               </span>
             </div>
 
-            <p className="text-[11px] text-slate-500 leading-relaxed">
-              To eliminate false ownership claims and subjective description guessing, this item is protected by multi-factor cryptographic and physical verification:
+            <p className="text-xs font-mono text-zinc-400 leading-relaxed">
+              Multi-vector cryptographic matching and physical Safe Zone challenge prevents false claims and description guessing:
             </p>
 
             <div className="space-y-2 text-xs">
               {/* Tier 1: Roll Lock */}
               <div
-                className={`p-3 rounded-xl border flex items-start gap-2.5 ${
+                className={`p-3 border flex items-start gap-3 ${
                   item.category === "KIIT_ID_CARD"
-                    ? "border-emerald-300 bg-emerald-50/60 dark:border-emerald-900 dark:bg-emerald-950/20"
-                    : "border-slate-200 bg-slate-50/40 dark:border-slate-800 dark:bg-slate-850 opacity-70"
+                    ? "border-white/40 bg-white/5"
+                    : "border-white/10 bg-white/[0.01] opacity-60"
                 }`}
               >
-                <div className="mt-0.5 rounded-md bg-emerald-100 p-1 text-emerald-700 dark:bg-emerald-900/60 dark:text-emerald-300">
+                <div className="mt-0.5 border border-white/20 p-1 text-white">
                   <Lock className="h-3.5 w-3.5" />
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                    Tier 1: Institutional Roll Lock
+                  <p className="font-bold font-mono uppercase text-xs text-white flex items-center gap-2">
+                    TIER 1: INSTITUTIONAL ROLL LOCK
                     {item.category === "KIIT_ID_CARD" && (
-                      <span className="text-[10px] font-semibold text-emerald-600 dark:text-emerald-400">
-                        (Active &amp; Enforced)
+                      <span className="text-[9px] text-emerald-400 font-mono">
+                        [ACTIVE]
                       </span>
                     )}
                   </p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
+                  <p className="text-[11px] font-mono text-zinc-400 mt-0.5">
                     Restricted strictly to the student roll holder. Mismatched KIIT emails are rejected at API level.
                   </p>
                 </div>
@@ -303,76 +304,76 @@ export default function ItemDetailPage({
 
               {/* Tier 2: SHA-256 Serial Hash */}
               <div
-                className={`p-3 rounded-xl border flex items-start gap-2.5 ${
+                className={`p-3 border flex items-start gap-3 ${
                   item.hardwareIdentifierHash
-                    ? "border-emerald-300 bg-emerald-50/60 dark:border-emerald-900 dark:bg-emerald-950/20"
-                    : "border-slate-200 bg-slate-50/40 dark:border-slate-800 dark:bg-slate-850 opacity-70"
+                    ? "border-white/40 bg-white/5"
+                    : "border-white/10 bg-white/[0.01] opacity-60"
                 }`}
               >
-                <div className="mt-0.5 rounded-md bg-kiit-100 p-1 text-kiit-700 dark:bg-kiit-900/60 dark:text-kiit-300">
+                <div className="mt-0.5 border border-white/20 p-1 text-white">
                   <KeyRound className="h-3.5 w-3.5" />
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                    Tier 2: SHA-256 Hardware Serial Matching
+                  <p className="font-bold font-mono uppercase text-xs text-white flex items-center gap-2">
+                    TIER 2: SHA-256 HARDWARE SERIAL MATCHING
                     {item.hardwareIdentifierHash && (
-                      <span className="text-[10px] font-semibold text-kiit-600 dark:text-kiit-400">
-                        (Hash Active)
+                      <span className="text-[9px] text-white font-mono">
+                        [HASH STORED]
                       </span>
                     )}
                   </p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
-                    Deterministic zero-knowledge verification against device Serial or IMEI without exposing numbers publicly.
+                  <p className="text-[11px] font-mono text-zinc-400 mt-0.5">
+                    Zero-knowledge cryptographic matching against Serial/IMEI without exposing plaintext publicly.
                   </p>
                 </div>
               </div>
 
               {/* Tier 3: Pre-Loss Evidence */}
-              <div className="p-3 rounded-xl border border-slate-200 bg-slate-50/40 dark:border-slate-800 dark:bg-slate-850 opacity-80 flex items-start gap-2.5">
-                <div className="mt-0.5 rounded-md bg-amber-100 p-1 text-amber-700 dark:bg-amber-900/60 dark:text-amber-300">
+              <div className="p-3 border border-white/10 bg-white/[0.01] opacity-70 flex items-start gap-3">
+                <div className="mt-0.5 border border-white/20 p-1 text-white">
                   <FileText className="h-3.5 w-3.5" />
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 dark:text-white">
-                    Tier 3: Pre-Loss Invoice / Documentation
+                  <p className="font-bold font-mono uppercase text-xs text-white">
+                    TIER 3: PRE-LOSS DIGITAL EVIDENCE
                   </p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
-                    Supports claimant retail invoices, purchase receipts, or pre-loss timestamped photos.
+                  <p className="text-[11px] font-mono text-zinc-400 mt-0.5">
+                    Supports claimant retail invoices, GST purchase bills, or pre-loss timestamped photos.
                   </p>
                 </div>
               </div>
 
               {/* Tier 4: Safe Zone Physical Unlock */}
               <div
-                className={`p-3 rounded-xl border flex items-start gap-2.5 ${
+                className={`p-3 border flex items-start gap-3 ${
                   item.category === "ELECTRONICS"
-                    ? "border-blue-300 bg-blue-50/60 dark:border-blue-900 dark:bg-blue-950/20"
-                    : "border-slate-200 bg-slate-50/40 dark:border-slate-800 dark:bg-slate-850 opacity-70"
+                    ? "border-white/40 bg-white/5"
+                    : "border-white/10 bg-white/[0.01] opacity-60"
                 }`}
               >
-                <div className="mt-0.5 rounded-md bg-blue-100 p-1 text-blue-700 dark:bg-blue-900/60 dark:text-blue-300">
+                <div className="mt-0.5 border border-white/20 p-1 text-white">
                   <Smartphone className="h-3.5 w-3.5" />
                 </div>
                 <div>
-                  <p className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
-                    Tier 4: Physical Unlock Challenge
+                  <p className="font-bold font-mono uppercase text-xs text-white flex items-center gap-2">
+                    TIER 4: PHYSICAL UNLOCK CHALLENGE
                     {item.category === "ELECTRONICS" && (
-                      <span className="text-[10px] font-semibold text-blue-600 dark:text-blue-400">
-                        (Safe Zone Mandate)
+                      <span className="text-[9px] text-blue-400 font-mono">
+                        [MANDATE]
                       </span>
                     )}
                   </p>
-                  <p className="text-[11px] text-slate-500 mt-0.5">
-                    Claimant must physically unlock device with passcode/biometric in front of the Campus Safe Zone Guard.
+                  <p className="text-[11px] font-mono text-zinc-400 mt-0.5">
+                    Claimant must physically unlock device biometric/passcode in front of the Campus Security Guard.
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="rounded-xl bg-amber-500/10 border border-amber-500/20 p-3 text-[11px] text-amber-900 dark:text-amber-300 flex items-center gap-2">
-              <ShieldAlert className="h-4 w-4 shrink-0 text-amber-600" />
+            <div className="border border-white/15 bg-white/5 p-3 text-[11px] font-mono text-zinc-400 flex items-center gap-2">
+              <ShieldAlert className="h-4 w-4 shrink-0 text-white" />
               <span>
-                <strong>Anti-Brute-Force:</strong> 3 failed attempts lock claimant account and initiate academic disciplinary review under KIIT Statute 14.
+                <strong>ANTI-BRUTE-FORCE:</strong> 3 failed attempts lock claimant account and initiate academic disciplinary review under KIIT Statute 14.
               </span>
             </div>
           </div>
@@ -380,43 +381,43 @@ export default function ItemDetailPage({
 
         {/* Right Column: Title, Actions & Double-Blind Verification (5 cols) */}
         <div className="lg:col-span-5 space-y-6">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-4">
+          <div className="border border-white/10 bg-[#070707] p-6 space-y-4">
             <div>
-              <span className="text-[11px] font-bold uppercase tracking-wider text-kiit-700 dark:text-kiit-400">
-                {item.category.replace(/_/g, " ")}
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-500">
+                CATEGORY // {item.category.replace(/_/g, " ")}
               </span>
-              <h1 className="mt-1 text-2xl font-extrabold text-slate-900 dark:text-white">
+              <h1 className="mt-1 text-2xl font-extrabold uppercase tracking-wider text-white">
                 {item.title}
               </h1>
             </div>
 
-            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+            <p className="text-xs text-zinc-300 font-mono leading-relaxed">
               {item.description}
             </p>
 
             {/* Reporter Meta */}
-            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-kiit-100 text-kiit-800 font-bold text-xs dark:bg-kiit-950 dark:text-kiit-300">
+            <div className="pt-3 border-t border-white/10 flex items-center gap-3">
+              <div className="flex h-9 w-9 items-center justify-center border border-white/20 bg-white/5 font-mono text-white text-xs">
                 {item.contactName[0]}
               </div>
-              <div className="text-xs">
-                <p className="font-semibold text-slate-900 dark:text-white">{item.contactName}</p>
-                <p className="text-[11px] text-slate-500">
-                  {item.reporterHostel ? `Hostel: ${item.reporterHostel}` : "KIIT Member"} •{" "}
+              <div className="text-xs font-mono">
+                <p className="font-semibold text-white uppercase">{item.contactName}</p>
+                <p className="text-[10px] text-zinc-500">
+                  {item.reporterHostel ? `HOSTEL: ${item.reporterHostel}` : "KIIT MEMBER"} //{" "}
                   {item.contactEmail}
                 </p>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className="pt-4 border-t border-slate-100 dark:border-slate-800 space-y-2.5">
+            <div className="pt-4 border-t border-white/10 space-y-3">
               {isReturned ? (
-                <div className="rounded-xl bg-blue-50 border border-blue-200 p-4 text-center dark:bg-blue-950/30 dark:border-blue-900">
-                  <CheckCircle2 className="mx-auto h-7 w-7 text-blue-600 dark:text-blue-400" />
-                  <p className="mt-2 text-xs font-bold text-blue-900 dark:text-blue-200">
-                    Handover Resolved &amp; Verified
+                <div className="border border-blue-500/40 bg-blue-950/30 p-4 text-center">
+                  <CheckCircle2 className="mx-auto h-6 w-6 text-blue-400" />
+                  <p className="mt-2 text-xs font-mono uppercase tracking-widest text-blue-200">
+                    HANDOVER RESOLVED &amp; VERIFIED
                   </p>
-                  <p className="text-[11px] text-blue-700 dark:text-blue-300 mt-0.5">
+                  <p className="text-[11px] font-mono text-zinc-400 mt-1">
                     Returned via QR code verification at campus checkpoint.
                   </p>
                 </div>
@@ -424,25 +425,25 @@ export default function ItemDetailPage({
                 <div className="space-y-2">
                   <button
                     onClick={() => setQrModalOpen(true)}
-                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-kiit-600 py-3 text-xs font-bold text-white shadow-md shadow-kiit-600/30 hover:bg-kiit-700 transition-all"
+                    className="spacex-btn-primary w-full text-center"
                   >
-                    <QrCode className="h-4 w-4" />
-                    View Handover QR Pass
+                    <QrCode className="h-4 w-4 inline mr-2" />
+                    VIEW HANDOVER QR PASS
                   </button>
                   <Link
                     href={`/scan`}
-                    className="w-full flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white py-2.5 text-xs font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"
+                    className="spacex-btn-secondary w-full text-center block"
                   >
-                    Scan QR to Complete Handover &rarr;
+                    SCAN QR TO COMPLETE HANDOVER &rarr;
                   </Link>
                 </div>
               ) : (
                 <button
                   onClick={() => setClaimModalOpen(true)}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-kiit-600 py-3 text-xs font-bold text-white shadow-md shadow-kiit-600/30 hover:bg-kiit-700 transition-all"
+                  className="spacex-btn-primary w-full text-center"
                 >
-                  <ShieldCheck className="h-4 w-4" />
-                  Claim This Item (Prove Ownership)
+                  <ShieldCheck className="h-4 w-4 inline mr-2" />
+                  CLAIM THIS ITEM (PROVE OWNERSHIP)
                 </button>
               )}
 
@@ -452,14 +453,14 @@ export default function ItemDetailPage({
                   type="button"
                   onClick={handleFlagItem}
                   disabled={flagging || hasFlagged}
-                  className="w-full flex items-center justify-center gap-1.5 pt-2 text-[11px] font-medium text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                  className="w-full flex items-center justify-center gap-1.5 pt-2 text-[10px] font-mono uppercase tracking-widest text-zinc-500 hover:text-rose-400 transition-colors"
                 >
                   <Flag className="h-3.5 w-3.5" />
                   {hasFlagged
-                    ? "Reported for Security Review"
+                    ? "REPORTED FOR SECURITY REVIEW"
                     : item.flagCount && item.flagCount > 0
-                    ? `Reported Suspicious (${item.flagCount} flags)`
-                    : "Flag as Suspicious or Spam Listing"}
+                    ? `REPORTED SUSPICIOUS (${item.flagCount} FLAGS)`
+                    : "FLAG AS SUSPICIOUS OR SPAM LISTING"}
                 </button>
               )}
             </div>
@@ -467,42 +468,42 @@ export default function ItemDetailPage({
 
           {/* Double-Blind Challenge Info Card */}
           {item.secretChallengeQuestion && !isReturned && (
-            <div className="rounded-2xl border border-amber-200 bg-amber-50/60 p-5 dark:border-amber-900/60 dark:bg-amber-950/20 space-y-2">
-              <div className="flex items-center gap-1.5 text-amber-900 dark:text-amber-200 font-bold text-xs">
-                <HelpCircle className="h-4 w-4 text-amber-700 dark:text-amber-400" />
-                Ownership Challenge Question
+            <div className="border border-white/20 bg-black p-5 space-y-2 font-mono">
+              <div className="flex items-center gap-2 text-white font-bold text-xs uppercase tracking-wider">
+                <HelpCircle className="h-4 w-4 text-white" />
+                OWNERSHIP CHALLENGE QUESTION
               </div>
-              <p className="text-xs text-amber-950 dark:text-amber-300 italic">
+              <p className="text-xs text-zinc-300 italic">
                 &ldquo;{item.secretChallengeQuestion}&rdquo;
               </p>
-              <p className="text-[10px] text-amber-800/80 dark:text-amber-400">
-                You must provide the correct answer during the claim step to receive your handover QR pass.
+              <p className="text-[10px] text-zinc-500 uppercase tracking-wider">
+                Submit matching answer during verification to release handover pass.
               </p>
             </div>
           )}
 
           {/* Active Claims Review List (Visible in Demo / Finder mode) */}
           {claims.length > 0 && (
-            <div className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900 space-y-3">
-              <h4 className="font-bold text-xs uppercase tracking-wider text-slate-700 dark:text-slate-300">
-                Submitted Claims ({claims.length})
+            <div className="border border-white/10 bg-[#070707] p-5 space-y-3 font-mono">
+              <h4 className="font-bold text-xs uppercase tracking-[0.2em] text-white">
+                SUBMITTED CLAIMS ({claims.length})
               </h4>
               <div className="space-y-2.5">
                 {claims.map((claim) => (
                   <div
                     key={claim._id}
-                    className="p-3 rounded-xl border border-slate-200 dark:border-slate-800 text-xs space-y-2"
+                    className="p-3 border border-white/10 bg-black text-xs space-y-2"
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <span className="font-semibold text-slate-900 dark:text-white">
+                        <span className="font-semibold text-white uppercase">
                           {claim.claimantName}
                         </span>
-                        <p className="text-[10px] text-slate-500">{claim.claimantEmail}</p>
+                        <p className="text-[10px] text-zinc-500">{claim.claimantEmail}</p>
                       </div>
                       <div className="flex items-center gap-1.5">
                         {claim.proofType && (
-                          <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-kiit-50 text-kiit-700 dark:bg-kiit-950 dark:text-kiit-300 border border-kiit-200 dark:border-kiit-900">
+                          <span className="text-[9px] font-mono uppercase px-1.5 py-0.5 border border-white/20 bg-white/5 text-zinc-300">
                             {claim.proofType === "HARDWARE_SERIAL_HASH"
                               ? "Serial Hash"
                               : claim.proofType === "INSTITUTIONAL_ROLL_MATCH"
@@ -515,26 +516,26 @@ export default function ItemDetailPage({
                           </span>
                         )}
                         <span
-                          className={`text-[10px] font-bold px-2 py-0.5 rounded ${
+                          className={`text-[9px] font-mono uppercase px-2 py-0.5 border ${
                             claim.status === "APPROVED"
-                              ? "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-300"
+                              ? "border-emerald-500 bg-emerald-950/80 text-emerald-300"
                               : claim.status === "REJECTED"
-                              ? "bg-rose-100 text-rose-800"
-                              : "bg-amber-100 text-amber-800 dark:bg-amber-950 dark:text-amber-300"
+                              ? "border-rose-500 bg-rose-950/80 text-rose-300"
+                              : "border-amber-500 bg-amber-950/80 text-amber-300"
                           }`}
                         >
                           {claim.status}
                         </span>
                       </div>
                     </div>
-                    <div className="text-[11px] text-slate-600 dark:text-slate-400 bg-slate-50 dark:bg-slate-800 p-2.5 rounded-lg space-y-1">
+                    <div className="text-[11px] text-zinc-400 bg-white/[0.02] border border-white/10 p-2.5 space-y-1">
                       <div>
-                        <span className="font-bold text-slate-700 dark:text-slate-300">Answer/Input:</span> {claim.challengeAnswer}
+                        <span className="text-zinc-500 uppercase tracking-wider">Answer:</span> {claim.challengeAnswer}
                       </div>
                       {claim.hardwareSerialSubmitted && (
                         <div>
-                          <span className="font-bold text-slate-700 dark:text-slate-300">Submitted Serial:</span>{" "}
-                          <span className="font-mono text-[10px] bg-slate-200 dark:bg-slate-700 px-1 py-0.5 rounded">
+                          <span className="text-zinc-500 uppercase tracking-wider">Serial:</span>{" "}
+                          <span className="font-mono text-[10px] bg-white/10 px-1 py-0.5 text-white">
                             {claim.hardwareSerialSubmitted.length > 4
                               ? `••••${claim.hardwareSerialSubmitted.slice(-4)}`
                               : claim.hardwareSerialSubmitted}
@@ -542,13 +543,13 @@ export default function ItemDetailPage({
                         </div>
                       )}
                       {claim.physicalUnlockConfirmed && (
-                        <div className="text-[10px] text-blue-600 dark:text-blue-400 font-medium flex items-center gap-1">
+                        <div className="text-[10px] text-blue-400 flex items-center gap-1">
                           <CheckCircle2 className="h-3 w-3" /> Pledged physical unlock at Campus Safe Zone
                         </div>
                       )}
                       {claim.proofDescription && (
                         <div className="pt-0.5">
-                          <span className="font-bold text-slate-700 dark:text-slate-300">Proof Note:</span> {claim.proofDescription}
+                          <span className="text-zinc-500 uppercase tracking-wider">Proof Note:</span> {claim.proofDescription}
                         </div>
                       )}
                     </div>
@@ -556,13 +557,13 @@ export default function ItemDetailPage({
                       <div className="flex gap-2 pt-1">
                         <button
                           onClick={() => handleReviewClaim(claim._id, "APPROVE")}
-                          className="flex-1 rounded-lg bg-emerald-600 py-1.5 text-[11px] font-bold text-white hover:bg-emerald-700"
+                          className="flex-1 border border-emerald-500 bg-emerald-950/80 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-300 hover:bg-emerald-900"
                         >
                           Approve &amp; Issue QR
                         </button>
                         <button
                           onClick={() => handleReviewClaim(claim._id, "REJECT")}
-                          className="flex-1 rounded-lg bg-slate-200 py-1.5 text-[11px] font-bold text-slate-700 hover:bg-slate-300 dark:bg-slate-800 dark:text-slate-300"
+                          className="flex-1 border border-white/20 bg-white/5 py-1.5 text-[10px] font-mono font-bold uppercase tracking-wider text-zinc-400 hover:text-white"
                         >
                           Reject
                         </button>

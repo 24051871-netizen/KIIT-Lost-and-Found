@@ -32,46 +32,46 @@ export default function ItemCard({ item }: { item: Item }) {
   });
 
   return (
-    <div className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-slate-200/50 dark:border-slate-800 dark:bg-slate-900 dark:hover:shadow-black/40">
+    <div className="group relative flex flex-col overflow-hidden border border-white/10 bg-[#080808] transition-all duration-300 hover:border-white/40 hover:-translate-y-1">
       {/* Top Image Preview & Badges */}
-      <div className="relative h-48 w-full overflow-hidden bg-slate-100 dark:bg-slate-800">
+      <div className="relative h-48 w-full overflow-hidden bg-black">
         <Image
           src={displayImage}
           alt={item.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className={`object-cover transition-transform duration-300 group-hover:scale-105 ${
-            isSensitive && !isReturned ? "filter blur-[3px] hover:blur-none transition-all" : ""
+          className={`object-cover transition-transform duration-500 group-hover:scale-105 opacity-85 group-hover:opacity-100 ${
+            isSensitive && !isReturned ? "filter blur-[6px] select-none pointer-events-none" : ""
           }`}
         />
 
         {/* Sensitive Blur Badge if applicable */}
         {isSensitive && !isReturned && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/20 pointer-events-none group-hover:opacity-0 transition-opacity">
-            <span className="flex items-center gap-1 rounded-full bg-slate-900/80 px-2.5 py-1 text-[11px] font-medium text-white backdrop-blur">
-              <Lock className="h-3 w-3" /> PII Protected
+          <div className="absolute inset-0 flex items-center justify-center bg-black/60 pointer-events-none">
+            <span className="flex items-center gap-1.5 border border-white/30 bg-black/80 px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-white backdrop-blur">
+              <Lock className="h-3 w-3" /> PII PROTECTED
             </span>
           </div>
         )}
 
         {/* Item Type Badge (LOST / FOUND) */}
-        <div className="absolute top-3 left-3 flex gap-1.5">
+        <div className="absolute top-3 left-3 flex gap-2">
           <span
-            className={`rounded-lg px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm ${
-              isFound ? "bg-emerald-600" : "bg-rose-600"
+            className={`px-2.5 py-0.5 text-[10px] font-mono font-bold uppercase tracking-widest text-white border ${
+              isFound ? "border-emerald-500/80 bg-emerald-950/80 text-emerald-300" : "border-rose-500/80 bg-rose-950/80 text-rose-300"
             }`}
           >
-            {item.itemType}
+            [{item.itemType}]
           </span>
 
           {/* Status Badge */}
           {isReturned ? (
-            <span className="flex items-center gap-1 rounded-lg bg-blue-600 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
-              <CheckCircle2 className="h-3.5 w-3.5" /> Returned
+            <span className="flex items-center gap-1 border border-blue-400 bg-blue-950/80 px-2 py-0.5 text-[10px] font-mono uppercase tracking-widest text-blue-300">
+              <CheckCircle2 className="h-3 w-3" /> RESOLVED
             </span>
           ) : isPending ? (
-            <span className="flex items-center gap-1 rounded-lg bg-amber-500 px-2.5 py-1 text-xs font-semibold text-white shadow-sm">
-              <Clock className="h-3.5 w-3.5" /> Claim Active
+            <span className="flex items-center gap-1 border border-amber-400 bg-amber-950/80 px-2 py-0.5 text-[10px] font-mono uppercase tracking-widest text-amber-300">
+              <Clock className="h-3 w-3" /> CLAIM IN REVIEW
             </span>
           ) : null}
         </div>
@@ -81,10 +81,10 @@ export default function ItemCard({ item }: { item: Item }) {
           <div className="absolute bottom-3 right-3">
             <span
               title="Protected with Secret Verification Challenge"
-              className="flex items-center gap-1 rounded-full bg-white/90 px-2 py-0.5 text-[10px] font-semibold text-slate-800 shadow backdrop-blur dark:bg-slate-900/90 dark:text-slate-200"
+              className="flex items-center gap-1 border border-white/20 bg-black/80 px-2 py-0.5 text-[9px] font-mono uppercase tracking-widest text-zinc-300 backdrop-blur"
             >
-              <ShieldCheck className="h-3.5 w-3.5 text-kiit-600" />
-              Verified Claim Required
+              <ShieldCheck className="h-3 w-3 text-white" />
+              ZK-CHALLENGE
             </span>
           </div>
         )}
@@ -93,40 +93,40 @@ export default function ItemCard({ item }: { item: Item }) {
       {/* Card Content */}
       <div className="flex flex-1 flex-col p-5">
         {/* Campus & Location */}
-        <div className="mb-2 flex items-center gap-1.5 text-xs text-kiit-700 dark:text-kiit-400 font-medium truncate">
-          <MapPin className="h-3.5 w-3.5 shrink-0" />
-          <span className="truncate">{item.campusName}</span>
+        <div className="mb-2 flex items-center gap-1.5 text-[11px] font-mono tracking-wider text-zinc-400 truncate">
+          <MapPin className="h-3.5 w-3.5 shrink-0 text-white" />
+          <span className="truncate uppercase">{item.campusName}</span>
         </div>
 
         {/* Title */}
-        <h3 className="font-bold text-base text-slate-900 dark:text-white line-clamp-1 group-hover:text-kiit-600 transition-colors">
+        <h3 className="font-bold text-sm uppercase tracking-wider text-white line-clamp-1 group-hover:text-zinc-300 transition-colors">
           {item.title}
         </h3>
 
         {/* Description */}
-        <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 line-clamp-2 leading-relaxed flex-1">
+        <p className="mt-2 text-xs text-zinc-400 line-clamp-2 leading-relaxed flex-1">
           {item.description}
         </p>
 
         {/* Micro-location detail */}
-        <div className="mt-3 rounded-lg bg-slate-50 px-2.5 py-1.5 text-[11px] text-slate-600 dark:bg-slate-800/60 dark:text-slate-400">
-          <span className="font-semibold text-slate-700 dark:text-slate-300">Spot:</span>{" "}
+        <div className="mt-3 border border-white/10 bg-white/[0.02] px-2.5 py-1.5 text-[11px] font-mono text-zinc-400">
+          <span className="text-zinc-500 uppercase tracking-widest">SPOT //</span>{" "}
           {item.specificLocation}
         </div>
 
         {/* Bottom meta & CTA */}
-        <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between">
-          <div className="flex items-center gap-1 text-[11px] text-slate-400">
+        <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+          <div className="flex items-center gap-1 text-[10px] font-mono text-zinc-500 tracking-wider">
             <Calendar className="h-3 w-3" />
-            <span>{dateFormatted}</span>
+            <span>{dateFormatted.toUpperCase()}</span>
           </div>
 
           <Link
             href={`/items/${item._id}`}
-            className="inline-flex items-center gap-1 text-xs font-semibold text-kiit-600 hover:text-kiit-700 group-hover:translate-x-0.5 transition-transform"
+            className="inline-flex items-center gap-1 text-[11px] font-mono uppercase tracking-widest text-white group-hover:translate-x-1 transition-transform"
           >
-            {isReturned ? "View Record" : "View Details"}
-            <ArrowRight className="h-3.5 w-3.5" />
+            {isReturned ? "INSPECT RECORD" : "INSPECT ITEM"}
+            <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
       </div>

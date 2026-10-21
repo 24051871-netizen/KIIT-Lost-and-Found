@@ -91,85 +91,82 @@ export default function ReportPage() {
   };
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8 bg-black text-white">
       {/* Form Header */}
-      <div className="text-center pb-6 border-b border-slate-200 dark:border-slate-800">
-        <div className="inline-flex items-center gap-1.5 rounded-full bg-kiit-100 px-3 py-1 text-xs font-semibold text-kiit-800 dark:bg-kiit-950 dark:text-kiit-300">
-          <ShieldCheck className="h-3.5 w-3.5 text-kiit-600" />
-          Verified KIIT Campus Network
+      <div className="text-center pb-6 border-b border-white/10">
+        <div className="inline-flex items-center gap-2 border border-white/20 bg-white/5 px-3 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-300">
+          <ShieldCheck className="h-3.5 w-3.5 text-white" />
+          KIIT CAMPUS RECOVERY // INTAKE PROTOCOL
         </div>
-        <h1 className="mt-3 text-3xl font-extrabold tracking-tight text-slate-900 dark:text-white">
-          Report an Item
+        <h1 className="mt-4 text-3xl font-extrabold uppercase tracking-[0.18em] text-white">
+          REPORT PROPERTY
         </h1>
-        <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-          Help recover lost belongings with double-blind ownership challenges and secure QR verification.
+        <p className="mt-1 text-xs font-mono text-zinc-400 uppercase tracking-wider">
+          Telemetry intake with zero-knowledge ownership challenges and QR verification passes.
         </p>
       </div>
 
       {error && (
-        <div className="mt-6 flex items-center gap-2 rounded-xl bg-red-50 p-4 text-xs text-red-700 dark:bg-red-950/40 dark:text-red-300">
-          <AlertCircle className="h-4 w-4 shrink-0" />
+        <div className="mt-6 flex items-center gap-2 border border-rose-500/40 bg-rose-950/40 p-4 text-xs font-mono text-rose-300">
+          <AlertCircle className="h-4 w-4 shrink-0 text-rose-400" />
           <span>{error}</span>
         </div>
       )}
 
       {/* Anti-Spam & Listing Governance Notice */}
-      <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50/60 p-4 dark:border-blue-900/60 dark:bg-blue-950/30">
-        <div className="flex items-center justify-between">
+      <div className="mt-6 border border-white/15 bg-[#070707] p-5 font-mono">
+        <div className="flex items-center justify-between pb-2 border-b border-white/10">
           <div className="flex items-center gap-2">
-            <ShieldAlert className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-            <span className="text-xs font-bold text-blue-900 dark:text-blue-200">
-              Anti-Spam &amp; Catalog Governance Rules
+            <ShieldAlert className="h-4 w-4 text-white" />
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-white">
+              ANTI-SPAM &amp; CATALOG GOVERNANCE RULES
             </span>
           </div>
-          <span className="text-[10px] font-bold text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/60 px-2 py-0.5 rounded-full">
-            Quota: Max 3 Active Items
+          <span className="text-[9px] font-mono font-bold uppercase tracking-widest border border-white/20 px-2 py-0.5 text-zinc-300">
+            QUOTA: MAX 3 ACTIVE ITEMS
           </span>
         </div>
-        <p className="mt-1 text-[11px] text-blue-800/80 dark:text-blue-300/80 leading-relaxed">
-          To prevent catalog flooding and phantom listings, every submission is tied to your verified KIIT Roll (<strong>{reporterRoll}</strong>). Submissions are subject to a 3-item active quota, 5-minute cooldown, and duplicate detection under KIIT Disciplinary Statute 14.
+        <p className="mt-2 text-[11px] text-zinc-400 leading-relaxed uppercase tracking-wider">
+          Every submission is tied to verified KIIT Roll (<strong>{reporterRoll}</strong>). Submissions enforce a 3-item active quota, 5-minute cooldown, and duplicate detection under KIIT Disciplinary Statute 14.
         </p>
       </div>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-6">
         {/* Toggle Lost vs Found */}
-        <div className="grid grid-cols-2 gap-3 p-1 rounded-2xl bg-slate-100 dark:bg-slate-800/80">
+        <div className="grid grid-cols-2 gap-3 p-1 border border-white/10 bg-black">
           <button
             type="button"
             onClick={() => setItemType("FOUND")}
-            className={`py-3 text-xs font-bold rounded-xl transition-all ${
+            className={`py-3 text-xs font-mono font-bold uppercase tracking-widest transition-all ${
               itemType === "FOUND"
-                ? "bg-emerald-600 text-white shadow"
-                : "text-slate-600 hover:text-slate-900 dark:text-slate-300"
+                ? "border border-white bg-white text-black"
+                : "border border-white/10 bg-white/5 text-zinc-400 hover:text-white"
             }`}
           >
-            I Found an Item (In Campus)
+            [ I FOUND AN ITEM ]
           </button>
           <button
             type="button"
             onClick={() => setItemType("LOST")}
-            className={`py-3 text-xs font-bold rounded-xl transition-all ${
+            className={`py-3 text-xs font-mono font-bold uppercase tracking-widest transition-all ${
               itemType === "LOST"
-                ? "bg-rose-600 text-white shadow"
-                : "text-slate-600 hover:text-slate-900 dark:text-slate-300"
+                ? "border border-white bg-white text-black"
+                : "border border-white/10 bg-white/5 text-zinc-400 hover:text-white"
             }`}
           >
-            I Lost an Item (Seeking Recovery)
+            [ I LOST AN ITEM ]
           </button>
         </div>
 
         {/* Section 1: Item Basic Info */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-4">
-          <h2 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-kiit-600 text-[11px] text-white">
-              1
-            </span>
-            Item Details
+        <div className="border border-white/10 bg-[#070707] p-6 space-y-4 font-mono">
+          <h2 className="font-bold text-xs uppercase tracking-[0.2em] text-white flex items-center gap-2 pb-2 border-b border-white/10">
+            01 // ITEM TELEMETRY &amp; DETAILS
           </h2>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-              Item Title <span className="text-red-500">*</span>
+            <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+              ITEM TITLE *
             </label>
             <input
               type="text"
@@ -177,40 +174,40 @@ export default function ReportPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="e.g. Casio fx-991CW Calculator, KIIT Smart ID Card (Roll 2205xxx)"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              className="w-full border border-white/20 bg-black px-3.5 py-2.5 text-xs text-white focus:border-white focus:outline-none uppercase"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                Category <span className="text-red-500">*</span>
+              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+                CATEGORY CLASSIFICATION *
               </label>
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as ItemCategory)}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                className="w-full border border-white/20 bg-black px-3.5 py-2 text-xs text-white focus:border-white focus:outline-none uppercase"
               >
                 {ITEM_CATEGORIES.map((cat) => (
                   <option key={cat.id} value={cat.id}>
-                    {cat.name}
+                    {cat.name.toUpperCase()}
                   </option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                KIIT Campus Zone <span className="text-red-500">*</span>
+              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+                CAMPUS ZONE *
               </label>
               <select
                 value={campusId}
                 onChange={(e) => setCampusId(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2.5 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                className="w-full border border-white/20 bg-black px-3.5 py-2 text-xs text-white focus:border-white focus:outline-none uppercase"
               >
                 {KIIT_CAMPUSES.map((c) => (
                   <option key={c.id} value={c.id}>
-                    {c.name}
+                    {c.name.toUpperCase()}
                   </option>
                 ))}
               </select>
@@ -218,8 +215,8 @@ export default function ReportPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-              Micro-Location / Landmark <span className="text-red-500">*</span>
+            <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+              MICRO-LOCATION / LANDMARK *
             </label>
             <input
               type="text"
@@ -227,136 +224,133 @@ export default function ReportPage() {
               value={specificLocation}
               onChange={(e) => setSpecificLocation(e.target.value)}
               placeholder="e.g. Campus 15, Block B, 3rd Floor Lab 302, Bench 4"
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              className="w-full border border-white/20 bg-black px-3.5 py-2.5 text-xs text-white focus:border-white focus:outline-none uppercase"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-              Detailed Description <span className="text-red-500">*</span>
+            <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+              DETAILED DESCRIPTION (MIN 15 CHARS) *
             </label>
             <textarea
               rows={3}
               required
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Describe color, condition, model, or circumstances under which it was found or lost..."
-              className="w-full rounded-xl border border-slate-300 px-3.5 py-2.5 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              placeholder="Provide identifiable physical details (color, brand, distinguishing marks)..."
+              className="w-full border border-white/20 bg-black px-3.5 py-2.5 text-xs text-white focus:border-white focus:outline-none"
             />
           </div>
 
           {/* Cloudinary CDN Image Upload */}
           <div>
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-2">
-              Item Photograph (Cloudinary CDN)
+            <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-2">
+              PHOTOGRAPHIC PROOF (CLOUDINARY CDN)
             </label>
             <ImageUploader onImageUploaded={(url) => setImageUrl(url)} currentImage={imageUrl} />
           </div>
         </div>
 
-        {/* Section 2: Double-Blind Ownership Challenge (Key 2026 Innovation) */}
-        <div className="rounded-2xl border border-kiit-200 bg-kiit-50/40 p-6 dark:border-kiit-900 dark:bg-kiit-950/20 space-y-4">
-          <div className="flex items-start gap-2">
-            <Lock className="h-5 w-5 text-kiit-700 dark:text-kiit-400 mt-0.5" />
+        {/* Section 2: Double-Blind Ownership Challenge */}
+        <div className="border border-white/10 bg-[#070707] p-6 space-y-4 font-mono">
+          <div className="flex items-start gap-3 pb-2 border-b border-white/10">
+            <Lock className="h-4 w-4 text-white mt-0.5" />
             <div>
-              <h2 className="font-bold text-sm text-slate-900 dark:text-white">
-                Double-Blind Ownership Verification
+              <h2 className="font-bold text-xs uppercase tracking-[0.2em] text-white">
+                02 // DOUBLE-BLIND OWNERSHIP CHALLENGE
               </h2>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
-                Set a secret question that only the true owner can answer (e.g. &ldquo;What sticker is on the back?&rdquo; or &ldquo;What is the roll number punched inside?&rdquo;). This prevents fraudulent claims!
+              <p className="text-[11px] text-zinc-400 mt-1 uppercase tracking-wider">
+                Specify an asymmetric verification challenge that only the legitimate owner can solve. Answer is hashed using SHA-256.
               </p>
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-              Secret Challenge Question
+            <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+              CHALLENGE QUESTION (OPTIONAL)
             </label>
             <input
               type="text"
               value={secretQuestion}
               onChange={(e) => setSecretQuestion(e.target.value)}
-              placeholder="e.g. What sticker is on the cover? What key number is engraved?"
-              className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              placeholder="e.g. What sticker is on the laptop lid? What key number is stamped?"
+              className="w-full border border-white/20 bg-black px-3.5 py-2.5 text-xs text-white focus:border-white focus:outline-none"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-              Expected Secret Answer (Used for instant matching &amp; pre-approval)
+            <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+              EXPECTED ANSWER (STORED AS SHA-256 HASH)
             </label>
             <input
               type="text"
               value={secretAnswer}
               onChange={(e) => setSecretAnswer(e.target.value)}
-              placeholder="e.g. Batman, 402, Red tape"
-              className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+              placeholder="e.g. GitHub Octocat, Room 402"
+              className="w-full border border-white/20 bg-black px-3.5 py-2.5 text-xs text-white focus:border-white focus:outline-none"
             />
-            <span className="mt-1 block text-[10px] text-slate-500">
-              This answer is never shown publicly. It is hashed for automated verification.
+            <span className="mt-1 block text-[10px] text-zinc-500 uppercase tracking-wider">
+              Plaintext answer is never exposed in the public catalog.
             </span>
           </div>
         </div>
 
         {/* Section 3: Contact & Reporter Credentials */}
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 space-y-4">
-          <h2 className="font-bold text-sm text-slate-900 dark:text-white flex items-center gap-2">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-kiit-600 text-[11px] text-white">
-              3
-            </span>
-            Reporter Information
+        <div className="border border-white/10 bg-[#070707] p-6 space-y-4 font-mono">
+          <h2 className="font-bold text-xs uppercase tracking-[0.2em] text-white flex items-center gap-2 pb-2 border-b border-white/10">
+            03 // REPORTER CREDENTIALS &amp; TELEMETRY
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                Your Full Name
+              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+                FULL NAME
               </label>
               <input
                 type="text"
                 required
                 value={contactName}
                 onChange={(e) => setContactName(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                className="w-full border border-white/20 bg-black px-3.5 py-2 text-xs text-white focus:border-white focus:outline-none uppercase"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                KIIT Email Address (@kiit.ac.in)
+              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+                KIIT EMAIL (@KIIT.AC.IN)
               </label>
               <input
                 type="email"
                 required
                 value={contactEmail}
                 onChange={(e) => setContactEmail(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                className="w-full border border-white/20 bg-black px-3.5 py-2 text-xs text-white focus:border-white focus:outline-none"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                KIIT Roll Number
+              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+                KIIT ROLL NUMBER
               </label>
               <input
                 type="text"
                 value={reporterRoll}
                 onChange={(e) => setReporterRoll(e.target.value)}
                 placeholder="2105128"
-                className="w-full rounded-xl border border-slate-300 px-3.5 py-2 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                className="w-full border border-white/20 bg-black px-3.5 py-2 text-xs text-white focus:border-white focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-700 dark:text-slate-300 mb-1">
-                Hostel / Residence
+              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1">
+                HOSTEL / RESIDENCE
               </label>
               <select
                 value={reporterHostel}
                 onChange={(e) => setReporterHostel(e.target.value)}
-                className="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                className="w-full border border-white/20 bg-black px-3 py-2 text-xs text-white focus:border-white focus:outline-none uppercase"
               >
                 {HOSTEL_LIST.map((h) => (
                   <option key={h} value={h}>
@@ -373,15 +367,15 @@ export default function ReportPage() {
           <button
             type="submit"
             disabled={submitting}
-            className="inline-flex items-center gap-2 rounded-xl bg-kiit-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-kiit-600/30 hover:bg-kiit-700 disabled:opacity-50 transition-all"
+            className="spacex-btn-primary w-full sm:w-auto text-center"
           >
             {submitting ? (
               <>
-                <Loader2 className="h-4 w-4 animate-spin" /> Publishing Report...
+                <Loader2 className="h-4 w-4 inline mr-2 animate-spin" /> PUBLISHING TELEMETRY...
               </>
             ) : (
               <>
-                <CheckCircle2 className="h-4 w-4" /> Publish Campus Report
+                <CheckCircle2 className="h-4 w-4 inline mr-2" /> PUBLISH CAMPUS REPORT
               </>
             )}
           </button>

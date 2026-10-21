@@ -4,41 +4,43 @@ import { ShieldCheck, Phone, MapPin, Mail } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-slate-200 bg-slate-50 dark:border-slate-800 dark:bg-slate-950">
+    <footer className="border-t border-white/10 bg-black text-white">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Col 1: Brand & Mission */}
           <div className="space-y-3">
-            <div className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-kiit-700 text-white">
-                <ShieldCheck className="h-5 w-5" />
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-7 w-7 items-center justify-center border border-white/30 bg-white/5 text-white">
+                <ShieldCheck className="h-4 w-4" />
               </div>
-              <span className="font-bold text-slate-900 dark:text-white">KIIT-Find</span>
+              <span className="font-bold text-xs uppercase tracking-[0.2em] text-white">
+                KIIT // RECOVERY
+              </span>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Official Campus Lost & Found recovery network designed for KIIT students, faculty, and hostel residents across Campuses 1 to 24.
+            <p className="text-xs font-mono text-zinc-500 leading-relaxed uppercase tracking-wider">
+              Official campus property recovery network for KIIT Deemed to be University. Zero-trust architecture deployed across 24 campuses.
             </p>
           </div>
 
           {/* Col 2: Quick Links */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-              Navigation
+            <h4 className="text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-white">
+              NAVIGATION
             </h4>
-            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2 text-xs font-mono uppercase tracking-wider text-zinc-400">
               <li>
-                <Link href="/browse" className="hover:text-kiit-600">
-                  Browse Active Items
+                <Link href="/browse" className="hover:text-white transition-colors">
+                  &gt; BROWSE TELEMETRY
                 </Link>
               </li>
               <li>
-                <Link href="/report" className="hover:text-kiit-600">
-                  Report a Lost / Found Item
+                <Link href="/report" className="hover:text-white transition-colors">
+                  &gt; REPORT PROPERTY
                 </Link>
               </li>
               <li>
-                <Link href="/scan" className="hover:text-kiit-600">
-                  QR Handover Verification
+                <Link href="/scan" className="hover:text-white transition-colors">
+                  &gt; QR SCANNER ENGINE
                 </Link>
               </li>
             </ul>
@@ -46,55 +48,56 @@ export default function Footer() {
 
           {/* Col 3: Campus Handover Points */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-              Official Handover Points
+            <h4 className="text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-white">
+              SAFE ZONE NODES
             </h4>
-            <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+            <ul className="space-y-2 text-xs font-mono uppercase tracking-wider text-zinc-400">
               <li className="flex items-start gap-1.5">
-                <MapPin className="h-3.5 w-3.5 mt-0.5 text-kiit-600 shrink-0" />
-                <span>Campus 15 Gate Security Desk (School of Computer Engg.)</span>
+                <MapPin className="h-3.5 w-3.5 mt-0.5 text-white shrink-0" />
+                <span>CAMPUS 15 GATE 1 CHECKPOINT</span>
               </li>
               <li className="flex items-start gap-1.5">
-                <MapPin className="h-3.5 w-3.5 mt-0.5 text-kiit-600 shrink-0" />
-                <span>Campus 6 Central Library Circulation Counter</span>
+                <MapPin className="h-3.5 w-3.5 mt-0.5 text-white shrink-0" />
+                <span>CAMPUS 6 CENTRAL LIBRARY</span>
               </li>
               <li className="flex items-start gap-1.5">
-                <MapPin className="h-3.5 w-3.5 mt-0.5 text-kiit-600 shrink-0" />
-                <span>KSAC Student Help Desk (Student Activity Centre)</span>
-              </li>
-              <li className="flex items-start gap-1.5">
-                <MapPin className="h-3.5 w-3.5 mt-0.5 text-kiit-600 shrink-0" />
-                <span>King&apos;s Palace &amp; Queen&apos;s Castle Caretaker Offices</span>
+                <MapPin className="h-3.5 w-3.5 mt-0.5 text-white shrink-0" />
+                <span>KSAC STUDENT ACTIVITY CENTRE</span>
               </li>
             </ul>
           </div>
 
           {/* Col 4: Campus Helplines */}
           <div className="space-y-3">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-900 dark:text-white">
-              Campus Security Helplines
+            <h4 className="text-[11px] font-mono font-bold uppercase tracking-[0.2em] text-white">
+              EMERGENCY TELEMETRY
             </h4>
-            <div className="space-y-2 text-xs text-slate-600 dark:text-slate-400">
+            <div className="space-y-2 text-xs font-mono uppercase tracking-wider text-zinc-400">
               <div className="flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5 text-kiit-600" />
-                <span>Central Control: 0674-2725113</span>
+                <Phone className="h-3.5 w-3.5 text-white" />
+                <span>CONTROL // 0674-2725113</span>
               </div>
               <div className="flex items-center gap-2">
-                <Phone className="h-3.5 w-3.5 text-kiit-600" />
-                <span>KSAC Desk: 0674-2741998</span>
+                <Phone className="h-3.5 w-3.5 text-white" />
+                <span>KSAC // 0674-2741998</span>
               </div>
               <div className="flex items-center gap-2">
-                <Mail className="h-3.5 w-3.5 text-kiit-600" />
+                <Mail className="h-3.5 w-3.5 text-white" />
                 <span>lostfound@kiit.ac.in</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="mt-8 border-t border-slate-200 pt-6 text-center text-xs text-slate-500 dark:border-slate-800 dark:text-slate-400">
+        <div className="mt-12 border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between text-[10px] font-mono uppercase tracking-widest text-zinc-500 gap-4">
           <p>
-            &copy; {new Date().getFullYear()} KIIT Deemed to be University, Bhubaneswar, Odisha. Designed for School of Computer Engineering.
+            KIIT DEEMED TO BE UNIVERSITY // SCHOOL OF COMPUTER ENGINEERING
           </p>
+          <div className="flex gap-6">
+            <span className="text-zinc-400">IEEE 830 VERIFIED</span>
+            <span className="text-zinc-400">STATUTE 14 SECURED</span>
+            <span className="text-zinc-400">LAT 20.3540° N</span>
+          </div>
         </div>
       </div>
     </footer>

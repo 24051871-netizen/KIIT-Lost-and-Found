@@ -24,6 +24,7 @@ import {
   FileText,
   Smartphone,
   ShieldAlert,
+  Flag,
 } from "lucide-react";
 
 export default function ItemDetailPage({
@@ -44,6 +45,8 @@ export default function ItemDetailPage({
   const [claimModalOpen, setClaimModalOpen] = useState(false);
   const [qrModalOpen, setQrModalOpen] = useState(false);
   const [notification, setNotification] = useState<string | null>(null);
+  const [flagging, setFlagging] = useState(false);
+  const [hasFlagged, setHasFlagged] = useState(false);
 
   useEffect(() => {
     fetchItemDetails();
@@ -92,6 +95,39 @@ export default function ItemDetailPage({
       }
     } catch (err) {
       console.error("Review claim error:", err);
+    }
+  };
+
+  const handleFlagItem = async () => {
+    if (hasFlagged) return;
+    if (
+      !confirm(
+        "Report this listing as suspicious, spam, or fake for campus security review?"
+      )
+    )
+      return;
+
+    try {
+      setFlagging(true);
+      const res = await fetch(`/api/items/${itemId}/flag`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          reason: "SPAM",
+          reporterEmail: session?.user?.email || "anonymous_student@kiit.ac.in",
+          notes: "Reported via web item detail page.",
+        }),
+      });
+      const data = await res.json();
+      if (data.success) {
+        setHasFlagged(true);
+        setNotification(data.message);
+        fetchItemDetails();
+      }
+    } catch (err) {
+      console.error("Flag error:", err);
+    } finally {
+      setFlagging(false);
     }
   };
 
@@ -407,6 +443,23 @@ export default function ItemDetailPage({
                 >
                   <ShieldCheck className="h-4 w-4" />
                   Claim This Item (Prove Ownership)
+                </button>
+              )}
+
+              {/* Community Moderation: Flag Suspicious / Spam Listing */}
+              {!isReturned && (
+                <button
+                  type="button"
+                  onClick={handleFlagItem}
+                  disabled={flagging || hasFlagged}
+                  className="w-full flex items-center justify-center gap-1.5 pt-2 text-[11px] font-medium text-slate-400 hover:text-rose-600 dark:hover:text-rose-400 transition-colors"
+                >
+                  <Flag className="h-3.5 w-3.5" />
+                  {hasFlagged
+                    ? "Reported for Security Review"
+                    : item.flagCount && item.flagCount > 0
+                    ? `Reported Suspicious (${item.flagCount} flags)`
+                    : "Flag as Suspicious or Spam Listing"}
                 </button>
               )}
             </div>

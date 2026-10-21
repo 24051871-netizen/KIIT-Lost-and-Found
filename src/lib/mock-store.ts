@@ -206,6 +206,41 @@ export const mockStore = {
     return mockItems.find((item) => item._id === id);
   },
 
+  getActiveCountByEmail: (email: string) => {
+    return mockItems.filter(
+      (item) => item.contactEmail.toLowerCase() === email.toLowerCase() && item.status === "ACTIVE"
+    ).length;
+  },
+
+  hasRecentDuplicate: (email: string, title: string) => {
+    const normalized = title.trim().toLowerCase();
+    return mockItems.some(
+      (item) =>
+        item.contactEmail.toLowerCase() === email.toLowerCase() &&
+        item.title.trim().toLowerCase() === normalized &&
+        item.status === "ACTIVE"
+    );
+  },
+
+  getLastListingTime: (email: string) => {
+    const userItems = mockItems.filter(
+      (item) => item.contactEmail.toLowerCase() === email.toLowerCase()
+    );
+    if (userItems.length === 0) return null;
+    return Math.max(...userItems.map((i) => new Date(i.createdAt).getTime()));
+  },
+
+  flagItem: (id: string, reason: string) => {
+    const item = mockItems.find((i) => i._id === id);
+    if (!item) return { success: false, flagCount: 0, isQuarantined: false };
+    item.flagCount = (item.flagCount || 0) + 1;
+    const isQuarantined = item.flagCount >= 3;
+    if (isQuarantined) {
+      item.status = "ARCHIVED";
+    }
+    return { success: true, flagCount: item.flagCount, isQuarantined };
+  },
+
   addItem: (itemData: Omit<Item, "_id" | "createdAt" | "updatedAt" | "status">) => {
     const newItem: Item = {
       ...itemData,

@@ -15,6 +15,7 @@ import {
   Loader2,
   CheckCircle2,
   AlertCircle,
+  ShieldAlert,
 } from "lucide-react";
 
 export default function ReportPage() {
@@ -111,6 +112,24 @@ export default function ReportPage() {
           <span>{error}</span>
         </div>
       )}
+
+      {/* Anti-Spam & Listing Governance Notice */}
+      <div className="mt-6 rounded-2xl border border-blue-200 bg-blue-50/60 p-4 dark:border-blue-900/60 dark:bg-blue-950/30">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <ShieldAlert className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+            <span className="text-xs font-bold text-blue-900 dark:text-blue-200">
+              Anti-Spam &amp; Catalog Governance Rules
+            </span>
+          </div>
+          <span className="text-[10px] font-bold text-blue-700 dark:text-blue-300 bg-blue-100 dark:bg-blue-900/60 px-2 py-0.5 rounded-full">
+            Quota: Max 3 Active Items
+          </span>
+        </div>
+        <p className="mt-1 text-[11px] text-blue-800/80 dark:text-blue-300/80 leading-relaxed">
+          To prevent catalog flooding and phantom listings, every submission is tied to your verified KIIT Roll (<strong>{reporterRoll}</strong>). Submissions are subject to a 3-item active quota, 5-minute cooldown, and duplicate detection under KIIT Disciplinary Statute 14.
+        </p>
+      </div>
 
       <form onSubmit={handleSubmit} className="mt-8 space-y-6">
         {/* Toggle Lost vs Found */}

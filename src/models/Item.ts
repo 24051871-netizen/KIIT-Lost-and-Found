@@ -28,6 +28,7 @@ export interface IItemDocument extends Document {
   };
   qrTokenHash?: string;
   qrExpiresAt?: string;
+  flagCount?: number;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -89,6 +90,7 @@ const ItemSchema = new Schema<IItemDocument>(
     },
     qrTokenHash: { type: String },
     qrExpiresAt: { type: String },
+    flagCount: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

@@ -52,6 +52,7 @@ export interface Item {
   };
   qrTokenHash?: string;
   qrExpiresAt?: string;
+  flagCount?: number; // Number of spam/suspicious community flags
   createdAt: string;
   updatedAt: string;
 }

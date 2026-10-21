@@ -254,29 +254,46 @@ The system enforces identity authentication restricted to institutional Google a
 
 ---
 
-### 4.2 FR-02: Item Reporting Engine & Micro-Spatial Tagging
+### 4.2 FR-02: Item Reporting Engine & Anti-Spam Catalog Governance
 
 #### Description:
-Enables verified campus users to publish detailed listings for either lost or found property.
+Enables verified campus users to publish detailed listings for lost or found property, fortified by strict multi-layered catalog governance, concurrency quotas, and automated spam prevention to prevent frivolous, repetitive, or phantom listings.
+
+#### Anti-Spam & Listing Governance Rules:
+1. **Concurrency Listing Quota (Token-Bucket Limiter):**
+   - Each authenticated student identity is restricted to a maximum of **3 active (unresolved) listings** concurrently.
+   - Submissions exceeding this threshold are rejected with **HTTP 429 Too Many Requests**, requiring the student to resolve, claim, or archive existing listings before introducing new catalog entries.
+2. **Velocity Rate Limiting & Cooldown Window:**
+   - A mandatory **5-minute cooldown window** is enforced between consecutive listing submissions per student roll number, preventing bot scripting and flood attacks.
+3. **Near-Duplicate Listing Detection:**
+   - The engine validates submissions against active items submitted by the same user within 24 hours. Submitting identical titles returns **HTTP 409 Conflict**.
+4. **Verifiable Minimum Content Quality:**
+   - Submissions enforce minimum payload lengths: `title` $\ge 3$ characters, `description` $\ge 15$ characters, and `specificLocation` $\ge 5$ characters (preventing empty or nonsensical submissions).
+5. **Non-Anonymous Identity Binding & Audit Escalation:**
+   - Every listing is indelibly linked to the reporter's verified `@kiit.ac.in` email and 7-digit student roll number. Creation events generate a permanent entry in `AuditLog` (`REPORTED`), establishing legal and disciplinary accountability under **KIIT Disciplinary Statute 14**.
+6. **Distributed Community Moderation (`/api/items/:id/flag`):**
+   - Campus students and security guards can flag suspicious listings. Upon receiving $\ge 3$ flags, the system automatically transitions the item to `"ARCHIVED"` (quarantine), delisting it from public search and alerting security personnel.
 
 #### Inputs:
-- `title` (String, required, 3–100 chars)
-- `description` (String, required, 10–1000 chars)
+- `title` (String, required, 3–120 chars)
+- `description` (String, required, 15–1000 chars)
 - `itemType` (Enum: `"LOST"` | `"FOUND"`, required)
-- `category` (Enum: `"KIIT_ID_CARD"`, `"ELECTRONICS"`, `"KEYS"`, `"CALCULATOR"`, `"BICYCLE"`, `"CLOTHING"`, `"WALLET"`, `"OTHER"`)
+- `category` (Enum: `"KIIT_ID_CARD"`, `"ELECTRONICS"`, `"HOSTEL_KEYS"`, `"LAB_COAT_RECORD"`, `"CYCLE_ACCESSORY"`, `"WALLET_DOCS"`, `"BAGS_BOOKS"`, `"OTHER"`)
 - `campusId` (Enum representing Campuses 1 through 24, e.g. `"campus-15"`)
-- `specificLocation` (String, required, e.g. *"Block B, 3rd Floor Lab 302"*)
+- `specificLocation` (String, required, $\ge 5$ chars, e.g. *"Block B, 3rd Floor Lab 302"*)
 - `imageUrls` (Array of Strings, optional)
 - `secretChallengeQuestion` & `secretAnswer` (Strings, optional for Found items)
 
 #### Processing:
-1. Validates all required fields and sanitized inputs against XSS payloads.
-2. Resolves human-readable campus nomenclature from `KIIT_CAMPUSES`.
-3. If secret challenge is provided, creates a normalized lowercase hash of `secretAnswer`.
-4. Writes document to `kiit_find.items` collection with initial status `"ACTIVE"`.
+1. Validates input quality thresholds and sanitizes against XSS payloads.
+2. Checks user's active listing quota (`count(contactEmail, status: "ACTIVE") < 3`).
+3. Evaluates velocity cooldown ($t_{\text{now}} - t_{\text{last}} \ge 5\text{ min}$) and duplicate title existence.
+4. If secret challenge is provided, creates a normalized lowercase hash of `secretAnswer`.
+5. Writes document to `kiit_find.items` collection with initial status `"ACTIVE"`.
+6. Emits immutable `REPORTED` event to `auditlogs`.
 
 #### Outputs:
-- HTTP 201 Created with JSON document containing newly assigned MongoDB `_id`.
+- HTTP 201 Created with JSON document containing newly assigned MongoDB `_id`, or HTTP 400/409/429 with specific policy violation rationale.
 
 ---
 
@@ -475,6 +492,7 @@ Records an immutable chronological ledger of all lifecycle events for accountabi
 | **THREAT-03** | **Brute-Force Challenge Guessing**<br/>Attacker repeatedly submits common answers to secret challenge questions (e.g. "Sticker: Apple, Nike, Marvel"). | No rate-limiting; attackers can script automated submissions. | **Adaptive Rate Limiting & Account Lockout:** Maximum 3 failed attempts per identity. Exceeding threshold triggers HTTP 429 lockout, audit ledger alert, and account flag under KIIT Disciplinary Statute 14. |
 | **THREAT-04** | **Student Identity Impersonation**<br/>Attacker attempts to claim another student's lost KIIT Smart ID Card to misuse library/exam privileges. | Finder handovers card without verifying official roll number. | **Cryptographic Institutional Roll Lock:** The API extracts the claimant roll from their `@kiit.ac.in` OAuth token. If claimant roll does not match the target card roll, claim is rejected with HTTP 403 Forbidden. |
 | **THREAT-05** | **Plaintext Serial Leakage**<br/>Storing hardware serial numbers in database allows insider database leaks or scraping. | Plaintext database fields visible in query inspector or admin dump. | **Zero-Knowledge SHA-256 Hashing:** Hardware serial numbers are hashed at ingestion with SHA-256 (`hardwareIdentifierHash`). Server compares `SHA256(claimant_input) === stored_hash` without storing plaintext. |
+| **THREAT-06** | **Catalog Flooding & Frivolous/Phantom Listings**<br/>Malicious student or automated bot posts dozens of fake listings for no reason to clutter the catalog or grief security. | Open listing permissions with no rate limit, no quota, and no peer moderation. | **Concurrency Quota & Community Auto-Quarantine:** Active listings capped at 3 per student; 5-min cooldown window; duplicate detection; non-anonymous `@kiit.ac.in` audit trail under Statute 14; $\ge 3$ community flags trigger automatic quarantine and delisting. |
 
 ### 5.4 Privacy & Regulatory Compliance (DPDP Act 2023)
 In compliance with the **Digital Personal Data Protection (DPDP) Act, 2023 (Government of India)**:

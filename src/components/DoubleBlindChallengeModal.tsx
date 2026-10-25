@@ -3,17 +3,15 @@
 import React, { useState } from "react";
 import { Item, VerificationProofType } from "@/types";
 import {
-  ShieldAlert,
   ShieldCheck,
   HelpCircle,
-  CheckCircle2,
   Loader2,
   X,
   Cpu,
   Receipt,
-  Smartphone,
   Lock,
-  AlertOctagon,
+  AlertTriangle,
+  Fingerprint,
 } from "lucide-react";
 
 interface DoubleBlindModalProps {
@@ -98,6 +96,7 @@ export default function DoubleBlindChallengeModal({
       });
 
       const data = await res.json();
+
       if (!res.ok || !data.success) {
         throw new Error(data.error || "Failed to submit claim.");
       }
@@ -112,110 +111,114 @@ export default function DoubleBlindChallengeModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-xl overflow-y-auto">
-      <div className="w-full max-w-xl nothing-widget !bg-black/90 p-7 text-white font-mono animate-in fade-in zoom-in-95 duration-150 my-8">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-xl overflow-y-auto animate-in fade-in duration-200">
+      <div className="w-full max-w-xl aura-card p-6 md:p-8 text-white relative shadow-2xl border border-white/10 my-8">
+        {/* Glow ambient background pill */}
+        <div className="absolute -top-16 -right-16 w-44 h-44 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none" />
+
         {/* Header */}
-        <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
-          <div className="flex items-center gap-2.5">
-            <span className="nothing-red-dot"></span>
+        <div className="flex items-center justify-between pb-4 border-b border-white/10">
+          <div className="flex items-center gap-3">
+            <span className="aura-dot-live" />
             <div>
-              <h3 className="font-ndot text-xs tracking-[0.16em] text-white">
-                OWNERSHIP VERIFICATION PROTOCOL
+              <h3 className="text-base font-bold text-white tracking-tight flex items-center gap-2">
+                <Fingerprint className="w-4 h-4 text-emerald-400" />
+                Ownership Verification Protocol
               </h3>
-              <p className="text-[10px] text-zinc-500 uppercase tracking-widest font-mono">
-                ZERO-TRUST MULTI-FACTOR ENGINE // KIIT SECURITY
+              <p className="text-xs text-zinc-400">
+                Zero-Trust Multi-Factor Engine • KIIT Campus Security
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="rounded-full p-1.5 border border-white/10 text-zinc-400 hover:text-white hover:border-white transition-colors"
+            className="rounded-xl p-2 border border-white/10 text-zinc-400 hover:text-white hover:bg-white/5 transition-all"
           >
             <X className="h-4 w-4" />
           </button>
         </div>
 
-        {/* Security Alert Banner */}
-        <div className="mt-3 rounded-xl bg-amber-50 p-3 border border-amber-200 dark:bg-amber-950/30 dark:border-amber-900 flex items-start gap-2.5">
-          <AlertOctagon className="h-4 w-4 text-amber-700 dark:text-amber-400 mt-0.5 shrink-0" />
-          <p className="text-[11px] text-amber-800 dark:text-amber-300 leading-relaxed">
-            <strong>Anti-Fraud Warning:</strong> Claims are cryptographically bound to your KIIT Roll Number. False claims on campus property are logged in the immutable Audit Ledger and referred to the Proctorial Board under University Disciplinary Statute 14.
+        {/* Anti-fraud banner */}
+        <div className="mt-4 rounded-xl bg-amber-500/10 p-3.5 border border-amber-500/25 flex items-start gap-3">
+          <AlertTriangle className="h-4 w-4 text-amber-400 mt-0.5 shrink-0" />
+          <p className="text-xs text-amber-200/90 leading-relaxed">
+            <strong className="text-amber-300 font-semibold">Anti-Fraud Protection:</strong> Claims are cryptographically bound to your institutional credentials. Fraudulent campus claims are permanently logged into the immutable audit ledger.
           </p>
         </div>
 
         {error && (
-          <div className="mt-3 rounded-xl bg-red-50 p-3 text-xs text-red-700 dark:bg-red-950/40 dark:text-red-300 border border-red-200">
+          <div className="mt-3 rounded-xl bg-rose-500/10 p-3.5 text-xs text-rose-300 border border-rose-500/30">
             {error}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="mt-4 space-y-4">
+        <form onSubmit={handleSubmit} className="mt-5 space-y-4">
           {/* Select Proof Vector */}
           <div>
-            <label className="block text-xs font-bold text-slate-900 dark:text-slate-200 mb-1.5">
+            <label className="block text-xs font-semibold text-zinc-300 mb-2">
               Select Proof Vector (Verification Factor):
             </label>
-            <div className="grid grid-cols-2 gap-2 text-xs">
-              {isIdCard ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
+              {isIdCard && (
                 <button
                   type="button"
                   onClick={() => setProofType("INSTITUTIONAL_ROLL_MATCH")}
-                  className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all ${
+                  className={`p-3 rounded-xl border text-left flex items-center gap-2.5 transition-all ${
                     proofType === "INSTITUTIONAL_ROLL_MATCH"
-                      ? "border-kiit-600 bg-kiit-50 text-kiit-900 font-bold dark:bg-kiit-950/50 dark:text-kiit-300"
-                      : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900"
+                      ? "border-emerald-500/60 bg-emerald-500/15 text-emerald-300 font-semibold shadow-sm"
+                      : "border-white/10 bg-white/[0.02] text-zinc-300 hover:bg-white/[0.06]"
                   }`}
                 >
-                  <Lock className="h-4 w-4 text-kiit-600" />
-                  <span>Roll Number Identity Match</span>
+                  <Lock className="h-4 w-4 text-emerald-400 shrink-0" />
+                  <span>Roll Identity Match</span>
                 </button>
-              ) : null}
+              )}
 
               <button
                 type="button"
                 onClick={() => setProofType("HARDWARE_SERIAL_HASH")}
-                className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all ${
+                className={`p-3 rounded-xl border text-left flex items-center gap-2.5 transition-all ${
                   proofType === "HARDWARE_SERIAL_HASH"
-                    ? "border-kiit-600 bg-kiit-50 text-kiit-900 font-bold dark:bg-kiit-950/50 dark:text-kiit-300"
-                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900"
+                    ? "border-emerald-500/60 bg-emerald-500/15 text-emerald-300 font-semibold shadow-sm"
+                    : "border-white/10 bg-white/[0.02] text-zinc-300 hover:bg-white/[0.06]"
                 }`}
               >
-                <Cpu className="h-4 w-4 text-kiit-600" />
-                <span>Serial Number / IMEI (Zero-Knowledge)</span>
+                <Cpu className="h-4 w-4 text-emerald-400 shrink-0" />
+                <span>Serial / IMEI Hash</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setProofType("DOUBLE_BLIND_CHALLENGE")}
-                className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all ${
+                className={`p-3 rounded-xl border text-left flex items-center gap-2.5 transition-all ${
                   proofType === "DOUBLE_BLIND_CHALLENGE"
-                    ? "border-kiit-600 bg-kiit-50 text-kiit-900 font-bold dark:bg-kiit-950/50 dark:text-kiit-300"
-                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900"
+                    ? "border-emerald-500/60 bg-emerald-500/15 text-emerald-300 font-semibold shadow-sm"
+                    : "border-white/10 bg-white/[0.02] text-zinc-300 hover:bg-white/[0.06]"
                 }`}
               >
-                <HelpCircle className="h-4 w-4 text-kiit-600" />
-                <span>Hidden Feature Challenge</span>
+                <HelpCircle className="h-4 w-4 text-emerald-400 shrink-0" />
+                <span>Concealed Feature</span>
               </button>
 
               <button
                 type="button"
                 onClick={() => setProofType("PRE_LOSS_INVOICE_PROOF")}
-                className={`p-2.5 rounded-xl border text-left flex items-center gap-2 transition-all ${
+                className={`p-3 rounded-xl border text-left flex items-center gap-2.5 transition-all ${
                   proofType === "PRE_LOSS_INVOICE_PROOF"
-                    ? "border-kiit-600 bg-kiit-50 text-kiit-900 font-bold dark:bg-kiit-950/50 dark:text-kiit-300"
-                    : "border-slate-200 bg-white text-slate-700 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-900"
+                    ? "border-emerald-500/60 bg-emerald-500/15 text-emerald-300 font-semibold shadow-sm"
+                    : "border-white/10 bg-white/[0.02] text-zinc-300 hover:bg-white/[0.06]"
                 }`}
               >
-                <Receipt className="h-4 w-4 text-kiit-600" />
-                <span>Purchase Bill / Pre-Loss Photo</span>
+                <Receipt className="h-4 w-4 text-emerald-400 shrink-0" />
+                <span>Purchase Invoice</span>
               </button>
             </div>
           </div>
 
           {/* Conditional Vector Inputs */}
           {proofType === "HARDWARE_SERIAL_HASH" && (
-            <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-200 dark:bg-slate-800/60 dark:border-slate-700 space-y-2">
-              <label className="block text-xs font-semibold text-slate-900 dark:text-white">
+            <div className="rounded-xl aura-surface p-4 border border-white/10 space-y-2">
+              <label className="block text-xs font-semibold text-zinc-200">
                 Hardware Serial Number / IMEI (From Box or Bill):
               </label>
               <input
@@ -223,25 +226,25 @@ export default function DoubleBlindChallengeModal({
                 required
                 value={hardwareSerial}
                 onChange={(e) => setHardwareSerial(e.target.value)}
-                placeholder="e.g. NHQ5NSI002..., SN: 84920392, or IMEI last 6 digits"
-                className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-white font-mono"
+                placeholder="e.g. NHQ5NSI002... or IMEI last 6 digits"
+                className="w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2 text-xs text-white placeholder-zinc-500 focus:border-emerald-500/60 focus:outline-none font-mono"
               />
-              <p className="text-[10px] text-slate-500">
-                🔒 <strong>Zero-Knowledge:</strong> The serial number is never displayed publicly. The server computes a SHA-256 cryptographic hash to match against intake records.
+              <p className="text-[11px] text-zinc-400 flex items-center gap-1.5">
+                <span className="text-emerald-400 font-bold">✓ Zero-Knowledge:</span> Verified via SHA-256 hash matching intake records.
               </p>
             </div>
           )}
 
           {proofType === "DOUBLE_BLIND_CHALLENGE" && (
-            <div className="rounded-xl bg-kiit-50/70 p-3.5 border border-kiit-100 dark:bg-kiit-950/30 dark:border-kiit-900 space-y-2">
-              <div className="flex items-start gap-2">
-                <HelpCircle className="h-4 w-4 text-kiit-700 dark:text-kiit-400 mt-0.5 shrink-0" />
+            <div className="rounded-xl aura-surface p-4 border border-white/10 space-y-2">
+              <div className="flex items-start gap-2.5">
+                <HelpCircle className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-[11px] font-semibold text-kiit-900 dark:text-kiit-200">
+                  <p className="text-xs font-medium text-zinc-400">
                     Finder&apos;s Concealed Challenge Question:
                   </p>
-                  <p className="text-xs font-bold text-slate-900 dark:text-white mt-0.5">
-                    &ldquo;{item.secretChallengeQuestion || "What specific concealed identifying mark, engraving, or sticker is on this item?"}&rdquo;
+                  <p className="text-sm font-semibold text-white mt-0.5">
+                    &ldquo;{item.secretChallengeQuestion || "What specific concealed identifying mark, sticker, or engraving is on this item?"}&rdquo;
                   </p>
                 </div>
               </div>
@@ -250,61 +253,61 @@ export default function DoubleBlindChallengeModal({
                 required
                 value={answer}
                 onChange={(e) => setAnswer(e.target.value)}
-                placeholder="Enter the exact answer to prove ownership..."
-                className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                placeholder="Type your exact identifying answer..."
+                className="w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-emerald-500/60 focus:outline-none"
               />
             </div>
           )}
 
           {proofType === "PRE_LOSS_INVOICE_PROOF" && (
-            <div className="rounded-xl bg-slate-50 p-3.5 border border-slate-200 dark:bg-slate-800/60 dark:border-slate-700 space-y-2">
-              <label className="block text-xs font-semibold text-slate-900 dark:text-white">
-                Purchase Invoice URL or Pre-Loss Photo Link (Cloudinary / Google Drive):
+            <div className="rounded-xl aura-surface p-4 border border-white/10 space-y-2">
+              <label className="block text-xs font-semibold text-zinc-200">
+                Purchase Invoice URL or Pre-Loss Photo Link:
               </label>
               <input
                 type="url"
                 value={proofDocUrl}
                 onChange={(e) => setProofDocUrl(e.target.value)}
-                placeholder="https://res.cloudinary.com/... or Google Drive public link"
-                className="w-full rounded-xl border border-slate-300 bg-white px-3.5 py-2 text-xs focus:border-kiit-600 focus:outline-none dark:border-slate-700 dark:bg-slate-900 dark:text-white"
+                placeholder="https://res.cloudinary.com/... or Google Drive link"
+                className="w-full rounded-xl border border-white/10 bg-black/40 px-3.5 py-2 text-xs text-white placeholder-zinc-500 focus:border-emerald-500/60 focus:outline-none"
               />
-              <p className="text-[10px] text-slate-500">
-                Uploaded document will be cross-referenced by the Campus Security In-Charge during physical handover.
+              <p className="text-[11px] text-zinc-400">
+                Cross-referenced by Campus Security In-Charge during physical handover.
               </p>
             </div>
           )}
 
           {proofType === "INSTITUTIONAL_ROLL_MATCH" && (
-            <div className="rounded-xl bg-emerald-50 p-3.5 border border-emerald-200 dark:bg-emerald-950/30 dark:border-emerald-900 flex items-start gap-2">
-              <ShieldCheck className="h-4 w-4 text-emerald-600 mt-0.5 shrink-0" />
-              <p className="text-xs text-emerald-800 dark:text-emerald-300">
-                <strong>Zero-Trust Identity Lock:</strong> This Smart ID Card is locked to the official student roll number extracted from the card. Your authenticated institutional email must strictly match this roll number to unlock recovery.
+            <div className="rounded-xl bg-emerald-500/10 p-3.5 border border-emerald-500/25 flex items-start gap-3">
+              <ShieldCheck className="h-4 w-4 text-emerald-400 mt-0.5 shrink-0" />
+              <p className="text-xs text-emerald-200 leading-relaxed">
+                <strong>Zero-Trust Identity Match:</strong> This Smart ID Card is cryptographically locked to the student roll number. Your authenticated institutional email must strictly match.
               </p>
             </div>
           )}
 
-          {/* Physical Device Unlock Challenge Acknowledgement (For Electronics) */}
+          {/* Physical Device Unlock Acknowledgement */}
           {isElectronics && (
-            <div className="rounded-xl border border-slate-200 p-3 bg-slate-50/50 dark:bg-slate-800/40 dark:border-slate-700">
-              <label className="flex items-start gap-2 cursor-pointer">
+            <div className="rounded-xl border border-white/10 p-3.5 bg-white/[0.02]">
+              <label className="flex items-start gap-2.5 cursor-pointer">
                 <input
                   type="checkbox"
                   required
                   checked={physicalUnlockConfirmed}
                   onChange={(e) => setPhysicalUnlockConfirmed(e.target.checked)}
-                  className="mt-0.5 rounded text-kiit-600 focus:ring-kiit-500"
+                  className="mt-0.5 rounded border-white/20 text-emerald-500 focus:ring-emerald-400 bg-black/40"
                 />
-                <span className="text-[11px] text-slate-700 dark:text-slate-300 leading-snug">
-                  <strong>Safe Zone Physical Unlock Mandate:</strong> I acknowledge that for electronic gadgets, I MUST physically unlock this device (PIN / Pattern / Fingerprint / Face ID) in the presence of the Campus Security Officer at Campus 15 Gate or Central Library before physical custody is released.
+                <span className="text-xs text-zinc-300 leading-snug">
+                  <strong>Safe Zone Physical Unlock Mandate:</strong> I agree to physically unlock this gadget (PIN / Pattern / Biometrics) before campus officers release physical custody.
                 </span>
               </label>
             </div>
           )}
 
-          {/* Claimant Profile (Immutable) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-slate-100 dark:border-slate-800">
+          {/* Claimant Profile Info */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-white/10">
             <div>
-              <label className="block text-[11px] font-medium text-slate-500 mb-0.5">
+              <label className="block text-xs font-medium text-zinc-400 mb-1">
                 Claimant Name
               </label>
               <input
@@ -312,56 +315,56 @@ export default function DoubleBlindChallengeModal({
                 required
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 px-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-white"
+                className="w-full rounded-xl border border-white/10 px-3 py-2 text-xs bg-black/40 text-white focus:border-emerald-500/60 focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-[11px] font-medium text-slate-500 mb-0.5">
+              <label className="block text-xs font-medium text-zinc-400 mb-1">
                 Institutional Roll Number
               </label>
               <input
                 type="text"
                 value={rollNumber}
                 onChange={(e) => setRollNumber(e.target.value)}
-                className="w-full rounded-xl border border-slate-200 px-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-white font-mono"
+                className="w-full rounded-xl border border-white/10 px-3 py-2 text-xs bg-black/40 text-white font-mono focus:border-emerald-500/60 focus:outline-none"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[11px] font-medium text-slate-500 mb-0.5">
-              Verified Email (@kiit.ac.in)
+            <label className="block text-xs font-medium text-zinc-400 mb-1">
+              Verified Campus Email
             </label>
             <input
               type="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full rounded-xl border border-slate-200 px-3 py-1.5 text-xs bg-slate-50 dark:bg-slate-800 dark:border-slate-700 dark:text-white font-mono"
+              className="w-full rounded-xl border border-white/10 px-3 py-2 text-xs bg-black/40 text-white font-mono focus:border-emerald-500/60 focus:outline-none"
             />
           </div>
 
           {/* Action buttons */}
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10 font-mono">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
             <button
               type="button"
               onClick={onClose}
-              className="nothing-btn-secondary !py-2.5 !px-5 !text-[10px]"
+              className="aura-btn-secondary !py-2.5 !px-5 text-xs font-semibold"
             >
-              CANCEL
+              Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="nothing-btn-primary !py-2.5 !px-6 !text-[10px]"
+              className="aura-btn-primary !py-2.5 !px-6 text-xs font-semibold flex items-center gap-2 shadow-lg shadow-emerald-500/20"
             >
               {submitting ? (
                 <>
-                  <Loader2 className="h-3.5 w-3.5 inline mr-1 animate-spin" /> EVALUATING...
+                  <Loader2 className="h-4 w-4 animate-spin" /> Evaluating...
                 </>
               ) : (
                 <>
-                  <ShieldCheck className="h-3.5 w-3.5 inline mr-1" /> SUBMIT PROOF VECTOR
+                  <ShieldCheck className="h-4 w-4" /> Submit Proof Vector
                 </>
               )}
             </button>

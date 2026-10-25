@@ -16,6 +16,8 @@ import {
   CheckCircle2,
   AlertCircle,
   ShieldAlert,
+  Sparkles,
+  Info,
 } from "lucide-react";
 
 export default function ReportPage() {
@@ -91,86 +93,86 @@ export default function ReportPage() {
   };
 
   return (
-    <div className="min-h-screen nothing-dot-grid py-12 bg-black text-white">
+    <div className="min-h-screen py-12 text-slate-100">
       <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
         {/* Form Header */}
-        <div className="text-center pb-8 border-b border-white/10">
-          <div className="inline-flex items-center gap-2.5 rounded-full border border-white/20 bg-white/5 px-4 py-1.5 text-[10px] font-mono uppercase tracking-[0.2em] text-zinc-300 backdrop-blur-md">
-            <span className="nothing-red-dot"></span>
-            <span className="font-ndot text-white">KIIT (R) OS</span>
-            <span className="text-zinc-600">|</span>
-            <span>INTAKE PROTOCOL</span>
+        <div className="text-center pb-8 border-b border-white/[0.08]">
+          <div className="inline-flex items-center gap-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3.5 py-1 text-xs font-semibold text-emerald-300">
+            <span className="aura-dot-live"></span>
+            <span>Intake Registry</span>
+            <span className="text-emerald-500/40">|</span>
+            <span className="text-slate-300 font-normal">Encrypted Protocol</span>
           </div>
-          <h1 className="mt-4 text-3xl sm:text-4xl font-ndot uppercase tracking-[0.14em] text-white">
-            REPORT PROPERTY
+          <h1 className="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+            Report Property
           </h1>
-          <p className="mt-2 text-xs font-mono text-zinc-400 uppercase tracking-wider">
-            Telemetry intake with zero-knowledge ownership challenges and QR verification passes.
+          <p className="mt-2 text-sm text-slate-400 max-w-lg mx-auto">
+            Log a lost or found possession into the campus network with Zero-Knowledge verification challenges and QR handover passes.
           </p>
         </div>
 
         {error && (
-          <div className="mt-6 flex items-center gap-2.5 rounded-2xl border border-rose-500/40 bg-rose-950/40 p-4 text-xs font-mono text-rose-300">
-            <AlertCircle className="h-4 w-4 shrink-0 text-rose-400" />
+          <div className="mt-6 flex items-center gap-3 rounded-2xl border border-rose-500/40 bg-rose-950/40 p-4 text-xs font-medium text-rose-300">
+            <AlertCircle className="h-5 w-5 shrink-0 text-rose-400" />
             <span>{error}</span>
           </div>
         )}
 
         {/* Anti-Spam & Listing Governance Notice */}
-        <div className="mt-6 nothing-widget p-6 font-mono">
-          <div className="flex items-center justify-between pb-3 border-b border-white/10">
+        <div className="mt-6 aura-card p-5 border-emerald-500/20">
+          <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
             <div className="flex items-center gap-2">
-              <span className="nothing-red-dot"></span>
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-white">
-                ANTI-SPAM &amp; CATALOG GOVERNANCE
+              <ShieldAlert className="h-4 w-4 text-emerald-400" />
+              <span className="text-xs font-bold uppercase tracking-wider text-white">
+                Anti-Spam &amp; Catalog Governance
               </span>
             </div>
-            <span className="text-[9px] font-mono font-bold uppercase tracking-widest rounded-full border border-white/20 bg-white/5 px-3 py-1 text-zinc-300">
-              QUOTA: 3 ACTIVE
+            <span className="text-[11px] font-semibold tracking-wide rounded-full border border-emerald-500/30 bg-emerald-500/15 px-2.5 py-0.5 text-emerald-300">
+              Active Quota: 3 Items Max
             </span>
           </div>
-          <p className="mt-3 text-[11px] text-zinc-400 leading-relaxed uppercase tracking-wider">
-            Every submission is tied to verified KIIT Roll (<strong>{reporterRoll}</strong>). Submissions enforce a 3-item active quota, 5-minute cooldown, and duplicate detection under KIIT Disciplinary Statute 14.
+          <p className="mt-2.5 text-xs text-slate-300 leading-relaxed">
+            Every submission is tied to verified KIIT Roll (<strong>{reporterRoll}</strong>). To prevent prank listings, the network enforces a 3-item active quota, 5-minute cooldown, and duplicate detection under KIIT Disciplinary Statute 14.
           </p>
         </div>
 
         <form onSubmit={handleSubmit} className="mt-8 space-y-6">
-          {/* Toggle Lost vs Found - Stadium Pill Segmented Control */}
-          <div className="grid grid-cols-2 gap-3 p-1.5 rounded-full border border-white/15 bg-zinc-950/80 backdrop-blur-md">
+          {/* Toggle Lost vs Found */}
+          <div className="grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-slate-900/80 border border-white/10 backdrop-blur-xl">
             <button
               type="button"
               onClick={() => setItemType("FOUND")}
-              className={`py-3 text-xs font-ndot uppercase tracking-widest rounded-full transition-all ${
+              className={`py-3 text-xs font-bold rounded-xl transition-all ${
                 itemType === "FOUND"
-                  ? "bg-white text-black font-bold shadow-lg"
-                  : "text-zinc-400 hover:text-white"
+                  ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 shadow-md shadow-emerald-500/25"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
-              ( FOUND ITEM )
+              I Found an Item
             </button>
             <button
               type="button"
               onClick={() => setItemType("LOST")}
-              className={`py-3 text-xs font-ndot uppercase tracking-widest rounded-full transition-all ${
+              className={`py-3 text-xs font-bold rounded-xl transition-all ${
                 itemType === "LOST"
-                  ? "bg-white text-black font-bold shadow-lg"
-                  : "text-zinc-400 hover:text-white"
+                  ? "bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-md shadow-rose-500/25"
+                  : "text-slate-400 hover:text-white"
               }`}
             >
-              ( LOST ITEM )
+              I Lost an Item
             </button>
           </div>
 
           {/* Section 1: Item Basic Info */}
-          <div className="nothing-widget p-7 space-y-5 font-mono">
-            <h2 className="font-bold text-xs uppercase tracking-[0.2em] text-white flex items-center gap-2 pb-3 border-b border-white/10">
-              <span className="nothing-red-dot"></span>
-              01 // ITEM TELEMETRY &amp; DETAILS
+          <div className="aura-card p-7 space-y-5">
+            <h2 className="font-bold text-sm text-white flex items-center gap-2 pb-3 border-b border-white/[0.08]">
+              <span className="aura-dot-live"></span>
+              Item Details &amp; Sighting Location
             </h2>
 
             <div>
-              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                ITEM TITLE *
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                Item Title *
               </label>
               <input
                 type="text"
@@ -178,40 +180,40 @@ export default function ReportPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder="e.g. Casio fx-991CW Calculator, KIIT Smart ID Card (Roll 2205xxx)"
-                className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none uppercase"
+                className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-white placeholder-slate-500 focus:border-emerald-500/50 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all"
               />
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                  CATEGORY CLASSIFICATION *
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Category Classification *
                 </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value as ItemCategory)}
-                  className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none uppercase"
+                  className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-slate-200 focus:border-emerald-500/50 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all cursor-pointer"
                 >
                   {ITEM_CATEGORIES.map((cat) => (
                     <option key={cat.id} value={cat.id}>
-                      {cat.name.toUpperCase()}
+                      {cat.name}
                     </option>
                   ))}
                 </select>
               </div>
 
               <div>
-                <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                  CAMPUS ZONE *
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Campus Zone *
                 </label>
                 <select
                   value={campusId}
                   onChange={(e) => setCampusId(e.target.value)}
-                  className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none uppercase"
+                  className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-slate-200 focus:border-emerald-500/50 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all cursor-pointer"
                 >
                   {KIIT_CAMPUSES.map((c) => (
                     <option key={c.id} value={c.id}>
-                      {c.name.toUpperCase()}
+                      {c.name}
                     </option>
                   ))}
                 </select>
@@ -219,8 +221,8 @@ export default function ReportPage() {
             </div>
 
             <div>
-              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                MICRO-LOCATION / LANDMARK *
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                Micro-Location / Specific Landmark *
               </label>
               <input
                 type="text"
@@ -228,134 +230,134 @@ export default function ReportPage() {
                 value={specificLocation}
                 onChange={(e) => setSpecificLocation(e.target.value)}
                 placeholder="e.g. Campus 15, Block B, 3rd Floor Lab 302, Bench 4"
-                className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none uppercase"
+                className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-white placeholder-slate-500 focus:border-emerald-500/50 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                DETAILED DESCRIPTION (MIN 15 CHARS) *
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                Detailed Physical Description (Min 15 chars) *
               </label>
               <textarea
                 rows={3}
                 required
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="Provide identifiable physical details (color, brand, distinguishing marks)..."
-                className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none"
+                placeholder="Provide identifiable physical details (color, brand, distinguishing marks, scratches)..."
+                className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-white placeholder-slate-500 focus:border-emerald-500/50 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-all"
               />
             </div>
 
             {/* Cloudinary CDN Image Upload */}
             <div>
-              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-2">
-                PHOTOGRAPHIC PROOF (CLOUDINARY CDN)
+              <label className="block text-xs font-semibold text-slate-300 mb-2">
+                Photographic Proof (Cloudinary CDN)
               </label>
               <ImageUploader onImageUploaded={(url) => setImageUrl(url)} currentImage={imageUrl} />
             </div>
           </div>
 
           {/* Section 2: Double-Blind Ownership Challenge */}
-          <div className="nothing-widget p-7 space-y-5 font-mono">
-            <div className="flex items-start gap-3 pb-3 border-b border-white/10">
-              <Lock className="h-4 w-4 text-white mt-0.5" />
+          <div className="aura-card p-7 space-y-5 border-cyan-500/20">
+            <div className="flex items-start gap-3 pb-3 border-b border-white/[0.08]">
+              <Lock className="h-5 w-5 text-cyan-400 mt-0.5" />
               <div>
-                <h2 className="font-bold text-xs uppercase tracking-[0.2em] text-white">
-                  02 // DOUBLE-BLIND OWNERSHIP CHALLENGE
+                <h2 className="font-bold text-sm text-white">
+                  Concealed Ownership Challenge (Zero-Knowledge)
                 </h2>
-                <p className="text-[11px] text-zinc-400 mt-1 uppercase tracking-wider">
-                  Specify an asymmetric verification challenge that only the legitimate owner can solve. Answer is hashed using SHA-256.
+                <p className="text-xs text-slate-400 mt-0.5">
+                  Specify an asymmetric question that only the authentic owner can solve. The plaintext answer is never shown publicly and stored as a SHA-256 hash.
                 </p>
               </div>
             </div>
 
             <div>
-              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                CHALLENGE QUESTION (OPTIONAL)
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                Concealed Challenge Question (Optional)
               </label>
               <input
                 type="text"
                 value={secretQuestion}
                 onChange={(e) => setSecretQuestion(e.target.value)}
-                placeholder="e.g. What sticker is on the laptop lid? What key number is stamped?"
-                className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none"
+                placeholder="e.g. What sticker is on the laptop lid? What brand of battery is inside?"
+                className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-white placeholder-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                EXPECTED ANSWER (STORED AS SHA-256 HASH)
+              <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                Expected Answer (Stored as SHA-256 Hash)
               </label>
               <input
                 type="text"
                 value={secretAnswer}
                 onChange={(e) => setSecretAnswer(e.target.value)}
-                placeholder="e.g. GitHub Octocat, Room 402"
-                className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none"
+                placeholder="e.g. GitHub Octocat, Blue Duracell battery"
+                className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-white placeholder-slate-500 focus:border-cyan-500/50 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-all"
               />
-              <span className="mt-1 block text-[10px] text-zinc-500 uppercase tracking-wider">
-                Plaintext answer is never exposed in the public catalog.
+              <span className="mt-1.5 block text-[11px] text-slate-400">
+                🔒 Plaintext answer is hashed before saving. Even database admins cannot view your secret answer.
               </span>
             </div>
           </div>
 
           {/* Section 3: Contact & Reporter Credentials */}
-          <div className="nothing-widget p-7 space-y-5 font-mono">
-            <h2 className="font-bold text-xs uppercase tracking-[0.2em] text-white flex items-center gap-2 pb-3 border-b border-white/10">
-              <span className="nothing-red-dot"></span>
-              03 // REPORTER CREDENTIALS &amp; TELEMETRY
+          <div className="aura-card p-7 space-y-5">
+            <h2 className="font-bold text-sm text-white flex items-center gap-2 pb-3 border-b border-white/[0.08]">
+              <span className="aura-dot-live"></span>
+              Reporter Credentials
             </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                  FULL NAME
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Full Name
                 </label>
                 <input
                   type="text"
                   required
                   value={contactName}
                   onChange={(e) => setContactName(e.target.value)}
-                  className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none uppercase"
+                  className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-white focus:border-emerald-500/50 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                  KIIT EMAIL (@KIIT.AC.IN)
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  KIIT Email (@kiit.ac.in)
                 </label>
                 <input
                   type="email"
                   required
                   value={contactEmail}
                   onChange={(e) => setContactEmail(e.target.value)}
-                  className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none"
+                  className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-white focus:border-emerald-500/50 focus:outline-none"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                  KIIT ROLL NUMBER
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  KIIT Roll Number
                 </label>
                 <input
                   type="text"
                   value={reporterRoll}
                   onChange={(e) => setReporterRoll(e.target.value)}
                   placeholder="2105128"
-                  className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none"
+                  className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-white font-mono focus:border-emerald-500/50 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] uppercase tracking-wider text-zinc-400 mb-1.5">
-                  HOSTEL / RESIDENCE
+                <label className="block text-xs font-semibold text-slate-300 mb-1.5">
+                  Hostel / Residence
                 </label>
                 <select
                   value={reporterHostel}
                   onChange={(e) => setReporterHostel(e.target.value)}
-                  className="w-full rounded-2xl border border-white/20 bg-zinc-950 px-4 py-3 text-xs text-white focus:border-white focus:outline-none uppercase"
+                  className="w-full rounded-xl border border-white/10 bg-slate-900/90 px-4 py-3 text-xs text-slate-200 focus:border-emerald-500/50 focus:outline-none cursor-pointer"
                 >
                   {HOSTEL_LIST.map((h) => (
                     <option key={h} value={h}>
@@ -372,15 +374,15 @@ export default function ReportPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="nothing-btn-primary w-full sm:w-auto text-center"
+              className="aura-btn-primary w-full sm:w-auto text-center"
             >
               {submitting ? (
                 <>
-                  <Loader2 className="h-4 w-4 inline mr-2 animate-spin" /> PUBLISHING TELEMETRY...
+                  <Loader2 className="h-4 w-4 inline mr-2 animate-spin" /> Publishing Report...
                 </>
               ) : (
                 <>
-                  <CheckCircle2 className="h-4 w-4 inline mr-2" /> PUBLISH CAMPUS REPORT
+                  <CheckCircle2 className="h-4 w-4 inline mr-2" /> Publish Campus Report
                 </>
               )}
             </button>

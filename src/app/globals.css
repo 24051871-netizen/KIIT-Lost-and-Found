@@ -1,162 +1,175 @@
-@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: #000000;
-  --foreground: #f4f4f5;
-  --nothing-red: #d71921;
+  --background: #07090e;
+  --foreground: #f8fafc;
+  --accent-emerald: #10b981;
+  --accent-cyan: #06b6d4;
+  --accent-violet: #8b5cf6;
 }
 
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'Space Mono', ui-monospace, SFMono-Regular, monospace;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   min-height: 100vh;
-  letter-spacing: -0.01em;
-}
-
-/* Nothing (R) Dot-Matrix Typography */
-.font-ndot {
-  font-family: 'Silkscreen', monospace;
-  letter-spacing: 0.12em;
-}
-
-.font-tech {
-  font-family: 'Space Mono', monospace;
-}
-
-/* Nothing OS Signature Stipple Matrix Background */
-.nothing-dot-grid {
-  background-color: #000000;
+  overflow-x: hidden;
+  background-color: #07090e;
   background-image: 
-    radial-gradient(rgba(255, 255, 255, 0.12) 1.2px, transparent 1.2px),
-    radial-gradient(rgba(215, 25, 33, 0.08) 1px, transparent 1px);
-  background-size: 24px 24px, 72px 72px;
-  background-position: 0 0, 12px 12px;
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(16, 185, 129, 0.15), transparent),
+    radial-gradient(ellipse 60% 40% at 85% 60%, rgba(6, 182, 212, 0.08), transparent),
+    radial-gradient(ellipse 50% 30% at 15% 40%, rgba(139, 92, 246, 0.06), transparent);
+  background-attachment: fixed;
 }
 
-.nothing-radial-glow {
-  background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.09) 0%, rgba(215, 25, 33, 0.04) 40%, rgba(0, 0, 0, 0) 75%);
+.font-mono {
+  font-family: 'JetBrains Mono', monospace;
 }
 
-/* Nothing (R) Hardware Signature Red Dot */
-.nothing-red-dot {
-  width: 7px;
-  height: 7px;
-  background-color: var(--nothing-red);
-  border-radius: 9999px;
-  display: inline-block;
-  box-shadow: 0 0 8px rgba(215, 25, 33, 0.9);
-  animation: nothingPulse 2.4s ease-in-out infinite;
+/* Aurora & Mesh Lighting */
+.aurora-bg {
+  position: relative;
+  overflow: hidden;
 }
 
-@keyframes nothingPulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.55; transform: scale(0.92); }
+.aurora-bg::before {
+  content: '';
+  position: absolute;
+  top: -150px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 800px;
+  height: 450px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, rgba(6, 182, 212, 0.12) 40%, rgba(139, 92, 246, 0.05) 70%, transparent 85%);
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* Nothing (R) Stadium Pill Widget Architecture */
-.nothing-widget {
-  background: rgba(14, 14, 16, 0.85);
+/* Glassmorphism 2.0 Surface Cards */
+.aura-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 10px 30px -10px rgba(0, 0, 0, 0.7),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.aura-card:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.8),
+    0 0 25px -5px rgba(16, 185, 129, 0.15),
+    inset 0 1px 1px 0 rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+/* Solid Glass Surface for Modals / Inputs */
+.aura-surface {
+  background: rgba(13, 17, 24, 0.85);
   backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+}
+
+/* Luminous Action Buttons */
+.aura-btn-primary {
+  background: linear-gradient(135deg, #10b981 0%, #059669 50%, #047857 100%);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  padding: 0.75rem 1.6rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.4), inset 0 1px 1px 0 rgba(255, 255, 255, 0.3);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.aura-btn-primary:hover {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #059669 100%);
+  box-shadow: 0 6px 25px -2px rgba(16, 185, 129, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.4);
+  transform: translateY(-1px) scale(1.02);
+}
+
+.aura-btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  color: #f8fafc;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.02em;
+  padding: 0.75rem 1.6rem;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 26px;
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.nothing-widget:hover {
-  border-color: rgba(255, 255, 255, 0.32);
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.8);
-}
-
-/* Nothing OS Buttons */
-.nothing-btn-primary {
-  background: #ffffff;
-  color: #000000;
-  font-family: 'Space Mono', monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  padding: 0.85rem 1.8rem;
-  border-radius: 9999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.nothing-btn-primary:hover {
-  background: var(--nothing-red);
+.aura-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
   color: #ffffff;
-  box-shadow: 0 0 25px rgba(215, 25, 33, 0.5);
-  transform: scale(1.02);
+  transform: translateY(-1px);
 }
 
-.nothing-btn-secondary {
-  background: rgba(255, 255, 255, 0.04);
-  color: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  font-family: 'Space Mono', monospace;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  padding: 0.85rem 1.8rem;
+/* Glowing Status Indicator */
+.aura-dot-live {
+  width: 8px;
+  height: 8px;
+  background-color: #10b981;
   border-radius: 9999px;
-  backdrop-filter: blur(14px);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  display: inline-block;
+  box-shadow: 0 0 10px #10b981, 0 0 4px #10b981;
+  animation: auraGlow 2s ease-in-out infinite alternate;
 }
 
-.nothing-btn-secondary:hover {
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.12);
-  transform: scale(1.02);
+@keyframes auraGlow {
+  0% { transform: scale(0.9); opacity: 0.7; }
+  100% { transform: scale(1.15); opacity: 1; }
 }
 
-/* Nothing Filter Pills */
-.nothing-pill-tab {
-  font-family: 'Space Mono', monospace;
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.18em;
-  padding: 0.45rem 1.1rem;
-  border-radius: 9999px;
-  transition: all 0.2s ease;
+/* Shimmering Text Gradient */
+.text-gradient {
+  background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 50%, #94a3b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Glyph Circular Dial */
-.nothing-dial {
-  width: 48px;
-  height: 48px;
-  border-radius: 9999px;
-  border: 1px dashed rgba(255, 255, 255, 0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.text-gradient-emerald {
+  background: linear-gradient(135deg, #34d399 0%, #10b981 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-/* Subtle Minimalist Scrollbar */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  background: #000000;
+  background: #07090e;
 }
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #e11d48;
+  background: rgba(16, 185, 129, 0.4);
 }

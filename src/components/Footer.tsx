@@ -1,67 +1,64 @@
 import React from "react";
 import Link from "next/link";
-import { ShieldCheck, Phone, MapPin, Mail, ArrowUpRight } from "lucide-react";
+import { ShieldCheck, Phone, MapPin, Mail, Sparkles } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/[0.08] bg-[#07090e] text-slate-300">
+    <footer className="border-t border-white/[0.08] bg-[#050608] text-white">
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           {/* Col 1: Brand & Mission */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/10 border border-emerald-500/30 text-emerald-400">
-                <ShieldCheck className="h-5 w-5 text-emerald-400" />
+              <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                <ShieldCheck className="h-4 w-4" />
               </div>
               <span className="font-extrabold text-base tracking-tight text-white">
-                KIIT <span className="text-emerald-400 font-medium">Find</span>
+                KIIT<span className="text-emerald-400">FIND</span>
               </span>
             </div>
-            <p className="text-xs text-slate-400 leading-relaxed">
-              Official Zero-Trust campus property recovery network for KIIT Deemed to be University. Designed for seamless security across 24 academic campuses.
+            <p className="text-xs text-zinc-400 leading-relaxed font-normal">
+              Official campus property recovery protocol for KIIT Deemed to be University. Zero-Trust architecture deployed across 24 campuses.
             </p>
           </div>
 
-          {/* Col 2: Navigation */}
-          <div className="space-y-3.5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
-              Quick Links
+          {/* Col 2: Quick Links */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
+              Navigation
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-400 font-medium">
+            <ul className="space-y-2.5 text-xs text-zinc-400">
               <li>
-                <Link href="/browse" className="hover:text-emerald-400 transition-colors flex items-center gap-1 group">
+                <Link href="/browse" className="hover:text-emerald-400 transition-colors">
                   Browse Catalog
-                  <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </li>
               <li>
-                <Link href="/report" className="hover:text-emerald-400 transition-colors flex items-center gap-1 group">
-                  Report Found Property
-                  <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Link href="/report" className="hover:text-emerald-400 transition-colors">
+                  Report Found / Lost Property
                 </Link>
               </li>
               <li>
-                <Link href="/scan" className="hover:text-emerald-400 transition-colors flex items-center gap-1 group">
-                  Official Safe Zone Scanner
-                  <ArrowUpRight className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                <Link href="/scan" className="hover:text-emerald-400 transition-colors">
+                  QR Handover Scanner
                 </Link>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Safe Zone Hubs */}
-          <div className="space-y-3.5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
-              Safe Zone Checkpoints
+          {/* Col 3: Campus Handover Points */}
+          <div className="space-y-4">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
+              Safe Zone Nodes
             </h4>
-            <ul className="space-y-2.5 text-xs text-slate-400 font-medium">
+            <ul className="space-y-2.5 text-xs text-zinc-400">
               <li className="flex items-start gap-2">
                 <MapPin className="h-3.5 w-3.5 mt-0.5 text-emerald-400 shrink-0" />
-                <span>Campus 15 (CSE) Gate 1 Security</span>
+                <span>Campus 15 Gate 1 Security Desk</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="h-3.5 w-3.5 mt-0.5 text-emerald-400 shrink-0" />
-                <span>Campus 6 Central Library Circulation</span>
+                <span>Campus 6 Central Library Desk</span>
               </li>
               <li className="flex items-start gap-2">
                 <MapPin className="h-3.5 w-3.5 mt-0.5 text-emerald-400 shrink-0" />
@@ -71,18 +68,18 @@ export default function Footer() {
           </div>
 
           {/* Col 4: Campus Helplines */}
-          <div className="space-y-3.5">
-            <h4 className="text-xs font-bold uppercase tracking-wider text-slate-200">
+          <div className="space-y-4">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-white">
               Emergency Contact
             </h4>
-            <div className="space-y-2.5 text-xs text-slate-400 font-medium">
+            <div className="space-y-2.5 text-xs text-zinc-400">
               <div className="flex items-center gap-2">
                 <Phone className="h-3.5 w-3.5 text-emerald-400" />
-                <span>Campus Control: 0674-2725113</span>
+                <span>Control Room: 0674-2725113</span>
               </div>
               <div className="flex items-center gap-2">
                 <Phone className="h-3.5 w-3.5 text-emerald-400" />
-                <span>KSAC Helpdesk: 0674-2741998</span>
+                <span>KSAC Desk: 0674-2741998</span>
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="h-3.5 w-3.5 text-emerald-400" />
@@ -92,14 +89,14 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 border-t border-white/[0.08] pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+        <div className="mt-14 border-t border-white/[0.08] pt-6 flex flex-col sm:flex-row items-center justify-between text-xs text-zinc-500 gap-4">
           <p>
-            KIIT Deemed to be University • School of Computer Engineering
+            KIIT Deemed to be University // School of Computer Engineering
           </p>
-          <div className="flex gap-6 text-slate-400 font-medium">
-            <span>IEEE 830 Compliant</span>
-            <span>Zero-Trust ZK-MOP</span>
-            <span>Bhubaneswar, Odisha</span>
+          <div className="flex gap-6 font-mono text-[11px]">
+            <span className="text-zinc-400">IEEE 830 Verified</span>
+            <span className="text-zinc-400">Statute 14 Governance</span>
+            <span className="text-zinc-400">20.3540° N</span>
           </div>
         </div>
       </div>

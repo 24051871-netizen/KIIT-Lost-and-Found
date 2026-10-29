@@ -1,0 +1,1468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>KIIT-Find Final Project Report - CSE SE 2026-2027</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'neutral',
+      themeVariables: {
+        fontSize: '13px',
+        fontFamily: 'Inter, system-ui, sans-serif'
+      }
+    });
+  </script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    :root {
+      --primary: #064e3b;
+      --primary-light: #10b981;
+      --text: #1e293b;
+      --bg: #ffffff;
+      --border: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: var(--text);
+      background-color: #f1f5f9;
+      line-height: 1.6;
+      font-size: 13.5px;
+    }
+
+    .report-container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 60px 70px;
+      box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    /* Print styling */
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .report-container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        border-radius: 0;
+      }
+      .page-break {
+        page-break-before: always;
+        break-before: page;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* Print toolbar */
+    .print-bar {
+      position: sticky;
+      top: 15px;
+      z-index: 100;
+      background: #0f172a;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    .print-btn {
+      background: #10b981;
+      color: white;
+      border: none;
+      padding: 8px 18px;
+      font-weight: 600;
+      font-size: 13px;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+    .print-btn:hover {
+      background: #059669;
+    }
+
+    /* Cover Page */
+    .cover-page {
+      min-height: 950px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .kiit-logo-badge {
+      display: inline-block;
+      border: 3px solid #064e3b;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #064e3b;
+      margin-bottom: 12px;
+    }
+    .univ-name {
+      font-size: 16px;
+      font-weight: 800;
+      letter-spacing: 1.5px;
+      color: #064e3b;
+      text-transform: uppercase;
+    }
+    .report-type {
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #64748b;
+      margin-top: 60px;
+    }
+    .project-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin: 15px 0 60px 0;
+      line-height: 1.3;
+    }
+    .meta-block {
+      margin: 25px 0;
+    }
+    .meta-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #64748b;
+      margin-bottom: 6px;
+    }
+    .meta-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+    .dept-footer {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #334155;
+      line-height: 1.8;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 30px;
+    }
+
+    /* Headings */
+    h1.sec-title {
+      font-size: 20px;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: #0f172a;
+      letter-spacing: 0.5px;
+      border-bottom: 2px solid #064e3b;
+      padding-bottom: 6px;
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+    h2.sub-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #064e3b;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    h3.req-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: #0f172a;
+      margin-top: 18px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      margin-bottom: 12px;
+      text-align: justify;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 30px 0;
+      font-size: 12px;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 9px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background-color: #f8fafc;
+      font-weight: 700;
+      color: #0f172a;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    tr:nth-child(even) td {
+      background-color: #fafbfd;
+    }
+
+    /* Requirements Block */
+    .req-box {
+      background: #f8fafc;
+      border-left: 3px solid #064e3b;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      border-radius: 0 6px 6px 0;
+    }
+    .req-box strong {
+      color: #0f172a;
+    }
+
+    /* Mermaid diagrams */
+    .diagram-card {
+      background: #fafbfd;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0 30px 0;
+      text-align: center;
+      overflow-x: auto;
+    }
+
+    .toc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 6px 0;
+      border-bottom: 1px dotted #cbd5e1;
+      font-size: 13px;
+    }
+    .toc-title {
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .toc-sub {
+      padding-left: 20px;
+      color: #475569;
+      font-weight: 400;
+    }
+    .toc-page {
+      font-weight: 700;
+      color: #064e3b;
+    }
+
+    .cert-sign-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 70px;
+      padding-top: 30px;
+    }
+    .cert-sign-col {
+      border-top: 1px dashed #64748b;
+      padding-top: 8px;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+
+<div class="report-container">
+  
+  <div class="print-bar no-print">
+    <div>
+      <strong>KIIT Final Project Report</strong> &bull; CS3043 / CS2002 Software Engineering
+    </div>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ Print / Save as PDF
+    </button>
+  </div>
+
+  <!-- ==================== COVER PAGE ==================== -->
+  <div class="cover-page">
+    <div>
+      <div class="kiit-logo-badge">KIIT</div>
+      <div class="univ-name">KALINGA INSTITUTE OF INDUSTRIAL TECHNOLOGY (KIIT)</div>
+      <div style="font-size: 12px; color: #64748b; font-weight: 600; margin-top: 4px;">DEEMED TO BE UNIVERSITY, BHUBANESWAR, ODISHA</div>
+    </div>
+
+    <div>
+      <div class="report-type">A FINAL PROJECT REPORT ON</div>
+      <div class="project-title">CAMPUS PROPERTY RECOVERY PROTOCOL (KIIT-FIND)</div>
+      
+      <div class="meta-block">
+        <div class="meta-title">Submitted to:</div>
+        <div class="meta-value">PROF. RAGHUNATH</div>
+        <div style="font-size: 12px; color: #475569;">Department of Computer Science and Engineering</div>
+      </div>
+
+      <div class="meta-block" style="margin-top: 40px;">
+        <div class="meta-title">GROUP MEMBERS / CANDIDATE:</div>
+        <div class="meta-value" style="font-size: 15px;">1. PRATYUSH SHARMA — 24051871</div>
+      </div>
+    </div>
+
+    <div class="dept-footer">
+      KALINGA INSTITUTE OF INDUSTRIAL TECHNOLOGY<br>
+      DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING<br>
+      SUBJECT: SOFTWARE ENGINEERING SECTION- CS2 / SE-CS2<br>
+      (2026–2027)
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== TABLE OF CONTENTS ==================== -->
+  <h1 class="sec-title">TABLE OF CONTENTS</h1>
+
+  <div class="toc-row">
+    <span class="toc-title">PROJECT WORK OVERVIEW (ACTIVITY CALENDAR MAPPING)</span>
+    <span class="toc-page">3</span>
+  </div>
+
+  <div class="toc-row" style="margin-top: 10px;">
+    <span class="toc-title">PHASE - I: PROJECT INITIATION & LIFE CYCLE MODEL</span>
+    <span class="toc-page">4</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">1.1 Title & Problem Definition</span>
+    <span class="toc-page">4</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">1.2 Project Abstract</span>
+    <span class="toc-page">4</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">1.3 Model Chosen: Incremental Model & Justification</span>
+    <span class="toc-page">5</span>
+  </div>
+
+  <div class="toc-row" style="margin-top: 10px;">
+    <span class="toc-title">PHASE - II: SOFTWARE REQUIREMENT SPECIFICATION (SRS)</span>
+    <span class="toc-page">6</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">2.1 Introduction (Black-Box Paradigm)</span>
+    <span class="toc-page">6</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">2.2 Functional Requirements (R1 to R5)</span>
+    <span class="toc-page">6</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; R1: Report Campus Property with Privacy Masking</span>
+    <span class="toc-page">6</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; R2: Query and Filter Campus Inventory</span>
+    <span class="toc-page">7</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; R3: Zero-Trust Ownership Verification (ZK-MOP)</span>
+    <span class="toc-page">7</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; R4: Issue and Validate Cryptographic QR Handover Passes</span>
+    <span class="toc-page">8</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; R5: Anti-Spam Governance & Security Flagging</span>
+    <span class="toc-page">8</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">2.3 Non-Functional Requirements</span>
+    <span class="toc-page">9</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">2.4 Goal of Implementation (Future Enhancements)</span>
+    <span class="toc-page">9</span>
+  </div>
+
+  <div class="toc-row" style="margin-top: 10px;">
+    <span class="toc-title">PHASE - III: SYSTEM DESIGN & TEST CASES</span>
+    <span class="toc-page">10</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">3.1 Data Flow Diagrams (DFDs)</span>
+    <span class="toc-page">10</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; 1.1 DFD Level 0 (Context Diagram)</span>
+    <span class="toc-page">10</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; 1.2 DFD Level 1 (System Process Flow)</span>
+    <span class="toc-page">10</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; 1.3 DFD Level 2 (Decomposition of Process 3.0: Ownership Verification)</span>
+    <span class="toc-page">11</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">3.2 UML Diagrams</span>
+    <span class="toc-page">12</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; 2.1 Use Case Diagram</span>
+    <span class="toc-page">12</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; 2.2 Activity Diagram</span>
+    <span class="toc-page">13</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; 2.3 Class Diagram</span>
+    <span class="toc-page">13</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">&bull; 2.4 Sequence Diagrams (5 Core Functional Use Cases)</span>
+    <span class="toc-page">14</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">3.3 Entity Relationship Diagram (ER)</span>
+    <span class="toc-page">19</span>
+  </div>
+  <div class="toc-row">
+    <span class="toc-sub">3.4 Test Cases Suite (20 Formal Positive & Negative Scenarios)</span>
+    <span class="toc-page">20</span>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== ACTIVITY CALENDAR MAPPING ==================== -->
+  <h1 class="sec-title">PROJECT SPECIFICATIONS & SYLLABUS MAPPING</h1>
+  <h2 class="sub-title">Compliance with Activity Calendar 2026</h2>
+  <p>
+    This comprehensive final project report compiles and synthesizes the engineering work carried out across all three mandated phases of the <strong>Software Engineering coursework (CS3043 / CS2002, 2026–2027)</strong> at the School of Computer Science and Engineering, Kalinga Institute of Industrial Technology (KIIT Deemed to be University).
+  </p>
+
+  <h2 class="sub-title">Course Outcome Mapping & Evaluation Matrix</h2>
+  <p>
+    The project development lifecycle directly fulfills Course Outcomes <strong>CO-1, CO-2, CO-4, CO-5, and CO-6</strong> as designated in the official Activity Calendar:
+  </p>
+
+  <ul>
+    <li style="margin-bottom: 12px;">
+      <strong>Phase-I [CO-1] (2.5 Marks):</strong> Group formation, formulation of clear project title and problem definition, executive abstract, and rigorous identification and justification of the software life cycle model (<strong>Incremental Process Model</strong>).
+    </li>
+    <li style="margin-bottom: 12px;">
+      <strong>Phase-II [CO-2] (5.0 Marks):</strong> Preparation of formal Software Requirement Specifications (SRS) based strictly on the <strong>black-box specification paradigm</strong>, covering all high-level functional requirements (R1 to R5 with input, output, and processing), non-functional requirements (performance, reliability, security, etc.), and implementation goals.
+    </li>
+    <li style="margin-bottom: 12px;">
+      <strong>Phase-III [CO-4, CO-5, CO-6] (7.5 Marks):</strong> Comprehensive system design modeling including hierarchical Data Flow Diagrams (Context Level 0, Level 1, and Level 2 process decomposition), complete UML modeling suite (Use Case Diagram, Activity Diagram, Class Diagram, and Sequence Diagrams for 5 primary use cases), Entity-Relationship (ER) data architecture diagram, and an extensive suite of <strong>20 formal positive and negative test cases</strong> mapped to detailed design modules.
+    </li>
+  </ul>
+
+  <h2 class="sub-title">Final Consolidated Submission</h2>
+  <p>
+    As prescribed: <em>"Prepare a complete report for the project (Phase-I + Phase-II + Phase-III) and submit for evaluation and academic review. Mode of Submission: Official Project Record."</em> This integrated volume represents the unified, production-verified final deliverable.
+  </p>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PHASE - I ==================== -->
+  <h1 class="sec-title">PHASE - I: PROJECT INITIATION & LIFE CYCLE MODEL</h1>
+  
+  <h2 class="sub-title">Title: Campus Property Recovery Protocol (KIIT-Find)</h2>
+  
+  <h3 class="req-title">Problem Definition:</h3>
+  <p>
+    Across the 24 sprawling campuses of KIIT Deemed to be University—encompassing lecture halls, computer labs, central libraries, food courts (Kathajodi, Chintan), sports facilities (KSAC), and student hostels (KP-1 to KP-20, QC-1 to QC-12)—hundreds of high-value items (smartphones, Apple AirPods, scientific calculators, KIIT Smart ID cards, and laptops) are misplaced every semester by more than 40,000 enrolled students.
+  </p>
+  <p>
+    Currently, lost-and-found recovery relies completely on unmonitored WhatsApp groups and informal Telegram channels. This leads to four critical software and institutional failures:
+  </p>
+  <ol style="margin-left: 20px; margin-bottom: 16px;">
+    <li><strong>Zero Ownership Verification:</strong> Anyone reading a public post can claim an item by repeating the description back to the finder.</li>
+    <li><strong>Severe PII Privacy Leaks:</strong> Photographs of lost KIIT Smart ID cards are posted unredacted, exposing student roll numbers, blood groups, photographs, and phone numbers in violation of India's DPDP Act 2023.</li>
+    <li><strong>Listing Spam & Clutter:</strong> Unverified duplicate posts, prank listings, and spam flood chat channels, burying genuine recovery requests.</li>
+    <li><strong>Unsafe Custody Handover:</strong> Students meet strangers in unverified hostel rooms with zero chain-of-custody documentation or security oversight.</li>
+  </ol>
+  <p>
+    Therefore, the university administration requires an automated software platform (<strong>KIIT-Find</strong>) that authenticates institutional students via <code>@kiit.ac.in</code> credentials, enforces zero-knowledge ownership verification, automatically protects sensitive PII, governs listing volume with anti-spam rate limiting, and authenticates physical handovers at designated Campus Safe Zones using single-use cryptographic QR tokens.
+  </p>
+
+  <h2 class="sub-title">Abstract</h2>
+  <p>
+    The <strong>Campus Property Recovery Protocol (KIIT-Find)</strong> is an enterprise web software system engineered to automate, secure, and streamline the recovery of lost personal and academic property across all 24 campuses of KIIT Deemed to be University.
+  </p>
+  <p>
+    When a student discovers an unattended item on campus, they log in via their authenticated university credentials (<code>@kiit.ac.in</code>) and record the item's spatial coordinates (Campus number, building, and landmark). For sensitive items such as student ID cards, the software automatically blurs identity fields to prevent privacy exposure. Crucially, the finder configures a <strong>Concealed Challenge Question</strong> (or records a hardware identifier) without revealing the answer publicly.
+  </p>
+  <p>
+    To claim an item, a claimant must satisfy the <strong>Zero-Trust Multi-Vector Ownership Protocol (ZK-MOP)</strong>. Claimants submit non-public proof: answering the concealed challenge, matching a hardware serial/IMEI evaluated via <strong>SHA-256 cryptographic hashing</strong>, providing a pre-loss purchase invoice, or pledging a physical biometric unlock challenge at the checkpoint. Once approved, the system generates an <strong>HMAC-SHA256 signed, time-expiring (24-hour) Handover QR Pass</strong>.
+  </p>
+  <p>
+    The physical exchange is completed at an official <strong>Campus Safe Zone</strong> (e.g., Campus 15 Security Gate or Central Library Helpdesk), where the finder or security officer scans the QR pass using an integrated in-browser camera scanner. The transaction is instantly finalized, and an immutable log is written to the system audit ledger. Overall, KIIT-Find replaces vulnerable informal communication with an institutional, privacy-preserving, and mathematically verifiable campus recovery infrastructure.
+  </p>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== MODEL CHOSEN ==================== -->
+  <h2 class="sub-title">Model Chosen: Incremental Process Model</h2>
+  <p>
+    In the <strong>Incremental Model</strong>, the software is developed and delivered in multiple sequential increments. Each increment progresses systematically through the core phases of the software engineering lifecycle: requirements analysis, system design, implementation, testing, deployment, and customer evaluation. Upon completing and releasing one increment, the subsequent increment builds upon the working codebase until the full system is obtained.
+  </p>
+
+  <div class="diagram-card">
+    <div class="mermaid">
+    flowchart LR
+      I1["Increment 1<br/>Auth & Core Catalog"] --> I2["Increment 2<br/>ZK-MOP & Privacy Mask"]
+      I2 --> I3["Increment 3<br/>QR Handover & Camera Scan"]
+      I3 --> I4["Final System<br/>Audit & Quota Engine"]
+    </div>
+  </div>
+
+  <h3 class="req-title">Why we chose this model:</h3>
+  <ul>
+    <li style="margin-bottom: 10px;">
+      <strong>Natural Modular Decomposition:</strong> KIIT-Find decomposes cleanly into distinct functional subsystems (Reporting & Spatial Coordinates, ZK-MOP Verification Engine, Dynamic QR Handover Pass, Anti-Spam Quota Engine). Each subsystem can be designed, implemented, and tested independently before integration.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Early Availability of Core Functional Features:</strong> In campus operations, the most critical capability is allowing students to report found items and search the active catalog. With the incremental approach, Increment 1 delivered a functioning portal to students immediately, while the more sophisticated cryptographic QR scanning modules followed in subsequent increments.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Facilitates Academic Feedback & Requirement Refinement:</strong> During Phase-I review, evaluators raised edge cases surrounding false claims and listing spam. The incremental model allowed us to incorporate the anti-spam quota system, velocity cooldowns, and the 4-tier ZK-MOP verification matrix in Increment 2 without having to discard the core database schemas established in Increment 1.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Risk Mitigation for Camera Hardware:</strong> Integrating in-browser WebRTC optical barcode scanning (<code>html5-qrcode</code>) involves device compatibility risks across diverse student smartphones. Developing the scanning module as an isolated third increment ensured that camera permission quirks would not block progress on the primary data pipeline.
+    </li>
+  </ul>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PHASE - II (SRS) ==================== -->
+  <h1 class="sec-title">PHASE - II: SOFTWARE REQUIREMENT SPECIFICATION (SRS)</h1>
+  
+  <h2 class="sub-title">2.1 Introduction</h2>
+  <p>
+    Many campus departments and hostel desks still manage lost property through handwritten paper registers or chaotic social media group chats, which are slow, prone to errors, and lack any verification mechanism. The <strong>Campus Property Recovery Protocol (KIIT-Find)</strong> is engineered to automate the entire lifecycle of lost and found property across KIIT's 24 campuses.
+  </p>
+  <p>
+    This document specifies the functional requirements, non-functional constraints, and future implementation goals of KIIT-Find, adhering strictly to the <strong>black-box specification paradigm</strong>—describing only the external input/output behavior and processing logic without coupling to internal implementation artifacts.
+  </p>
+
+  <h2 class="sub-title">2.2 Functional Requirements (R1 to R5)</h2>
+  <p>
+    The functional requirements are structured into a set of high-level requirements <strong>R1 to R5</strong>, each broken down into fine-grained sub-requirements specifying exact <strong>Input, Output, and Processing</strong>:
+  </p>
+
+  <div class="req-box">
+    <h3 class="req-title">R1: Report Lost or Found Campus Property with Privacy Masking</h3>
+    <p><strong>Description:</strong> Enables an authenticated student or staff member to register a lost or found item with spatial coordinates, apply privacy masking to identity cards, and configure a concealed challenge question.</p>
+    <p><strong>R1.1: Capture Item Details & Spatial Coordinates</strong><br>
+    <em>Input:</em> Item title, category, description, campus location (Campus 1–24), specific landmark.<br>
+    <em>Output:</em> Validated item preview displayed to user.<br>
+    <em>Processing:</em> Validates title length ($\ge 3$ characters), binds listing to reporter's authenticated <code>@kiit.ac.in</code> email.</p>
+
+    <p><strong>R1.2: Privacy Masking of Sensitive Personal Data (PII)</strong><br>
+    <em>Input:</em> Uploaded photograph of item and category selection.<br>
+    <em>Output:</em> Public catalog image with identity credentials masked.<br>
+    <em>Processing:</em> If category is <code>KIIT_ID_CARD</code> or <code>WALLET_DOCS</code>, flags <code>isSensitive = true</code> and applies automated visual blur on public catalog streams.</p>
+
+    <p><strong>R1.3: Configure Concealed Challenge Question</strong><br>
+    <em>Input:</em> Secret challenge question and secret answer (or hardware serial/IMEI).<br>
+    <em>Output:</em> Encrypted challenge confirmation.<br>
+    <em>Processing:</em> Computes SHA-256 hash of plaintext answer; stores hash in database; purges plaintext from memory.</p>
+  </div>
+
+  <div class="req-box">
+    <h3 class="req-title">R2: Query and Filter Campus Property Inventory</h3>
+    <p><strong>Description:</strong> Enables students and faculty to search, filter, and inspect verified items across all university campuses in real time.</p>
+    <p><strong>R2.1: Multi-Facet Attribute Filtering</strong><br>
+    <em>Input:</em> Selected campus zone, category, listing type (Lost/Found), lifecycle status.<br>
+    <em>Output:</em> Filtered gallery of matching item cards.<br>
+    <em>Processing:</em> Executes parameterized database query; returns matching active listings sorted by descending timestamp.</p>
+
+    <p><strong>R2.2: Free-Text Search</strong><br>
+    <em>Input:</em> Search query string (e.g., <em>"Campus 6 Library"</em>, <em>"Casio Calculator"</em>).<br>
+    <em>Output:</em> Substring-matched items.<br>
+    <em>Processing:</em> Queries text-indexed title, description, and landmark fields.</p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <div class="req-box">
+    <h3 class="req-title">R3: Zero-Trust Ownership Verification (ZK-MOP Protocol)</h3>
+    <p><strong>Description:</strong> Coordinates the multi-vector ownership claim process, eliminating false claims and social-engineering theft without revealing secrets publicly.</p>
+    <p><strong>R3.1: Select Verification Proof Vector</strong><br>
+    <em>Input:</em> Claimant selection of proof type (Roll Match, Serial Hash, Concealed Challenge, Pre-loss Invoice, or Safe Zone Physical Unlock).<br>
+    <em>Output:</em> Contextual secure proof input form presented to claimant.<br>
+    <em>Processing:</em> Validates vector appropriateness against item category.</p>
+
+    <p><strong>R3.2: Cryptographic Proof Evaluation & Anti-Brute-Force Guard</strong><br>
+    <em>Input:</em> Claimant's answer string or hardware serial.<br>
+    <em>Output:</em> Claim verified status or rejection notice.<br>
+    <em>Processing:</em> Computes SHA-256 hash of submitted value; compares against stored hash. If failed attempts $\ge 3$, claimant account is locked for 24 hours.</p>
+
+    <p><strong>R3.3: Finder Review & Claim Approval</strong><br>
+    <em>Input:</em> Finder approval action.<br>
+    <em>Output:</em> Status transitioned to <code>CLAIM_APPROVED</code>; claimant notified to retrieve QR pass.<br>
+    <em>Processing:</em> Commits claim state and authorizes Handover QR Pass generation.</p>
+  </div>
+
+  <div class="req-box">
+    <h3 class="req-title">R4: Issue and Validate Cryptographic Safe Zone Handover QR Passes</h3>
+    <p><strong>Description:</strong> Issues dynamic, time-expiring QR passes and validates physical handovers via camera optical scanning at Campus Safe Zones.</p>
+    <p><strong>R4.1: Dynamic QR Handover Pass Generation</strong><br>
+    <em>Input:</em> Approved item ID, claimant roll number, server secret key.<br>
+    <em>Output:</em> Dynamic QR code displayed on claimant's smartphone.<br>
+    <em>Processing:</em> Encodes an HMAC-SHA256 signature containing <code>itemId</code>, <code>claimantRoll</code>, and a 24-hour expiration timestamp.</p>
+
+    <p><strong>R4.2: In-Browser Optical QR Handover Scan</strong><br>
+    <em>Input:</em> Video camera stream from checkpoint officer's device scanning claimant QR.<br>
+    <em>Output:</em> Handover success prompt with celebration feedback.<br>
+    <em>Processing:</em> Decodes token payload; validates HMAC signature and expiry; updates item status to <code>RETURNED</code>; logs immutable custody entry in audit ledger.</p>
+  </div>
+
+  <div class="req-box">
+    <h3 class="req-title">R5: Anti-Spam Listing Governance and Security Flagging</h3>
+    <p><strong>Description:</strong> Prevents malicious listing flooding and community-moderates suspicious postings.</p>
+    <p><strong>R5.1: Enforce Active Listing Quota & Velocity Cooldown</strong><br>
+    <em>Input:</em> New listing submission from student account.<br>
+    <em>Output:</em> Submission accepted or quota rejection notice.<br>
+    <em>Processing:</em> Checks count of active listings ($\le 3$) and post cooldown time ($\ge 5$ minutes). Rejects submission if violated.</p>
+
+    <p><strong>R5.2: Community Security Flagging & Auto-Quarantine</strong><br>
+    <em>Input:</em> "Flag Listing" action from authenticated student.<br>
+    <em>Output:</em> Flag confirmation prompt.<br>
+    <em>Processing:</em> Increments <code>flagCount</code>; if $\ge 3$, automatically quarantines listing and removes it from public view for security audit.</p>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== NON-FUNCTIONAL REQUIREMENTS ==================== -->
+  <h2 class="sub-title">2.3 Non-Functional Requirements</h2>
+  <p>
+    The following characteristics of KIIT-Find cannot be expressed directly as functions, but are essential quality attributes:
+  </p>
+
+  <ul>
+    <li style="margin-bottom: 10px;">
+      <strong>Performance:</strong> The system shall register a scanned item and update the public catalog within <strong>500 milliseconds</strong>. The camera QR scanner module shall decode, verify HMAC integrity, and register custody transfer within <strong>1.5 seconds</strong>.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Reliability:</strong> The system shall not lose any transaction state if network connectivity drops midway; all claim transitions are atomically committed in the database before generating handover passes.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Availability:</strong> The system shall maintain <strong>99.5% uptime</strong> 24/7/365 to serve academic hours and residential hostel shifts across all 24 campuses.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Usability:</strong> The mobile interface shall feature a thumb-accessible floating bottom dock (<code>Home</code>, <code>Catalog</code>, <code>Report</code>, <code>Scanner</code>) allowing one-handed smartphone operation.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Security:</strong> All users must authenticate via institutional <code>@kiit.ac.in</code> Google OAuth. Secrets are never stored in plaintext; they are hashed with <strong>SHA-256</strong>. Handover passes expire in 24 hours to prevent replay attacks.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Maintainability:</strong> Frontend presentation components are strictly decoupled from Next.js REST API routes, allowing visual design updates without impacting business logic.
+    </li>
+    <li style="margin-bottom: 10px;">
+      <strong>Portability:</strong> The system runs on standard web browsers (Google Chrome, Apple Safari, Mozilla Firefox, Microsoft Edge) on mobile and desktop without requiring external plugins.
+    </li>
+  </ul>
+
+  <h2 class="sub-title">2.4 Goal of Implementation (Future Enhancements)</h2>
+  <p>
+    The following requirements are not needed immediately but are architected into the system foundation for future releases:
+  </p>
+  <ol style="margin-left: 20px; line-height: 1.8;">
+    <li><strong>AI Semantic Vector Search:</strong> Natural language matching between lost item descriptions and found item posts using MongoDB Atlas Vector Search.</li>
+    <li><strong>Automated SMS / WhatsApp Gateway:</strong> Instant notifications dispatched to student mobile numbers via Twilio when an ID card matching their roll number is logged.</li>
+    <li><strong>Smart Campus Locker Integration:</strong> IoT-enabled automated deposit lockers at KSAC and Central Library for physical deposits without security officer presence.</li>
+    <li><strong>Campus Civic Karma System:</strong> A reputation ledger granting verified students "Campus Civic Karma" points for returning lost items, redeemable for university food court or library privileges.</li>
+    <li><strong>RFID / NFC Gate Beacon Scanner:</strong> Automated RFID sensors at campus turnstiles to cross-check reported lost smart cards against physical turnstile taps.</li>
+  </ol>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PHASE - III (DFD) ==================== -->
+  <h1 class="sec-title">PHASE - III: SYSTEM DESIGN & TEST CASES</h1>
+  
+  <h2 class="sub-title">3.1 Data Flow Diagrams (DFDs)</h2>
+  
+  <h3 class="req-title">1.1 DFD Level 0 (Context Diagram)</h3>
+  <div class="diagram-card">
+    <div class="mermaid">
+    flowchart LR
+      Finder[Student Finder]
+      Claimant[Student Claimant]
+      Officer[Campus Security Officer]
+      Sys(("0.0<br/>KIIT-Find<br/>Recovery System"))
+
+      Finder -- "Item details, coords,<br/>challenge answer" --> Sys
+      Sys -- "Listing confirmation,<br/>claim notification" --> Finder
+
+      Claimant -- "Search query, proof vector,<br/>claim submission" --> Sys
+      Sys -- "Filtered catalog, 24H<br/>Handover QR Pass" --> Claimant
+
+      Officer -- "Camera optical scan,<br/>custody verification" --> Sys
+      Sys -- "Handover authorization,<br/>audit confirmation" --> Officer
+    </div>
+  </div>
+
+  <h3 class="req-title">1.2 DFD Level 1 (System Process Flow)</h3>
+  <div class="diagram-card">
+    <div class="mermaid">
+    flowchart TD
+      Finder[Student Finder]
+      Claimant[Student Claimant]
+      Officer[Security Officer]
+
+      P1(("1.0<br/>Process & Mask<br/>Item Report"))
+      P2(("2.0<br/>Catalog Search<br/>& Spatial Query"))
+      P3(("3.0<br/>Zero-Trust Claim<br/>Verification"))
+      P4(("4.0<br/>Generate Handover<br/>Pass & Scan"))
+      P5(("5.0<br/>Anti-Spam & Flag<br/>Governance"))
+
+      D1[("D1: Item Repository")]
+      D2[("D2: Claims Ledger")]
+      D3[("D3: Audit Ledger")]
+      D4[("D4: User Quotas")]
+
+      Finder -->|Item details & photo| P1
+      P1 -->|Store item & SHA-256 hash| D1
+      P1 -->|Check user limit| D4
+
+      Claimant -->|Search filters| P2
+      D1 -->|Active item stream| P2
+      P2 -->|Filtered catalog cards| Claimant
+
+      Claimant -->|Submit proof vector| P3
+      D1 -->|Fetch challenge hash| P3
+      P3 -->|Store verified claim| D2
+      Finder -->|Approve/Reject| P3
+
+      D2 -->|Claim approved event| P4
+      P4 -->|Dynamic QR pass| Claimant
+      Officer -->|Camera optical scan| P4
+      P4 -->|Update status: RETURNED| D1
+      P4 -->|Immutable custody entry| D3
+
+      Finder & Claimant -->|Flag suspicious post| P5
+      P5 -->|Update flag count & quarantine| D4
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h3 class="req-title">1.3 DFD Level 2 (Decomposition of Process 3.0: Ownership Verification)</h3>
+  <div class="diagram-card">
+    <div class="mermaid">
+    flowchart TD
+      Claimant[Claimant Student]
+      
+      P31(("3.1<br/>Identify Vector<br/>Type"))
+      P32(("3.2<br/>Roll Match<br/>Verification"))
+      P33(("3.3<br/>SHA-256 Hash<br/>Comparator"))
+      P34(("3.4<br/>Physical Unlock<br/>Pledge Intake"))
+      P35(("3.5<br/>Anti-Brute Force<br/>Tracker"))
+
+      D1[("D1: Item Master")]
+      D2[("D2: Claims Ledger")]
+      D4[("D4: User Quotas")]
+
+      Claimant -->|Select vector & proof payload| P31
+
+      P31 -->|Vector: Roll Lock| P32
+      P32 -->|Check claimant roll vs ID card roll| D1
+      
+      P31 -->|Vector: Serial / Challenge| P33
+      P33 -->|Compute SHA-256 & compare with stored hash| D1
+
+      P31 -->|Vector: Physical Unlock| P34
+      P34 -->|Record unlock pledge for checkpoint| D2
+
+      P32 & P33 -->|On Verification Failure| P35
+      P35 -->|Increment failure count; lock if >= 3| D4
+
+      P32 & P33 & P34 -->|On Verification Success| D2
+      D2 -->|Notify Finder for Final Approval| FinderReview["Finder Review / Pass Generation"]
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PHASE - III (UML) ==================== -->
+  <h2 class="sub-title">3.2 UML Diagrams</h2>
+
+  <h3 class="req-title">2.1 Use Case Diagram</h3>
+  <div class="diagram-card">
+    <div class="mermaid">
+    flowchart LR
+      subgraph Actors
+        Finder((Student Finder))
+        Claimant((Student Claimant))
+        Officer((Security Officer))
+      end
+
+      subgraph SystemBoundary ["KIIT-Find System Boundary"]
+        UC1[Report Lost/Found Item]
+        UC2[Configure Concealed Challenge]
+        UC3[Browse & Filter Inventory]
+        UC4[Submit Ownership Proof Vector]
+        UC5[Review Submitted Claims]
+        UC6[View Handover QR Pass]
+        UC7[Scan QR at Safe Zone Checkpoint]
+        UC8[Flag Suspicious Listing]
+        UC9[Enforce Anti-Spam Quota]
+      end
+
+      Finder --> UC1
+      Finder --> UC2
+      Finder --> UC5
+      Finder --> UC8
+
+      Claimant --> UC3
+      Claimant --> UC4
+      Claimant --> UC6
+      Claimant --> UC8
+
+      Officer --> UC3
+      Officer --> UC7
+
+      UC1 -.->|includes| UC9
+      UC1 -.->|includes| UC2
+      UC4 -.->|extends| UC5
+      UC5 -.->|triggers| UC6
+      UC6 -.->|verified by| UC7
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h3 class="req-title">2.2 Activity Diagram</h3>
+  <div class="diagram-card">
+    <div class="mermaid">
+    flowchart TD
+      Start([Start: Item Discovered]) --> Login[Authenticate via @kiit.ac.in OAuth]
+      Login --> ReportItem[Enter Details & Spatial Coords]
+      ReportItem --> CategoryCheck{Category = ID Card?}
+      
+      CategoryCheck -- Yes --> MaskPII[Auto-Mask Photo & Roll on Public Stream]
+      CategoryCheck -- No --> SetChallenge[Configure Concealed Challenge or Serial Hash]
+      MaskPII --> SetChallenge
+
+      SetChallenge --> Publish[Publish to Campus Catalog]
+      Publish --> BrowseCatalog[Claimant Discovers Item]
+      
+      BrowseCatalog --> SelectVector[Select Ownership Proof Vector]
+      SelectVector --> SubmitProof[Submit Answer / Serial / Invoice / Pledge]
+      
+      SubmitProof --> VerifyCheck{Cryptographic or Roll Match?}
+      VerifyCheck -- Failure --> AttemptCheck{Failed Attempts >= 3?}
+      AttemptCheck -- Yes --> LockAccount[Lock Account for 24h & Flag Fraud]
+      AttemptCheck -- No --> ShowError[Prompt Invalid Proof Error]
+      ShowError --> SelectVector
+      LockAccount --> EndFail([End: Disciplinary Audit])
+
+      VerifyCheck -- Success --> FinderReview[Finder Reviews & Approves Claim]
+      FinderReview --> GenerateQR[Generate HMAC-SHA256 24h Handover QR Pass]
+      GenerateQR --> MeetSafeZone[Meet at Campus 15 Safe Zone]
+      MeetSafeZone --> ScanQR[Security Officer Scans QR with Camera]
+      
+      ScanQR --> CheckpointVerify{Token Valid & Not Expired?}
+      CheckpointVerify -- No --> RejectHandover[Reject Transfer & Retain Item]
+      CheckpointVerify -- Yes --> Finalize[Mark Item RETURNED & Log Immutable Audit]
+      Finalize --> EndSuccess([End: Handover Resolved])
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h3 class="req-title">2.3 Class Diagram</h3>
+  <div class="diagram-card">
+    <div class="mermaid">
+    classDiagram
+      class User {
+        -String userId
+        -String email
+        -String fullName
+        -String rollNumber
+        -String hostelBlock
+        -Int activeListingCount
+        -DateTime lastReportedAt
+        +loginWithGoogle() Boolean
+        +checkListingQuota() Boolean
+        +incrementFlagCount() void
+      }
+
+      class Item {
+        -String itemId
+        -String title
+        -String category
+        -String itemType
+        -String campusName
+        -String specificLocation
+        -String description
+        -List~String~ imageUrls
+        -Boolean isSensitive
+        -String secretChallengeQuestion
+        -String secretChallengeAnswerHash
+        -String hardwareIdentifierHash
+        -String status
+        -Int flagCount
+        -DateTime createdAt
+        +applyPrivacyMask() void
+        +verifyChallenge(String answer) Boolean
+        +verifyHardwareSerial(String serial) Boolean
+        +transitionStatus(String newStatus) void
+      }
+
+      class Claim {
+        -String claimId
+        -String itemId
+        -String claimantRoll
+        -String claimantEmail
+        -String proofType
+        -String challengeAnswerSubmitted
+        -String hardwareSerialSubmitted
+        -String proofDocumentUrl
+        -Boolean physicalUnlockConfirmed
+        -String status
+        -DateTime submittedAt
+        +evaluateProof() Boolean
+        +approveClaim() void
+        +rejectClaim() void
+      }
+
+      class HandoverPass {
+        -String passId
+        -String itemId
+        -String claimantRoll
+        -String hmacSignature
+        -DateTime issuedAt
+        -DateTime expiresAt
+        -Boolean isRedeemed
+        +generateToken() String
+        +validateExpiry() Boolean
+        +redeemPass() void
+      }
+
+      class AuditLog {
+        -String logId
+        -String itemId
+        -String eventType
+        -String performedByEmail
+        -String checkpointLocation
+        -DateTime timestamp
+        +recordEvent() void
+      }
+
+      User "1" --> "0..*" Item : reports
+      User "1" --> "0..*" Claim : submits
+      Item "1" --> "0..*" Claim : receives
+      Claim "1" --> "0..1" HandoverPass : generates
+      Item "1" --> "1..*" AuditLog : tracks
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h3 class="req-title">2.4 Sequence Diagrams (5 Core Functional Use Cases)</h3>
+
+  <h4 style="margin-top: 15px; color: #064e3b;">2.4.1 Report Item & Concealed Challenge Setup (Mapped to R1)</h4>
+  <div class="diagram-card">
+    <div class="mermaid">
+    sequenceDiagram
+      autonumber
+      actor Finder as Student Finder
+      participant Web as KIIT-Find Client
+      participant Auth as Auth & Quota Guard
+      participant Server as Next.js API Server
+      participant DB as MongoDB Atlas
+
+      Finder->>Web: Navigate to /report and enter item details
+      Finder->>Web: Input spatial coordinates (Campus 15, Lab 3)
+      Finder->>Web: Enter challenge question & answer ("Blue HP mouse", "DPI is red")
+      Web->>Auth: Verify user quota (active listings < 3 & cooldown > 5m)
+      Auth-->>Web: Quota cleared
+
+      Web->>Server: POST /api/items (Payload + Challenge Answer)
+      Server->>Server: Compute SHA-256 hash of challenge answer
+      Server->>Server: Check category (apply privacy mask flag if ID card)
+      Server->>DB: INSERT into items collection (store hash, discard plaintext)
+      DB-->>Server: Item document created (ID: #ITM-8492)
+      Server-->>Web: HTTP 201 Created (JSON Response)
+      Web-->>Finder: Display success prompt with listing card in catalog
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h4 style="margin-top: 15px; color: #064e3b;">2.4.2 Query / Filter Inventory (Mapped to R2)</h4>
+  <div class="diagram-card">
+    <div class="mermaid">
+    sequenceDiagram
+      autonumber
+      actor User as Student / Evaluator
+      participant Web as KIIT-Find Client
+      participant Cache as Edge Cache
+      participant Server as Next.js API Server
+      participant DB as MongoDB Atlas
+
+      User->>Web: Access /browse page
+      User->>Web: Select Campus: "Campus 15", Category: "Electronics", Type: "Found"
+      Web->>Server: GET /api/items?campus=15&category=ELECTRONICS&type=FOUND
+      
+      Server->>Cache: Check for cached catalog page
+      alt Cache Miss
+        Server->>DB: find({ campusName: "Campus 15", category: "ELECTRONICS", status: "ACTIVE" })
+        DB-->>Server: Return matching item array (5 records)
+        Server->>Cache: Cache response (TTL: 60s)
+      else Cache Hit
+        Cache-->>Server: Return cached records
+      end
+
+      Server-->>Web: HTTP 200 OK (JSON with masked PII)
+      Web-->>User: Render responsive glassmorphic item cards with status badges
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h4 style="margin-top: 15px; color: #064e3b;">2.4.3 Ownership Claim & Multi-Vector Match (Mapped to R3)</h4>
+  <div class="diagram-card">
+    <div class="mermaid">
+    sequenceDiagram
+      autonumber
+      actor Claimant as Student Claimant
+      participant Web as KIIT-Find Client
+      participant Server as Next.js API Server
+      participant HashEngine as Crypto Engine (SHA-256)
+      participant DB as MongoDB Atlas
+      actor Finder as Item Finder
+
+      Claimant->>Web: Open item detail page (/items/8492)
+      Claimant->>Web: Click "Claim This Item"
+      Web-->>Claimant: Present vector selection dialog
+      Claimant->>Web: Select "Hardware Serial / IMEI" and input "SN-94829420"
+
+      Web->>Server: POST /api/items/8492/claim (serialSubmitted)
+      Server->>HashEngine: Compute SHA-256("SN-94829420")
+      HashEngine-->>Server: Computed Hash: a3f8...
+
+      Server->>DB: Fetch stored hardwareIdentifierHash for item 8492
+      DB-->>Server: Return stored hash
+      Server->>Server: Constant-time comparison (computed == stored)
+
+      alt Hash Match Valid
+        Server->>DB: INSERT into claims collection (Status: PENDING)
+        DB-->>Server: Claim recorded
+        Server-->>Finder: Trigger claim review alert
+        Finder->>Server: POST /api/items/8492/verify-claim (Action: APPROVE)
+        Server->>DB: UPDATE item status = "CLAIM_APPROVED"
+        Server-->>Web: HTTP 200 (Claim Approved)
+        Web-->>Claimant: Display "Claim Approved! Handover Pass Available"
+      else Hash Mismatch
+        Server->>DB: Increment failedAttempts counter for user
+        Server-->>Web: HTTP 401 Unauthorized (Verification failed)
+        Web-->>Claimant: Show error: "Verification Failed. Attempt 1 of 3"
+      end
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h4 style="margin-top: 15px; color: #064e3b;">2.4.4 Issue & Optical QR Scan Handover (Mapped to R4)</h4>
+  <div class="diagram-card">
+    <div class="mermaid">
+    sequenceDiagram
+      autonumber
+      actor Claimant as Student Claimant
+      actor Officer as Campus Security Officer
+      participant ScannerWeb as Officer Web Camera (/scan)
+      participant Server as Next.js API Server
+      participant DB as MongoDB Atlas
+
+      Claimant->>Claimant: Open Handover QR Pass on smartphone display
+      Officer->>ScannerWeb: Open /scan on checkpoint device
+      Officer->>ScannerWeb: Point camera lens at Claimant QR code
+
+      ScannerWeb->>ScannerWeb: Optical scan detects payload (HMAC Token)
+      ScannerWeb->>Server: POST /api/items/8492/handover (qrToken)
+      
+      Server->>Server: Verify HMAC-SHA256 signature using secret key
+      Server->>Server: Check expiration timestamp (now < expiresAt)
+
+      alt Token Valid & Non-Expired
+        Server->>DB: UPDATE item status = "RETURNED"
+        Server->>DB: INSERT into audit_logs (Event: HANDOVER_COMPLETED)
+        DB-->>Server: Transaction committed
+        Server-->>ScannerWeb: HTTP 200 OK (Handover Validated)
+        ScannerWeb-->>Officer: Trigger success chime + Confetti celebration display
+        ScannerWeb-->>Claimant: Custody transfer confirmed
+      else Token Expired or Tampered
+        Server-->>ScannerWeb: HTTP 400 Bad Request (Invalid Token)
+        ScannerWeb-->>Officer: Display warning: "Token Expired or Invalid!"
+      end
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <h4 style="margin-top: 15px; color: #064e3b;">2.4.5 Flag Spam & Quota Enforcement (Mapped to R5)</h4>
+  <div class="diagram-card">
+    <div class="mermaid">
+    sequenceDiagram
+      autonumber
+      actor Student as Authenticated Student
+      participant Web as KIIT-Find Client
+      participant Server as Next.js API Server
+      participant DB as MongoDB Atlas
+
+      Student->>Web: Click "Flag as Suspicious / Spam" on an item
+      Web-->>Student: Display confirmation prompt
+      Student->>Web: Confirm flag submission (Reason: SPAM)
+
+      Web->>Server: POST /api/items/8492/flag (reporterEmail)
+      Server->>DB: Check if student already flagged this item
+      alt Not Yet Flagged by This User
+        Server->>DB: Increment flagCount by 1
+        DB-->>Server: New flagCount = 3
+        Server->>Server: Check if flagCount >= 3
+        alt Threshold Reached (flags >= 3)
+          Server->>DB: UPDATE item status = "QUARANTINED"
+          Server->>DB: INSERT security alert in audit_logs
+          DB-->>Server: Item quarantined
+          Server-->>Web: Item hidden from public view
+        else Threshold Not Reached
+          Server-->>Web: Flag recorded
+        end
+        Web-->>Student: Show confirmation: "Reported for security review"
+      else Already Flagged
+        Server-->>Web: HTTP 400 (Duplicate flag rejected)
+        Web-->>Student: Display: "You have already flagged this listing"
+      end
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PHASE - III (ER DIAGRAM) ==================== -->
+  <h2 class="sub-title">3.3 Entity Relationship Diagram (ER)</h2>
+  <div class="diagram-card">
+    <div class="mermaid">
+    erDiagram
+      USER ||--o{ ITEM : "reports / logs"
+      USER ||--o{ CLAIM : "submits"
+      USER ||--o{ AUDIT_LOG : "triggers"
+      ITEM ||--o{ CLAIM : "receives"
+      ITEM ||--o| HANDOVER_PASS : "authorizes"
+      ITEM ||--o{ AUDIT_LOG : "records history"
+
+      USER {
+        string user_id PK
+        string email
+        string full_name
+        string roll_number
+        string hostel_block
+        int active_listing_count
+        timestamp last_reported_at
+      }
+
+      ITEM {
+        string item_id PK
+        string reporter_id FK
+        string title
+        string category
+        string item_type
+        string campus_name
+        string specific_location
+        string description
+        string image_url
+        boolean is_sensitive
+        string secret_challenge_hash
+        string hardware_serial_hash
+        string status
+        int flag_count
+        timestamp created_at
+      }
+
+      CLAIM {
+        string claim_id PK
+        string item_id FK
+        string claimant_id FK
+        string proof_type
+        string proof_answer_submitted
+        string proof_document_url
+        boolean physical_unlock_pledged
+        string status
+        timestamp submitted_at
+      }
+
+      HANDOVER_PASS {
+        string pass_id PK
+        string item_id FK
+        string claimant_id FK
+        string hmac_token
+        timestamp issued_at
+        timestamp expires_at
+        boolean is_redeemed
+      }
+
+      AUDIT_LOG {
+        string log_id PK
+        string item_id FK
+        string user_id FK
+        string event_type
+        string checkpoint_gate
+        timestamp recorded_at
+      }
+    </div>
+  </div>
+
+  <div class="page-break"></div>
+
+  <!-- ==================== PHASE - III (TEST CASES) ==================== -->
+  <h2 class="sub-title">3.4 Test Cases Suite (20 Formal Positive & Negative Scenarios)</h2>
+  <p>
+    Comprehensive suite of functional test cases (positive & negative), validating all core modules against detailed design specifications.
+  </p>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">SL. NO</th>
+        <th style="width: 18%;">TEST CASE NAME</th>
+        <th style="width: 25%;">TEST PROCEDURE</th>
+        <th style="width: 18%;">PRE-CONDITION</th>
+        <th style="width: 20%;">EXPECTED RESULT</th>
+        <th style="width: 14%;">REFERENCE DESIGN</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td><strong>Report item with valid attributes</strong></td>
+        <td>Navigate to <code>/report</code>, fill title (15 chars), category ELECTRONICS, campus 15, and submit.</td>
+        <td>User authenticated with valid <code>@kiit.ac.in</code> email</td>
+        <td>Item successfully created; HTTP 201; visible in catalog</td>
+        <td>Reporting Module (R1.1)</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td><strong>Report item with title &lt; 3 characters</strong></td>
+        <td>Input title = <code>"AB"</code>, fill other fields, click submit.</td>
+        <td>User authenticated</td>
+        <td>Input rejected; error: <em>"Title must be at least 3 characters"</em>; HTTP 400</td>
+        <td>Reporting Module (R1.1)</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td><strong>Enforce active listing quota</strong></td>
+        <td>Attempt to submit a 4th listing when user has 3 active items.</td>
+        <td>User has 3 items with status <code>ACTIVE</code></td>
+        <td>Submission rejected; prompt: <em>"Quota reached (Max: 3)"</em>; HTTP 403</td>
+        <td>Governance Module (R5.1)</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td><strong>Enforce velocity cooldown</strong></td>
+        <td>Attempt to submit a second item 30s after previous post.</td>
+        <td>User reported item 30s ago</td>
+        <td>Submission blocked; prompt: <em>"Cooldown: Please wait before posting"</em></td>
+        <td>Governance Module (R5.1)</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td><strong>Privacy masking on KIIT ID card</strong></td>
+        <td>Select category <code>KIIT_ID_CARD</code>, upload photo, and submit.</td>
+        <td>Valid ID photo attached</td>
+        <td><code>isSensitive</code> = true; photo blurred on public catalog; roll masked</td>
+        <td>Privacy Module (R1.2)</td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td><strong>Challenge answer hashing</strong></td>
+        <td>Enter secret answer = <code>"Red toggle"</code> during reporting.</td>
+        <td>Item intake in progress</td>
+        <td>Stored answer is 64-char SHA-256 hash; plaintext never saved to DB</td>
+        <td>Security Engine (R1.3)</td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td><strong>Filter catalog by campus</strong></td>
+        <td>Select dropdown filter <code>Campus 15</code> on <code>/browse</code>.</td>
+        <td>Items exist across campuses 3, 6, 15</td>
+        <td>Catalog displays strictly Campus 15 items; count updates</td>
+        <td>Catalog Module (R2.1)</td>
+      </tr>
+      <tr>
+        <td>8</td>
+        <td><strong>Free-text keyword search</strong></td>
+        <td>Enter query string <code>"Calculator"</code> into search bar.</td>
+        <td>Catalog contains Casio calculator & Dell laptop</td>
+        <td>Casio calculator displayed; irrelevant Dell laptop excluded</td>
+        <td>Search Engine (R2.2)</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td><strong>Search with zero matches</strong></td>
+        <td>Enter query string <code>"Xylophone123"</code>.</td>
+        <td>No items match query</td>
+        <td>Empty state shown: <em>"No verified campus items match your query"</em></td>
+        <td>Search Engine (R2.2)</td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td><strong>Roll Lock match on ID card</strong></td>
+        <td>Student with roll <code>2105128</code> claims ID card tagged with roll <code>2105128</code>.</td>
+        <td>ID card has roll lock enabled</td>
+        <td>Rolls match; claim verified automatically; handover pass unlocked</td>
+        <td>Ownership Engine (R3.1)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-break"></div>
+
+  <h3 class="req-title">TEST CASES SUITE (CONTINUED)</h3>
+
+  <table>
+    <thead>
+      <tr>
+        <th style="width: 5%;">SL. NO</th>
+        <th style="width: 18%;">TEST CASE NAME</th>
+        <th style="width: 25%;">TEST PROCEDURE</th>
+        <th style="width: 18%;">PRE-CONDITION</th>
+        <th style="width: 20%;">EXPECTED RESULT</th>
+        <th style="width: 14%;">REFERENCE DESIGN</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>11</td>
+        <td><strong>Roll Lock mismatch on ID card</strong></td>
+        <td>Student with roll <code>2405999</code> claims card tagged with roll <code>2105128</code>.</td>
+        <td>ID card tagged with roll <code>2105128</code></td>
+        <td>Claim rejected; prompt: <em>"Roll number does not match ID card"</em>; HTTP 403</td>
+        <td>Ownership Engine (R3.1)</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td><strong>Hardware serial verification</strong></td>
+        <td>Enter serial <code>"NHQ5NSI002"</code> matching stored hash.</td>
+        <td>Item has hardware hash stored</td>
+        <td>SHA-256 hash matched; claim accepted; status set to <code>PENDING</code></td>
+        <td>Ownership Engine (R3.2)</td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td><strong>Hardware serial mismatch</strong></td>
+        <td>Enter incorrect serial <code>"WRONG12345"</code>.</td>
+        <td>Item has hardware hash stored</td>
+        <td>Hash comparison fails; claim rejected with error notice</td>
+        <td>Ownership Engine (R3.2)</td>
+      </tr>
+      <tr>
+        <td>14</td>
+        <td><strong>Anti-Brute-Force 3-strike lock</strong></td>
+        <td>Submit 3 consecutive incorrect challenge answers on same item.</td>
+        <td>Claimant has 2 prior failed attempts</td>
+        <td>Account locked for 24 hours; incident recorded in security ledger</td>
+        <td>Anti-Brute Force (R3.2)</td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td><strong>Physical unlock challenge pledge</strong></td>
+        <td>Check mandatory physical unlock checkbox for electronics category.</td>
+        <td>Laptop item being claimed</td>
+        <td>Claim recorded with unlock pledge; instructions issued for Safe Zone</td>
+        <td>Ownership Engine (R3.1)</td>
+      </tr>
+      <tr>
+        <td>16</td>
+        <td><strong>Generate Handover QR Pass</strong></td>
+        <td>Finder approves claim; claimant opens QR pass modal.</td>
+        <td>Claim status = <code>APPROVED</code></td>
+        <td>QR code rendered with HMAC-SHA256 token and 24h expiration timestamp</td>
+        <td>Handover Module (R4.1)</td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td><strong>Camera optical scan of valid QR</strong></td>
+        <td>Scan valid QR pass using <code>/scan</code> in-browser camera.</td>
+        <td>QR valid and not expired; camera permissions on</td>
+        <td>Camera decodes token; server verifies HMAC; status set to <code>RETURNED</code>; confetti</td>
+        <td>Optical Scanner (R4.2)</td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td><strong>Scan expired QR token</strong></td>
+        <td>Scan token generated with expiration timestamp in past.</td>
+        <td>Token <code>expiresAt</code> &lt; current time</td>
+        <td>Handover rejected; prompt: <em>"QR Handover Token Expired (24h exceeded)"</em></td>
+        <td>Optical Scanner (R4.2)</td>
+      </tr>
+      <tr>
+        <td>19</td>
+        <td><strong>Flag suspicious listing</strong></td>
+        <td>Authenticated student clicks "Flag as Suspicious" on a post.</td>
+        <td>Student has not flagged item before</td>
+        <td><code>flagCount</code> incremented; confirmation prompt displayed</td>
+        <td>Governance Module (R5.2)</td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td><strong>Auto-quarantine on 3 flags</strong></td>
+        <td>Submit 3rd distinct flag on a suspicious listing.</td>
+        <td>Item currently has 2 flags</td>
+        <td>Status updated to <code>QUARANTINED</code>; item hidden from public view</td>
+        <td>Governance Module (R5.2)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- ==================== CERTIFICATE & SIGN-OFF ==================== -->
+  <div style="margin-top: 60px; padding-top: 30px; border-top: 2px solid #e2e8f0;">
+    <h2 class="sub-title" style="text-align: center;">CERTIFICATE OF ORIGINALITY & SIGN-OFF</h2>
+    <p style="text-align: center; max-width: 700px; margin: 15px auto 40px auto; font-size: 13px;">
+      This is to certify that the project report entitled <strong>"Campus Property Recovery Protocol (KIIT-Find)"</strong> submitted by <strong>Pratyush Sharma (Roll Number: 24051871)</strong>, Section <strong>CS2 / SE-CS2</strong>, represents bona fide engineering work carried out in fulfillment of the <strong>Software Engineering (CS3043 / CS2002)</strong> curriculum at the School of Computer Science and Engineering, KIIT Deemed to be University, Bhubaneswar.
+    </p>
+
+    <div class="cert-sign-grid">
+      <div class="cert-sign-col">
+        <strong>PROF. RAGHUNATH</strong><br>
+        Faculty Guide & Project Evaluator<br>
+        Department of Computer Science and Engineering<br>
+        School of Computer Engineering, KIIT Deemed to be University
+      </div>
+      <div class="cert-sign-col">
+        <strong>HEAD OF THE DEPARTMENT (CSE)</strong><br>
+        Department of Computer Science and Engineering<br>
+        School of Computer Engineering<br>
+        KIIT Deemed to be University, Bhubaneswar
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

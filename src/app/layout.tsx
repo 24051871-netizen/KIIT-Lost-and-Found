@@ -6,23 +6,26 @@ import MobileBottomBar from "@/components/MobileBottomBar";
 import { Providers } from "@/components/Providers";
 
 export const metadata: Metadata = {
-  title: "KIIT (R) OS // Campus Property Recovery",
+  title: "KIIT-Find // Campus Property Recovery Protocol",
   description:
     "Zero-Trust Lost and Found recovery network tailored for KIIT students, faculty, and hostel residents with QR verification.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "KIIT Find",
+    title: "KIIT-Find",
   },
   icons: {
-    icon: "/icon-192.png",
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    ],
     apple: "/icon-192.png",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#000000",
+  themeColor: "#07090e",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -36,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="flex min-h-screen flex-col bg-black text-zinc-100 antialiased selection:bg-white selection:text-black pb-16 md:pb-0">
+      <body className="flex min-h-screen flex-col bg-[#06070a] text-slate-100 antialiased selection:bg-emerald-500 selection:text-black pb-16 md:pb-0">
         <Providers>
           <Navbar />
           <main className="flex-1">{children}</main>

@@ -1,13 +1,19 @@
 {
-  "name": "KIIT (R) Lost & Found",
-  "short_name": "KIIT Find",
+  "name": "KIIT-Find Campus Property Recovery Protocol",
+  "short_name": "KIIT-Find",
   "description": "Zero-Trust Campus Property Recovery Network for KIIT University",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#07090e",
+  "theme_color": "#07090e",
   "orientation": "portrait-primary",
   "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
     {
       "src": "/icon-192.png",
       "sizes": "192x192",

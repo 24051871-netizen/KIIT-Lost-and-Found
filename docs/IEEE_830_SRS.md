@@ -8,7 +8,7 @@
 **Student Name:** Pratyush Sharma  
 **Roll Number:** 24051871  
 **Section:** SE-CS2  
-**Faculty Evaluator:** Prof. Raghunath  
+**Faculty Evaluator:** Dr. Raghunath Dey, Assistant Professor (II), School of Computer Engineering  
 **Version:** 2.0 (Final Production Release)  
 **Date of Release:** October 13, 2026  
 
@@ -591,7 +591,7 @@ erDiagram
         string description
         string itemType "LOST | FOUND"
         string category "ID | ELECTRONICS | KEYS..."
-        string campusId "campus-1 to campus-24"
+        string campusId "campus-1 to campus-25"
         string specificLocation "Landmark description"
         string imageUrls "Cloudinary CDN URLs"
         string status "ACTIVE | CLAIM_PENDING | CLAIM_APPROVED | RETURNED"
@@ -660,7 +660,7 @@ The following matrix establishes bidirectional traceability between user needs, 
 # 8. Appendix & Academic Acknowledgements
 
 ### 8.1 Academic Context
-This Software Requirements Specification was engineered as part of the formal curriculum for **Software Engineering (CS3043 / CS2002)** under the guidance of **Prof. Raghunath**, Department of Computer Science & Engineering, School of Computer Engineering, KIIT Deemed to be University, Bhubaneswar.
+This Software Requirements Specification was engineered as part of the formal curriculum for **Software Engineering (CS3043 / CS2002)** under the guidance of **Dr. Raghunath Dey**, Assistant Professor (II), School of Computer Engineering, KIIT Deemed to be University, Bhubaneswar.
 
 ### 8.2 Declaration
 I hereby declare that this specification represents an authentic, engineered software solution designed to solve the real-world communication and fraud challenges of lost and found recovery across the campuses of KIIT University.

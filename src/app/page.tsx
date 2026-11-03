@@ -90,7 +90,7 @@ export default function HomePage() {
           {/* Mission Telemetry Badge */}
           <div className="inline-flex items-center gap-2.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-1.5 text-xs font-mono font-medium text-emerald-300 backdrop-blur-xl shadow-[0_0_20px_rgba(16,185,129,0.15)]">
             <span className="live-beacon"></span>
-            <span>24 CAMPUSES CONNECTED</span>
+            <span>25 CAMPUSES CONNECTED</span>
             <span className="text-emerald-500/40">|</span>
             <span className="text-zinc-400">ZERO-TRUST PROTOCOL</span>
           </div>
@@ -170,7 +170,7 @@ export default function HomePage() {
               {stats.total.toString().padStart(2, "0")}
             </p>
             <span className="mt-1 block text-xs text-zinc-500 font-medium">
-              Across 24 KIIT Campuses
+              Across 25 KIIT Campuses
             </span>
           </div>
 
@@ -287,6 +287,7 @@ export default function HomePage() {
             {[
               { id: "ALL", label: "All Campuses" },
               { id: "campus-15", label: "Campus 15 (CSE)" },
+              { id: "campus-25", label: "Campus 25 (CSE)" },
               { id: "campus-3", label: "Campus 3 (Civil/Mech)" },
               { id: "campus-6", label: "Campus 6 (Library)" },
               { id: "food-court-chintan", label: "Food Court" },

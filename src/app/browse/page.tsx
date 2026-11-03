@@ -77,7 +77,7 @@ function BrowseContent() {
               Campus Property Catalog
             </h1>
             <p className="text-xs sm:text-sm text-zinc-400 mt-1">
-              Active lost and found telemetry across all 24 KIIT academic schools, labs, and residences.
+              Active lost and found telemetry across all 25 KIIT academic schools, labs, and residences.
             </p>
           </div>
           <Link
@@ -123,7 +123,7 @@ function BrowseContent() {
                 onChange={(e) => setCampusId(e.target.value)}
                 className="w-full glass-input px-3.5 py-2.5 text-xs text-white"
               >
-                <option value="ALL" className="bg-[#0b0e17]">All Campuses (1 to 24)</option>
+                <option value="ALL" className="bg-[#0b0e17]">All Campuses (1 to 25)</option>
                 {KIIT_CAMPUSES.map((c) => (
                   <option key={c.id} value={c.id} className="bg-[#0b0e17]">
                     {c.name}

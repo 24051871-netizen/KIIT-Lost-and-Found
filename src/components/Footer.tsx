@@ -18,7 +18,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-xs text-zinc-400 leading-relaxed font-normal">
-              Official campus property recovery protocol for KIIT Deemed to be University. Zero-Trust architecture deployed across 24 campuses.
+              Official campus property recovery protocol for KIIT Deemed to be University. Zero-Trust architecture deployed across 25 campuses.
             </p>
           </div>
 

@@ -314,12 +314,12 @@
 
     <div>
       <div class="report-type">A FINAL PROJECT REPORT ON</div>
-      <div class="project-title">CAMPUS PROPERTY RECOVERY PROTOCOL (KIIT-FIND)</div>
+      <div class="project-title">KIIT-FIND: CAMPUS LOST & FOUND PORTAL</div>
       
       <div class="meta-block">
         <div class="meta-title">Submitted to:</div>
-        <div class="meta-value">PROF. RAGHUNATH</div>
-        <div style="font-size: 12px; color: #475569;">Department of Computer Science and Engineering</div>
+        <div class="meta-value">Dr. Raghunath Dey</div>
+        <div style="font-size: 12px; color: #475569;">Assistant Professor (II)<br>School of Computer Engineering</div>
       </div>
 
       <div class="meta-block" style="margin-top: 40px;">
@@ -330,7 +330,7 @@
 
     <div class="dept-footer">
       KALINGA INSTITUTE OF INDUSTRIAL TECHNOLOGY<br>
-      DEPARTMENT OF COMPUTER SCIENCE AND ENGINEERING<br>
+      SCHOOL OF COMPUTER ENGINEERING<br>
       SUBJECT: SOFTWARE ENGINEERING SECTION- CS2 / SE-CS2<br>
       (2026–2027)
     </div>
@@ -493,7 +493,7 @@
   
   <h3 class="req-title">Problem Definition:</h3>
   <p>
-    Across the 24 sprawling campuses of KIIT Deemed to be University—encompassing lecture halls, computer labs, central libraries, food courts (Kathajodi, Chintan), sports facilities (KSAC), and student hostels (KP-1 to KP-20, QC-1 to QC-12)—hundreds of high-value items (smartphones, Apple AirPods, scientific calculators, KIIT Smart ID cards, and laptops) are misplaced every semester by more than 40,000 enrolled students.
+    Across the 25 sprawling campuses of KIIT Deemed to be University—encompassing lecture halls, computer labs, central libraries, food courts (Kathajodi, Chintan), sports facilities (KSAC), and student hostels (KP-1 to KP-20, QC-1 to QC-12)—hundreds of high-value items (smartphones, Apple AirPods, scientific calculators, KIIT Smart ID cards, and laptops) are misplaced every semester by more than 40,000 enrolled students.
   </p>
   <p>
     Currently, lost-and-found recovery relies completely on unmonitored WhatsApp groups and informal Telegram channels. This leads to four critical software and institutional failures:
@@ -510,7 +510,7 @@
 
   <h2 class="sub-title">Abstract</h2>
   <p>
-    The <strong>Campus Property Recovery Protocol (KIIT-Find)</strong> is an enterprise web software system engineered to automate, secure, and streamline the recovery of lost personal and academic property across all 24 campuses of KIIT Deemed to be University.
+    The <strong>Campus Property Recovery Protocol (KIIT-Find)</strong> is an enterprise web software system engineered to automate, secure, and streamline the recovery of lost personal and academic property across all 25 campuses of KIIT Deemed to be University.
   </p>
   <p>
     When a student discovers an unattended item on campus, they log in via their authenticated university credentials (<code>@kiit.ac.in</code>) and record the item's spatial coordinates (Campus number, building, and landmark). For sensitive items such as student ID cards, the software automatically blurs identity fields to prevent privacy exposure. Crucially, the finder configures a <strong>Concealed Challenge Question</strong> (or records a hardware identifier) without revealing the answer publicly.
@@ -577,7 +577,7 @@
     <h3 class="req-title">R1: Report Lost or Found Campus Property with Privacy Masking</h3>
     <p><strong>Description:</strong> Enables an authenticated student or staff member to register a lost or found item with spatial coordinates, apply privacy masking to identity cards, and configure a concealed challenge question.</p>
     <p><strong>R1.1: Capture Item Details & Spatial Coordinates</strong><br>
-    <em>Input:</em> Item title, category, description, campus location (Campus 1–24), specific landmark.<br>
+    <em>Input:</em> Item title, category, description, campus location (Campus 1–25), specific landmark.<br>
     <em>Output:</em> Validated item preview displayed to user.<br>
     <em>Processing:</em> Validates title length ($\ge 3$ characters), binds listing to reporter's authenticated <code>@kiit.ac.in</code> email.</p>
 
@@ -671,7 +671,7 @@
       <strong>Reliability:</strong> The system shall not lose any transaction state if network connectivity drops midway; all claim transitions are atomically committed in the database before generating handover passes.
     </li>
     <li style="margin-bottom: 10px;">
-      <strong>Availability:</strong> The system shall maintain <strong>99.5% uptime</strong> 24/7/365 to serve academic hours and residential hostel shifts across all 24 campuses.
+      <strong>Availability:</strong> The system shall maintain <strong>99.5% uptime</strong> 24/7/365 to serve academic hours and residential hostel shifts across all 25 campuses.
     </li>
     <li style="margin-bottom: 10px;">
       <strong>Usability:</strong> The mobile interface shall feature a thumb-accessible floating bottom dock (<code>Home</code>, <code>Catalog</code>, <code>Report</code>, <code>Scanner</code>) allowing one-handed smartphone operation.
@@ -1443,19 +1443,17 @@
   <div style="margin-top: 60px; padding-top: 30px; border-top: 2px solid #e2e8f0;">
     <h2 class="sub-title" style="text-align: center;">CERTIFICATE OF ORIGINALITY & SIGN-OFF</h2>
     <p style="text-align: center; max-width: 700px; margin: 15px auto 40px auto; font-size: 13px;">
-      This is to certify that the project report entitled <strong>"Campus Property Recovery Protocol (KIIT-Find)"</strong> submitted by <strong>Pratyush Sharma (Roll Number: 24051871)</strong>, Section <strong>CS2 / SE-CS2</strong>, represents bona fide engineering work carried out in fulfillment of the <strong>Software Engineering (CS3043 / CS2002)</strong> curriculum at the School of Computer Science and Engineering, KIIT Deemed to be University, Bhubaneswar.
+      This is to certify that the project report entitled <strong>"KIIT-Find: Campus Lost & Found Portal"</strong> submitted by <strong>Pratyush Sharma (Roll Number: 24051871)</strong>, Section <strong>CS2 / SE-CS2</strong>, represents bona fide engineering work carried out in fulfillment of the <strong>Software Engineering (CS3043 / CS2002)</strong> curriculum at the School of Computer Science and Engineering, KIIT Deemed to be University, Bhubaneswar.
     </p>
 
     <div class="cert-sign-grid">
       <div class="cert-sign-col">
-        <strong>PROF. RAGHUNATH</strong><br>
-        Faculty Guide & Project Evaluator<br>
-        Department of Computer Science and Engineering<br>
+        <strong>Dr. Raghunath Dey</strong><br>
+        Assistant Professor (II)<br>
         School of Computer Engineering, KIIT Deemed to be University
       </div>
       <div class="cert-sign-col">
-        <strong>HEAD OF THE DEPARTMENT (CSE)</strong><br>
-        Department of Computer Science and Engineering<br>
+        <strong>HEAD OF SCHOOL / EVALUATOR</strong><br>
         School of Computer Engineering<br>
         KIIT Deemed to be University, Bhubaneswar
       </div>

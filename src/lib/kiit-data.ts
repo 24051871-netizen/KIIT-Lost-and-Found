@@ -9,8 +9,8 @@ export const KIIT_CAMPUSES: CampusLocation[] = [
     description: "Primary hub for B.Tech CSE, IT, and CSSE departments.",
   },
   {
-    id: "campus-24",
-    name: "Campus 24 (Computer Science Annex)",
+    id: "campus-25",
+    name: "Campus 25 (School of Computer Engineering)",
     category: "ACADEMIC",
     landmark: "Near KP-7 Gate / Food Court",
     description: "Computing labs, software engineering project wings.",

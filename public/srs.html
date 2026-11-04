@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IEEE Std 830-1998 SRS — KIIT-Find Campus Lost & Found Portal</title>
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'neutral' });
+  </script>
+  <style>
+    :root {
+      --primary: #064e3b;
+      --primary-light: #10b981;
+      --accent: #0284c7;
+      --bg: #090d16;
+      --card-bg: #0f172a;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --border: rgba(255, 255, 255, 0.1);
+      --code-bg: #030712;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Action Bar */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(9, 13, 22, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      color: #fff;
+    }
+
+    .badge-ieee {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.4);
+      color: #34d399;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 3px 8px;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: #10b981;
+      color: #022c22;
+    }
+
+    .btn-primary:hover {
+      background: #34d399;
+    }
+
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.05);
+      color: #cbd5e1;
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 1000px;
+      margin: 40px auto 100px auto;
+      padding: 0 24px;
+    }
+
+    /* Document Sheet */
+    .doc-sheet {
+      background: #0f172a;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 60px 50px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Academic Header */
+    .academic-header {
+      text-align: center;
+      border-bottom: 2px solid rgba(16, 185, 129, 0.3);
+      padding-bottom: 30px;
+      margin-bottom: 40px;
+    }
+
+    .univ-name {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #34d399;
+      margin-bottom: 4px;
+    }
+
+    .dept-name {
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 16px;
+    }
+
+    .doc-main-title {
+      font-size: 26px;
+      font-weight: 800;
+      color: #fff;
+      margin-top: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .doc-sub-title {
+      font-size: 15px;
+      color: #38bdf8;
+      font-weight: 600;
+      margin-top: 6px;
+    }
+
+    /* Metadata Grid */
+    .meta-grid {
+      display: grid;
+      grid-template-cols: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .meta-item {
+      font-size: 13px;
+    }
+
+    .meta-label {
+      color: #64748b;
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-val {
+      color: #e2e8f0;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* Markdown Typo */
+    h1 {
+      font-size: 22px;
+      color: #34d399;
+      margin-top: 45px;
+      margin-bottom: 16px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+    }
+
+    h2 {
+      font-size: 18px;
+      color: #38bdf8;
+      margin-top: 32px;
+      margin-bottom: 12px;
+    }
+
+    h3 {
+      font-size: 16px;
+      color: #e2e8f0;
+      margin-top: 24px;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    h4 {
+      font-size: 14px;
+      color: #cbd5e1;
+      margin-top: 18px;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #cbd5e1;
+      font-size: 14.5px;
+    }
+
+    strong {
+      color: #fff;
+    }
+
+    ul, ol {
+      margin: 10px 0 16px 24px;
+      color: #cbd5e1;
+    }
+
+    li {
+      margin-bottom: 6px;
+    }
+
+    hr {
+      border: 0;
+      height: 1px;
+      background: var(--border);
+      margin: 36px 0;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0 30px 0;
+      font-size: 13px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    th {
+      background: rgba(16, 185, 129, 0.12);
+      color: #34d399;
+      font-weight: 700;
+      text-align: left;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      font-size: 12px;
+      letter-spacing: 0.3px;
+    }
+
+    td {
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      color: #cbd5e1;
+      background: rgba(15, 23, 42, 0.6);
+    }
+
+    tr:nth-child(even) td {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Code Blocks */
+    pre {
+      background: var(--code-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      overflow-x: auto;
+      margin: 16px 0 24px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      line-height: 1.6;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #38bdf8;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    pre code {
+      background: transparent;
+      padding: 0;
+      color: #e2e8f0;
+    }
+
+    pre.mermaid {
+      background: #0b1120;
+      padding: 24px;
+      border-radius: 8px;
+      text-align: center;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+    }
+
+    blockquote {
+      border-left: 3px solid #10b981;
+      padding-left: 16px;
+      margin: 16px 0;
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    /* Print styles */
+    @media print {
+      body {
+        background: #fff;
+        color: #000;
+        font-family: 'Times New Roman', serif;
+      }
+      .top-bar, .actions {
+        display: none !important;
+      }
+      .container {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .doc-sheet {
+        background: #fff;
+        border: 0;
+        padding: 0;
+        box-shadow: none;
+      }
+      .univ-name, h1, h2, h3, th {
+        color: #000 !important;
+      }
+      p, td, li, code, pre {
+        color: #000 !important;
+      }
+      table, th, td {
+        border: 1px solid #333 !important;
+      }
+      pre {
+        background: #f8fafc !important;
+        border: 1px solid #ccc !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Action Bar -->
+  <header class="top-bar">
+    <div class="brand">
+      <span>KIIT-FIND</span>
+      <span class="badge-ieee">IEEE Std 830-1998</span>
+      <span style="font-size: 12px; color: #64748b;">Software Requirements Specification</span>
+    </div>
+    <div class="actions">
+      <button class="btn btn-primary" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+        Print / Save PDF
+      </button>
+      <a href="/project-report.html" class="btn btn-secondary">
+        View Project Report
+      </a>
+      <a href="https://github.com/24051871-netizen/KIIT-Lost-and-Found/blob/main/docs/IEEE_830_SRS.md" target="_blank" class="btn btn-secondary">
+        GitHub Source
+      </a>
+      <a href="/" class="btn btn-secondary">
+        Open Portal
+      </a>
+    </div>
+  </header>
+
+  <!-- Document Container -->
+  <main class="container">
+    <article class="doc-sheet">
+
+      <!-- Academic Header -->
+      <div class="academic-header">
+        <div class="univ-name">KALINGA INSTITUTE OF INDUSTRIAL TECHNOLOGY (KIIT)</div>
+        <div class="dept-name">DEEMED TO BE UNIVERSITY, BHUBANESWAR, ODISHA &bull; SCHOOL OF COMPUTER ENGINEERING</div>
+        <div class="doc-main-title">SOFTWARE REQUIREMENTS SPECIFICATION (SRS)</div>
+        <div class="doc-sub-title">KIIT-Find: Campus Lost & Found Portal (Zero-Trust Recovery Protocol)</div>
+
+        <div class="meta-grid">
+          <div class="meta-item">
+            <div class="meta-label">Standard & Version</div>
+            <div class="meta-val">IEEE Std 830-1998 &bull; v2.0 Final</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Faculty Evaluator</div>
+            <div class="meta-val">Dr. Raghunath Dey, Asst. Prof. (II)</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Candidate & Roll</div>
+            <div class="meta-val">Pratyush Sharma (24051871)</div>
+          </div>
+          <div class="meta-item">
+            <div class="meta-label">Academic Subject</div>
+            <div class="meta-val">Software Engineering (CS3043 / CS2002)</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Rendered Markdown Body -->
+      <div class="doc-body">
+        <h1 id="software-requirements-specification-srs">SOFTWARE REQUIREMENTS SPECIFICATION (SRS)</h1>
+<h2 id="institutional-campus-lost-found-recovery-portal-kiit-find">Institutional Campus Lost &amp; Found Recovery Portal (KIIT-Find)</h2>
+<p><strong>Document Standard:</strong> IEEE Std 830-1998<br />
+<strong>Organization:</strong> School of Computer Engineering, KIIT Deemed to be University, Bhubaneswar, Odisha<br />
+<strong>Course:</strong> Software Engineering (CS3043 / CS2002)<br />
+<strong>Academic Year:</strong> 2026–2027<br />
+<strong>Student Name:</strong> Pratyush Sharma<br />
+<strong>Roll Number:</strong> 24051871<br />
+<strong>Section:</strong> SE-CS2<br />
+<strong>Faculty Evaluator:</strong> Dr. Raghunath Dey, Assistant Professor (II), School of Computer Engineering<br />
+<strong>Version:</strong> 2.0 (Final Production Release)<br />
+<strong>Date of Release:</strong> October 13, 2026  </p>
+<hr />
+<h2 id="document-control-revision-history">Document Control &amp; Revision History</h2>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Version</th>
+<th style="text-align: left;">Date</th>
+<th style="text-align: left;">Author</th>
+<th style="text-align: left;">Primary Changes &amp; Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>1.0</strong></td>
+<td style="text-align: left;">Sep 23, 2026</td>
+<td style="text-align: left;">Pratyush Sharma</td>
+<td style="text-align: left;">Initial architectural draft and preliminary IEEE 830 outline.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>1.5</strong></td>
+<td style="text-align: left;">Sep 24, 2026</td>
+<td style="text-align: left;">Pratyush Sharma</td>
+<td style="text-align: left;">Integrated MongoDB Atlas replica set models, Cloudinary media pipeline, and Google OAuth <code>@kiit.ac.in</code> domain constraints.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>2.0</strong></td>
+<td style="text-align: left;">Oct 13, 2026</td>
+<td style="text-align: left;">Pratyush Sharma</td>
+<td style="text-align: left;">Full formal IEEE Std 830-1998 expansion: Comprehensive Functional Requirements (FR-01 to FR-08), Non-Functional Requirements, DPDP Act 2023 PII privacy compliance, BSON Data Dictionary, and Traceability Matrix.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="table-of-contents">Table of Contents</h1>
+<ol>
+<li><a href="#1-introduction">Introduction</a></li>
+<li>1.1 <a href="#11-purpose">Purpose</a></li>
+<li>1.2 <a href="#12-document-conventions">Document Conventions</a></li>
+<li>1.3 <a href="#13-intended-audience-and-reading-suggestions">Intended Audience and Reading Suggestions</a></li>
+<li>1.4 <a href="#14-project-scope--problem-domain">Project Scope &amp; Problem Domain</a></li>
+<li>1.5 <a href="#15-references">References</a></li>
+<li>1.6 <a href="#16-definitions-acronyms-and-abbreviations">Definitions, Acronyms, and Abbreviations</a></li>
+<li><a href="#2-overall-description">Overall Description</a></li>
+<li>2.1 <a href="#21-product-perspective">Product Perspective</a></li>
+<li>2.2 <a href="#22-product-functions--core-capabilities">Product Functions &amp; Core Capabilities</a></li>
+<li>2.3 <a href="#23-user-classes-and-role-characteristics">User Classes and Role Characteristics</a></li>
+<li>2.4 <a href="#24-operating-environment">Operating Environment</a></li>
+<li>2.5 <a href="#25-design-and-implementation-constraints">Design and Implementation Constraints</a></li>
+<li>2.6 <a href="#26-assumptions-and-dependencies">Assumptions and Dependencies</a></li>
+<li><a href="#3-external-interface-requirements">External Interface Requirements</a></li>
+<li>3.1 <a href="#31-user-interfaces-ui">User Interfaces (UI)</a></li>
+<li>3.2 <a href="#32-hardware-interfaces">Hardware Interfaces</a></li>
+<li>3.3 <a href="#33-software-interfaces">Software Interfaces</a></li>
+<li>3.4 <a href="#34-communications-interfaces">Communications Interfaces</a></li>
+<li><a href="#4-system-features--functional-requirements">System Features &amp; Functional Requirements</a></li>
+<li>4.1 <a href="#41-fr-01-institutional-google-oauth-20--rbac-session-management">FR-01: Institutional Google OAuth 2.0 &amp; RBAC Session Management</a></li>
+<li>4.2 <a href="#42-fr-02-item-reporting-engine--micro-spatial-tagging">FR-02: Item Reporting Engine &amp; Micro-Spatial Tagging</a></li>
+<li>4.3 <a href="#43-fr-03-cloudinary-edge-media-processing--visual-proof-optimization">FR-03: Cloudinary Edge Media Processing &amp; Visual Proof Optimization</a></li>
+<li>4.4 <a href="#44-fr-04-spatial-catalog-search-filtering-and-discovery">FR-04: Spatial Catalog Search, Filtering, and Discovery</a></li>
+<li>4.5 <a href="#45-fr-05-double-blind-ownership-challenge-response-protocol">FR-05: Double-Blind Ownership Challenge-Response Protocol</a></li>
+<li>4.6 <a href="#46-fr-06-cryptographic-hmac-sha256-handover-qr-token-generation">FR-06: Cryptographic HMAC-SHA256 Handover QR Token Generation</a></li>
+<li>4.7 <a href="#47-fr-07-in-browser-webrtc-optical-qr-verification--checkpoint-processing">FR-07: In-Browser WebRTC Optical QR Verification &amp; Checkpoint Processing</a></li>
+<li>4.8 <a href="#48-fr-08-immutable-audit-logging--handover-chain-of-custody">FR-08: Immutable Audit Logging &amp; Handover Chain-of-Custody</a></li>
+<li><a href="#5-non-functional-requirements">Non-Functional Requirements</a></li>
+<li>5.1 <a href="#51-performance-requirements">Performance Requirements</a></li>
+<li>5.2 <a href="#52-safety-requirements">Safety Requirements</a></li>
+<li>5.3 <a href="#53-security-requirements">Security Requirements</a></li>
+<li>5.4 <a href="#54-privacy--regulatory-compliance-dpdp-act-2023">Privacy &amp; Regulatory Compliance (DPDP Act 2023)</a></li>
+<li>5.5 <a href="#55-software-quality-attributes">Software Quality Attributes</a></li>
+<li><a href="#6-data-models--schema-specifications">Data Models &amp; Schema Specifications</a></li>
+<li>6.1 <a href="#61-database-schema--bson-data-dictionary">Database Schema &amp; BSON Data Dictionary</a></li>
+<li>6.2 <a href="#62-entity-relationship-specification">Entity-Relationship Specification</a></li>
+<li>6.3 <a href="#63-item-lifecycle-state-transition-specification">Item Lifecycle State Transition Specification</a></li>
+<li><a href="#7-requirements-traceability-matrix-rtm">Requirements Traceability Matrix (RTM)</a></li>
+<li><a href="#8-appendix--academic-acknowledgements">Appendix &amp; Academic Acknowledgements</a></li>
+</ol>
+<hr />
+<h1 id="1-introduction">1. Introduction</h1>
+<h3 id="11-purpose">1.1 Purpose</h3>
+<p>The purpose of this Software Requirements Specification (SRS) document is to establish a rigorous, definitive specification of the software requirements for the <strong>KIIT-Find</strong> platform. This document delineates the functional behavior, performance parameters, external interfaces, and architectural constraints required for development, testing, academic evaluation, and operational deployment across the campuses of KIIT Deemed to be University.</p>
+<h3 id="12-document-conventions">1.2 Document Conventions</h3>
+<ul>
+<li>This specification conforms strictly to the <strong>IEEE Std 830-1998 Recommended Practice for Software Requirements Specifications</strong>.</li>
+<li>Requirements are prioritized using the RFC 2119 convention: <strong>SHALL</strong> (Mandatory), <strong>SHOULD</strong> (Recommended), and <strong>MAY</strong> (Optional).</li>
+<li>Every functional requirement is uniquely keyed with the prefix <code>FR-XX</code> and cross-referenced in the Requirements Traceability Matrix (RTM).</li>
+</ul>
+<h3 id="13-intended-audience-and-reading-suggestions">1.3 Intended Audience and Reading Suggestions</h3>
+<ol>
+<li><strong>Academic Evaluators &amp; Faculty Guides:</strong> Review Section 1.4 for problem justification, Section 4 for technical rigor, and Section 7 for verification traceability.</li>
+<li><strong>Software Engineers &amp; Developers:</strong> Review Section 2.1, Section 3, Section 4, and Section 6 for API contracts, schema models, and state transitions.</li>
+<li><strong>Quality Assurance (QA) &amp; Testers:</strong> Utilize Section 4 acceptance criteria and Section 7 for test case design.</li>
+<li><strong>Campus Security Officers &amp; Administrative Users:</strong> Review Section 2.3 and Section 4.7 for handover checkpoint protocols.</li>
+</ol>
+<h3 id="14-project-scope-problem-domain">1.4 Project Scope &amp; Problem Domain</h3>
+<p>KIIT Deemed to be University spans over <strong>24 sprawling campuses</strong> across Bhubaneswar, housing over 40,000 students, faculty, and administrative staff across lecture theaters, high-density computer laboratories, central libraries, food plazas (Kathajodi, Chintan), sports complexes (KSAC), and hostel residential zones (King's Palace KP-1 to KP-20, Queen's Castle QC-1 to QC-12).</p>
+<h4 id="the-existing-recovery-bottlenecks">The Existing Recovery Bottlenecks:</h4>
+<ol>
+<li><strong>Information Fragmentation:</strong> Lost property announcements are scattered unreliably across ephemeral social media channels (WhatsApp unofficial groups, Instagram stories, Telegram channels), leading to rapid buried messages and zero indexing.</li>
+<li><strong>Zero Verification &amp; False Claims:</strong> High-value items (smartphones, Apple AirPods, Casio scientific calculators, laptops) are vulnerable to social-engineering theft where opportunistic individuals claim items without proving legitimate ownership.</li>
+<li><strong>Identity Vulnerability &amp; PII Leakage:</strong> Photographs of lost KIIT Smart ID cards are routinely posted unredacted, exposing students' full names, blood groups, photographs, and 7-digit institutional roll numbers in violation of privacy mandates.</li>
+<li><strong>Lack of Handover Custody:</strong> Finder and claimant have no trusted intermediary or verifiable cryptographic proof of transfer, creating liability concerns and hesitation to surrender found property.</li>
+</ol>
+<h4 id="the-kiit-find-solution">The KIIT-Find Solution:</h4>
+<p>KIIT-Find resolves these institutional failures by providing a unified, real-time Jamstack web portal built on Next.js 15, backed by MongoDB Atlas and Cloudinary CDN. The system enforces:<br />
+- Strict <strong><code>@kiit.ac.in</code> institutional domain restriction</strong> via Google OAuth 2.0.<br />
+- A <strong>Double-Blind Challenge Question Protocol</strong> ensuring only the true owner can describe hidden item identifiers.<br />
+- A <strong>Cryptographic Dynamic QR Code Handover Protocol</strong> signed via HMAC-SHA256, allowing physical items to be claimed securely at verified campus safe zones (Campus 15 Security Gate, Campus 6 Library Helpdesk).</p>
+<h3 id="15-references">1.5 References</h3>
+<ol>
+<li>IEEE Std 830-1998: <em>IEEE Recommended Practice for Software Requirements Specifications</em>.</li>
+<li>RFC 7519: <em>JSON Web Token (JWT) Architecture and Verification</em>.</li>
+<li>RFC 2104: <em>HMAC: Keyed-Hashing for Message Authentication</em>.</li>
+<li>Digital Personal Data Protection Act (DPDP Act), Government of India, 2023.</li>
+<li>OWASP Top 10 Application Security Risks (2021 Edition).</li>
+</ol>
+<h3 id="16-definitions-acronyms-and-abbreviations">1.6 Definitions, Acronyms, and Abbreviations</h3>
+<ul>
+<li><strong>SRS:</strong> Software Requirements Specification</li>
+<li><strong>RBAC:</strong> Role-Based Access Control</li>
+<li><strong>JWT:</strong> JSON Web Token</li>
+<li><strong>HMAC:</strong> Hash-Based Message Authentication Code (SHA-256)</li>
+<li><strong>PII:</strong> Personally Identifiable Information</li>
+<li><strong>CDN:</strong> Content Delivery Network (Cloudinary)</li>
+<li><strong>KP / QC:</strong> King's Palace (Boys' Hostels) / Queen's Castle (Girls' Hostels)</li>
+<li><strong>KSAC:</strong> KIIT Student Activity Centre (Campus 3)</li>
+<li><strong>BSON:</strong> Binary JSON representation used by MongoDB Atlas</li>
+</ul>
+<hr />
+<h1 id="2-overall-description">2. Overall Description</h1>
+<h3 id="21-product-perspective">2.1 Product Perspective</h3>
+<p>KIIT-Find operates as a standalone, cloud-native fullstack web application following modern Jamstack principles. The system decouples presentation, serverless computational execution, database persistence, and asset distribution:</p>
+<pre><code>[ Student / Security Browser ] (Next.js 15 Client / React 19)
+             │
+             ▼ HTTPS / TLS 1.3
+[ Next.js 15 Serverless App Router ] (Hosted on Vercel Edge / Node.js)
+    ├── Auth Engine: NextAuth.js (Google OAuth 2.0 @kiit.ac.in)
+    ├── API Route Handlers: /api/items, /api/items/:id/claim, /api/items/:id/handover
+    ├── QR Engine: crypto HMAC-SHA256 Token Generator &amp; Validator
+    │
+    ├── Database Connection: Mongoose Cached Connection Pool
+    │            │
+    │            ▼ MongoDB Wire Protocol (TLS Encrypted)
+    │     [ MongoDB Atlas Cloud Cluster ] (Replica Set: kiit_find DB)
+    │
+    └── Asset Ingestion: Direct API Upload
+                 │
+                 ▼ HTTPS Multipart
+          [ Cloudinary Global CDN ] (Image Transformations &amp; Secure Hosting)
+</code></pre>
+<h3 id="22-product-functions-core-capabilities">2.2 Product Functions &amp; Core Capabilities</h3>
+<ol>
+<li><strong>Institutional Single Sign-On (SSO):</strong> Enforce domain authentication; automatically parse student roll numbers from Google profiles.</li>
+<li><strong>Multi-Campus Spatial Directory:</strong> Micro-tag item coordinates across lecture complexes, laboratory floors, and hostel blocks.</li>
+<li><strong>Decoupled Media Delivery:</strong> Direct-to-cloud image optimization preventing binary blob bloat in database collections.</li>
+<li><strong>Anti-Fraud Ownership Challenge:</strong> Asymmetric verification where finder prompts a hidden detail question and claimant must provide matching cryptographic proof.</li>
+<li><strong>Cryptographic QR Exchange Protocol:</strong> Dynamic time-bounded QR tokens scanned at campus checkpoints to execute verifiable transfer of custody.</li>
+<li><strong>Immutable Audit Trails:</strong> Chronological ledger of state transitions (<code>REPORTED</code> $\rightarrow$ <code>CLAIMED</code> $\rightarrow$ <code>VERIFIED</code> $\rightarrow$ <code>RETURNED</code>).</li>
+</ol>
+<h3 id="23-user-classes-and-role-characteristics">2.3 User Classes and Role Characteristics</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">User Role</th>
+<th style="text-align: left;">Identification Mechanism</th>
+<th style="text-align: left;">Privileges &amp; Responsibilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Student Finder</strong></td>
+<td style="text-align: left;">Verified <code>@kiit.ac.in</code> student email</td>
+<td style="text-align: left;">Report found property, set hidden challenge questions, review incoming claimant responses, approve verified claims.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Student Claimant</strong></td>
+<td style="text-align: left;">Verified <code>@kiit.ac.in</code> student email</td>
+<td style="text-align: left;">Search catalog, file lost property reports, answer challenge questions, receive dynamic handover QR codes.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Campus Security / Staff</strong></td>
+<td style="text-align: left;">Institutional staff email or Security role</td>
+<td style="text-align: left;">Act as physical custodian at Safe Handover Hubs (Campus 15 Gate, Campus 6 Library), scan QR codes, verify physical identity.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>System Administrator</strong></td>
+<td style="text-align: left;">Designated University IT admin</td>
+<td style="text-align: left;">Oversee audit logs, arbitrate disputed items, purge abusive or fraudulent listings, enforce DPDP privacy compliance.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-operating-environment">2.4 Operating Environment</h3>
+<ul>
+<li><strong>Client Tier:</strong> Modern standards-compliant web browsers (Chrome 120+, Microsoft Edge 120+, Safari 17+, Mozilla Firefox 120+) on desktop and mobile platforms (Android 12+, iOS 16+, Windows 11, macOS 14).</li>
+<li><strong>Camera Access:</strong> WebRTC <code>MediaDevices.getUserMedia()</code> support for live QR scanning.</li>
+<li><strong>Server Tier:</strong> Node.js v20.x LTS or higher / Vercel Serverless Function Execution Runtime.</li>
+<li><strong>Database Tier:</strong> MongoDB Atlas Version 7.0+ Enterprise Server on AWS/GCP (M0/M10 Replica Set).</li>
+</ul>
+<h3 id="25-design-and-implementation-constraints">2.5 Design and Implementation Constraints</h3>
+<ol>
+<li><strong>Zero Client-Side Secret Exposure:</strong> Google Client Secrets, MongoDB connection strings, and Cloudinary API Secrets <strong>SHALL</strong> remain strictly on server environments (<code>process.env</code>).</li>
+<li><strong>Campus DNS Compatibility:</strong> Database connection strings <strong>SHALL</strong> support standard direct replica set host discovery to circumvent local ISP DNS SRV lookup failures on Windows devices.</li>
+<li><strong>Single Platform Interface:</strong> All academic documentation (SRS, UML) <strong>SHALL</strong> remain offline in repository files and <strong>SHALL NOT</strong> be rendered in the student-facing production UI.</li>
+</ol>
+<h3 id="26-assumptions-and-dependencies">2.6 Assumptions and Dependencies</h3>
+<ul>
+<li>Users possess active internet connectivity and valid institutional Google Workspace credentials issued by KIIT Deemed to be University.</li>
+<li>MongoDB Atlas and Cloudinary CDN maintain 99.9% service availability.</li>
+</ul>
+<hr />
+<h1 id="3-external-interface-requirements">3. External Interface Requirements</h1>
+<h3 id="31-user-interfaces-ui">3.1 User Interfaces (UI)</h3>
+<ul>
+<li><strong>Design System:</strong> Responsive mobile-first interface implemented with Tailwind CSS and Lucide React icons.</li>
+<li><strong>Primary Views:</strong></li>
+<li><em>Landing Hub (<code>/</code>):</em> Campus search bar, category explorer cards, designated Campus Safe Handover Hub directory.</li>
+<li><em>Browse Catalog (<code>/browse</code>):</em> Grid/list layout with multi-faceted filtering (Campus Zone, Category, Item Type, Date).</li>
+<li><em>Item Ingestion Portal (<code>/report</code>):</em> Step-by-step form with Cloudinary drag-and-drop image upload and challenge question configuration.</li>
+<li><em>Item Detail &amp; Claim Console (<code>/items/:id</code>):</em> High-resolution image inspection, location landmark metadata, and challenge response modal.</li>
+<li><em>QR Handover Scanner (<code>/scan</code>):</em> In-browser live camera viewfinder with token validation indicator.</li>
+</ul>
+<h3 id="32-hardware-interfaces">3.2 Hardware Interfaces</h3>
+<ul>
+<li><strong>Camera Device:</strong> Integrated mobile/laptop webcam supporting video capture resolutions $\ge 720p$ for optical decoding of QR codes.</li>
+</ul>
+<h3 id="33-software-interfaces">3.3 Software Interfaces</h3>
+<ol>
+<li><strong>Google Identity Platform:</strong> OAuth 2.0 authorization endpoint for institutional single sign-on.</li>
+<li><strong>MongoDB Atlas Driver (Mongoose 8.x):</strong> Native BSON protocol over TLS port <code>27017</code> with connection pooling.</li>
+<li><strong>Cloudinary Upload API:</strong> RESTful HTTPS multipart image upload endpoint returning secure delivery URLs.</li>
+</ol>
+<h3 id="34-communications-interfaces">3.4 Communications Interfaces</h3>
+<ul>
+<li>All client-to-server and server-to-external-cloud communication <strong>SHALL</strong> mandate <strong>HTTPS/TLS 1.3</strong> transport-layer encryption.</li>
+<li>In-memory WebSocket communication used by MongoDB Atlas Data Explorer for administrative cluster inspection.</li>
+</ul>
+<hr />
+<h1 id="4-system-features-functional-requirements">4. System Features &amp; Functional Requirements</h1>
+<pre class="mermaid">flowchart TD
+    subgraph Ingestion [&quot;1. Item Ingestion&quot;]
+        A[&quot;Student reports item at /report&quot;] --&gt; B[&quot;Upload photo to Cloudinary CDN&quot;]
+        B --&gt; C[&quot;Set secret challenge question &amp; hash answer&quot;]
+        C --&gt; D[&quot;Save document to MongoDB Atlas (ACTIVE)&quot;]
+    end
+
+    subgraph Discovery [&quot;2. Discovery &amp; Claim&quot;]
+        D --&gt; E[&quot;Claimant searches catalog at /browse&quot;]
+        E --&gt; F[&quot;Claimant answers challenge question&quot;]
+        F --&gt; G[&quot;Finder reviews &amp; approves answer&quot;]
+    end
+
+    subgraph Handover [&quot;3. Verification &amp; Handover&quot;]
+        G --&gt; H[&quot;Server generates HMAC-SHA256 QR Token&quot;]
+        H --&gt; I[&quot;Claimant meets Finder at Campus Safe Zone&quot;]
+        I --&gt; J[&quot;Security Desk scans QR at /scan&quot;]
+        J --&gt; K[&quot;Server validates signature &amp; updates status to RETURNED&quot;]
+        K --&gt; L[&quot;Immutable Audit Log recorded&quot;]
+    end
+</pre>
+<hr />
+<h3 id="41-fr-01-institutional-google-oauth-20-rbac-session-management">4.1 FR-01: Institutional Google OAuth 2.0 &amp; RBAC Session Management</h3>
+<h4 id="description">Description:</h4>
+<p>The system enforces identity authentication restricted to institutional Google accounts ending with <code>@kiit.ac.in</code>.</p>
+<h4 id="inputs">Inputs:</h4>
+<ul>
+<li>User Google credentials via OAuth 2.0 authorization code flow.</li>
+</ul>
+<h4 id="processing">Processing:</h4>
+<ol>
+<li>The server receives the authorization code at <code>/api/auth/callback/google</code> and exchanges it for Google user profile tokens.</li>
+<li>In the NextAuth <code>signIn</code> callback, the server inspects <code>user.email</code>:</li>
+<li>If <code>user.email</code> ends with <code>@kiit.ac.in</code> OR matches registered developer/admin credentials, access is granted.</li>
+<li>Otherwise, access is rejected with <code>AccessDenied</code>.</li>
+<li>In the <code>jwt</code> callback, the server executes regex matching on the email prefix (<code>/^(\d{7})@/</code>) to parse the 7-digit KIIT student roll number (e.g. <code>24051871</code>).</li>
+<li>A signed, HTTP-only JWT session token is returned to the client browser.</li>
+</ol>
+<h4 id="outputs">Outputs:</h4>
+<ul>
+<li>Authenticated user session object containing <code>name</code>, <code>email</code>, <code>rollNumber</code>, and <code>role</code>.</li>
+</ul>
+<h4 id="error-handling">Error Handling:</h4>
+<ul>
+<li>Attempted sign-ins from personal Gmail (<code>@gmail.com</code>) accounts are aborted with an informative rejection message: <em>"Only @kiit.ac.in institutional emails are authorized."</em></li>
+</ul>
+<hr />
+<h3 id="42-fr-02-item-reporting-engine-anti-spam-catalog-governance">4.2 FR-02: Item Reporting Engine &amp; Anti-Spam Catalog Governance</h3>
+<h4 id="description_1">Description:</h4>
+<p>Enables verified campus users to publish detailed listings for lost or found property, fortified by strict multi-layered catalog governance, concurrency quotas, and automated spam prevention to prevent frivolous, repetitive, or phantom listings.</p>
+<h4 id="anti-spam-listing-governance-rules">Anti-Spam &amp; Listing Governance Rules:</h4>
+<ol>
+<li><strong>Concurrency Listing Quota (Token-Bucket Limiter):</strong></li>
+<li>Each authenticated student identity is restricted to a maximum of <strong>3 active (unresolved) listings</strong> concurrently.</li>
+<li>Submissions exceeding this threshold are rejected with <strong>HTTP 429 Too Many Requests</strong>, requiring the student to resolve, claim, or archive existing listings before introducing new catalog entries.</li>
+<li><strong>Velocity Rate Limiting &amp; Cooldown Window:</strong></li>
+<li>A mandatory <strong>5-minute cooldown window</strong> is enforced between consecutive listing submissions per student roll number, preventing bot scripting and flood attacks.</li>
+<li><strong>Near-Duplicate Listing Detection:</strong></li>
+<li>The engine validates submissions against active items submitted by the same user within 24 hours. Submitting identical titles returns <strong>HTTP 409 Conflict</strong>.</li>
+<li><strong>Verifiable Minimum Content Quality:</strong></li>
+<li>Submissions enforce minimum payload lengths: <code>title</code> $\ge 3$ characters, <code>description</code> $\ge 15$ characters, and <code>specificLocation</code> $\ge 5$ characters (preventing empty or nonsensical submissions).</li>
+<li><strong>Non-Anonymous Identity Binding &amp; Audit Escalation:</strong></li>
+<li>Every listing is indelibly linked to the reporter's verified <code>@kiit.ac.in</code> email and 7-digit student roll number. Creation events generate a permanent entry in <code>AuditLog</code> (<code>REPORTED</code>), establishing legal and disciplinary accountability under <strong>KIIT Disciplinary Statute 14</strong>.</li>
+<li><strong>Distributed Community Moderation (<code>/api/items/:id/flag</code>):</strong></li>
+<li>Campus students and security guards can flag suspicious listings. Upon receiving $\ge 3$ flags, the system automatically transitions the item to <code>"ARCHIVED"</code> (quarantine), delisting it from public search and alerting security personnel.</li>
+</ol>
+<h4 id="inputs_1">Inputs:</h4>
+<ul>
+<li><code>title</code> (String, required, 3–120 chars)</li>
+<li><code>description</code> (String, required, 15–1000 chars)</li>
+<li><code>itemType</code> (Enum: <code>"LOST"</code> | <code>"FOUND"</code>, required)</li>
+<li><code>category</code> (Enum: <code>"KIIT_ID_CARD"</code>, <code>"ELECTRONICS"</code>, <code>"HOSTEL_KEYS"</code>, <code>"LAB_COAT_RECORD"</code>, <code>"CYCLE_ACCESSORY"</code>, <code>"WALLET_DOCS"</code>, <code>"BAGS_BOOKS"</code>, <code>"OTHER"</code>)</li>
+<li><code>campusId</code> (Enum representing Campuses 1 through 24, e.g. <code>"campus-15"</code>)</li>
+<li><code>specificLocation</code> (String, required, $\ge 5$ chars, e.g. <em>"Block B, 3rd Floor Lab 302"</em>)</li>
+<li><code>imageUrls</code> (Array of Strings, optional)</li>
+<li><code>secretChallengeQuestion</code> &amp; <code>secretAnswer</code> (Strings, optional for Found items)</li>
+</ul>
+<h4 id="processing_1">Processing:</h4>
+<ol>
+<li>Validates input quality thresholds and sanitizes against XSS payloads.</li>
+<li>Checks user's active listing quota (<code>count(contactEmail, status: "ACTIVE") &lt; 3</code>).</li>
+<li>Evaluates velocity cooldown ($t_{\text{now}} - t_{\text{last}} \ge 5\text{ min}$) and duplicate title existence.</li>
+<li>If secret challenge is provided, creates a normalized lowercase hash of <code>secretAnswer</code>.</li>
+<li>Writes document to <code>kiit_find.items</code> collection with initial status <code>"ACTIVE"</code>.</li>
+<li>Emits immutable <code>REPORTED</code> event to <code>auditlogs</code>.</li>
+</ol>
+<h4 id="outputs_1">Outputs:</h4>
+<ul>
+<li>HTTP 201 Created with JSON document containing newly assigned MongoDB <code>_id</code>, or HTTP 400/409/429 with specific policy violation rationale.</li>
+</ul>
+<hr />
+<h3 id="43-fr-03-cloudinary-edge-media-processing-visual-proof-optimization">4.3 FR-03: Cloudinary Edge Media Processing &amp; Visual Proof Optimization</h3>
+<h4 id="description_2">Description:</h4>
+<p>Offloads image binary storage to Cloudinary CDN, generating compressed, responsive HTTPS delivery URLs.</p>
+<h4 id="inputs_2">Inputs:</h4>
+<ul>
+<li>Image file payload (<code>image/jpeg</code>, <code>image/png</code>, <code>image/webp</code>, max size 5 MB).</li>
+</ul>
+<h4 id="processing_2">Processing:</h4>
+<ol>
+<li>Client uploads file to serverless route <code>/api/upload</code>.</li>
+<li>Server streams binary buffer to Cloudinary API using credentials <code>CLOUDINARY_CLOUD_NAME</code>, <code>CLOUDINARY_API_KEY</code>, <code>CLOUDINARY_API_SECRET</code>.</li>
+<li>Cloudinary executes automated compression, WebP format conversion, and stores asset at cloud edge.</li>
+<li>Returns secure HTTPS URL (<code>https://res.cloudinary.com/...</code>).</li>
+</ol>
+<h4 id="outputs_2">Outputs:</h4>
+<ul>
+<li>JSON response: <code>{ "success": true, "url": "https://res.cloudinary.com/o8zfiipt/..." }</code>.</li>
+</ul>
+<hr />
+<h3 id="44-fr-04-spatial-catalog-search-filtering-and-discovery">4.4 FR-04: Spatial Catalog Search, Filtering, and Discovery</h3>
+<h4 id="description_3">Description:</h4>
+<p>Provides search, filtering, and pagination over active campus items.</p>
+<h4 id="inputs_3">Inputs:</h4>
+<ul>
+<li>Query parameters: <code>?campusId=campus-15&amp;category=ELECTRONICS&amp;itemType=FOUND&amp;search=charger</code>.</li>
+</ul>
+<h4 id="processing_3">Processing:</h4>
+<ol>
+<li>Endpoint <code>GET /api/items</code> extracts query parameters.</li>
+<li>Constructs MongoDB query filter object:</li>
+<li>Partial regex search on <code>title</code> and <code>description</code> (<code>$regex</code>, <code>$options: "i"</code>).</li>
+<li>Exact match on <code>campusId</code>, <code>category</code>, and <code>itemType</code>.</li>
+<li>Default filter excludes items with status <code>"RETURNED"</code> unless explicitly requested.</li>
+<li>Sorts results by <code>createdAt</code> in descending order (<code>-1</code>).</li>
+</ol>
+<h4 id="outputs_3">Outputs:</h4>
+<ul>
+<li>HTTP 200 OK: <code>{ "success": true, "count": N, "items": [ ... ] }</code>.</li>
+</ul>
+<hr />
+<h3 id="45-fr-05-multi-tiered-zero-trust-ownership-verification-protocol-zk-mop">4.5 FR-05: Multi-Tiered Zero-Trust Ownership Verification Protocol (ZK-MOP)</h3>
+<h4 id="description_4">Description:</h4>
+<p>A multi-layered cryptographic, institutional, and physical verification engine designed to eliminate false ownership claims, parrot descriptions, and subjective finder collusion. Rather than relying on simple text descriptions or single-question guessing, the protocol verifies ownership across four orthogonal vectors:</p>
+<pre class="mermaid">flowchart TD
+    Claimant[&quot;Claimant submits ownership claim at /api/items/:id/claim&quot;] --&gt; CheckRate[&quot;1. Anti-Brute-Force Guard&lt;br/&gt;(Rejects if failed attempts &gt;= 3)&quot;]
+    CheckRate --&gt; TypeCheck{&quot;2. Proof Vector Resolution&quot;}
+
+    TypeCheck --&gt;|&quot;Category: KIIT_ID_CARD&quot;| RollLock[&quot;Vector 1: Institutional Roll Lock&lt;br/&gt;Verify claimantEmail Roll == Target Roll&lt;br/&gt;(403 Forbidden if mismatched)&quot;]
+    TypeCheck --&gt;|&quot;Category: ELECTRONICS (Serial)&quot;| SerialHash[&quot;Vector 2: Deterministic SHA-256 Serial Hash&lt;br/&gt;Compute SHA256(SubmittedSerial)&lt;br/&gt;Compare against Stored hardwareIdentifierHash&quot;]
+    TypeCheck --&gt;|&quot;Invoice / Bill Upload&quot;| DocProof[&quot;Vector 3: Pre-Loss Digital Evidence&lt;br/&gt;Retail invoice, purchase receipt, IMEI sticker&quot;]
+    TypeCheck --&gt;|&quot;Feature Question&quot;| BlindChallenge[&quot;Vector 4: Double-Blind Challenge&lt;br/&gt;Concealed question &amp; hashed answer match&quot;]
+
+    RollLock --&gt; AutoApprove[&quot;Deterministic Match Confirmed&lt;br/&gt;Auto-Approve Claim &amp; Issue Handover Pass&quot;]
+    SerialHash --&gt; AutoApprove
+    DocProof --&gt; ManualReview[&quot;Flagged for Verified Review&quot;]
+    BlindChallenge --&gt; AutoApprove
+
+    AutoApprove --&gt; SafeZoneMandate{&quot;Is Category ELECTRONICS?&quot;}
+    SafeZoneMandate --&gt;|&quot;Yes&quot;| PhysicalUnlock[&quot;Mandatory Safe Zone Physical Unlock Challenge&lt;br/&gt;Claimant must unlock biometric/PIN before guard&quot;]
+    SafeZoneMandate --&gt;|&quot;No&quot;| IssueToken[&quot;Generate HMAC-SHA256 Handover QR Token&quot;]
+    PhysicalUnlock --&gt; IssueToken
+</pre>
+<h4 id="verification-vectors">Verification Vectors:</h4>
+<ol>
+<li><strong>Vector 1: Institutional Roll Lock (Zero-Trust Identity Match):</strong></li>
+<li>For all sensitive academic credentials (<code>KIIT_ID_CARD</code>), the system matches the claimant's institutional roll number parsed from their authenticated session email (<code>/^(\d{7})@kiit\.ac\.in$/</code>) against the target roll on the card.</li>
+<li>Any claim from a mismatched email is rejected immediately with HTTP 403 Forbidden and logged as <code>FRAUD_CLAIM_BLOCKED</code>.</li>
+<li><strong>Vector 2: Cryptographic Hardware Serial Hash (Zero-Knowledge Matching):</strong></li>
+<li>For high-value consumer electronics, finders record the device Serial/IMEI, which is immediately digested into an SHA-256 hash (<code>hardwareIdentifierHash</code>) and stored in MongoDB. The plaintext serial is never stored or exposed in the public catalog.</li>
+<li>The claimant enters their hardware serial number (obtained from their original purchase invoice or packaging). The server computes <code>SHA-256(normalize(submittedSerial))</code> and performs constant-time comparison against the stored hash. Exact match triggers automated, non-subjective claim approval.</li>
+<li><strong>Vector 3: Pre-Loss Purchase Invoice and Digital Evidence Submission:</strong></li>
+<li>Claimants can upload authentic pre-loss purchase receipts, GST retail invoices, or warranty registration documents containing matching timestamps and item details.</li>
+<li><strong>Vector 4: Physical Device Unlock Challenge at Campus Safe Zone:</strong></li>
+<li>For all electronic gadgets (laptops, phones, tablets, smart watches), approval mandates physical biometric or passcode unlocking in the presence of an institutional Security Officer at designated Campus Safe Zones (Campus 15 Gate, Campus 6 Library) before final QR scan completion.</li>
+</ol>
+<h4 id="anti-brute-force-rate-limiting">Anti-Brute-Force &amp; Rate Limiting:</h4>
+<ul>
+<li>Strict per-user and per-item rate limiting: more than <strong>3 rejected/failed claim attempts</strong> results in an immediate <strong>HTTP 429 Too Many Requests</strong>, account-level claim suspension, and an automated audit alert flagged for Dean of Student Affairs review under KIIT Disciplinary Statute 14.</li>
+</ul>
+<h4 id="inputs_4">Inputs:</h4>
+<ul>
+<li><code>itemId</code> (MongoDB ObjectId)</li>
+<li><code>claimantEmail</code>, <code>claimantName</code>, <code>claimantRollNumber</code> (from authenticated session)</li>
+<li><code>proofType</code> (<code>INSTITUTIONAL_ROLL_MATCH</code>, <code>HARDWARE_SERIAL_HASH</code>, <code>PRE_LOSS_INVOICE_PROOF</code>, <code>PHYSICAL_DEVICE_UNLOCK</code>, <code>DOUBLE_BLIND_CHALLENGE</code>)</li>
+<li><code>challengeAnswer</code> (String)</li>
+<li><code>hardwareSerialSubmitted</code> (String, optional)</li>
+<li><code>proofDocumentUrl</code> (String, optional)</li>
+<li><code>physicalUnlockConfirmed</code> (Boolean, mandatory for electronics)</li>
+<li><code>proofDescription</code> (String, optional)</li>
+</ul>
+<h4 id="processing_4">Processing:</h4>
+<ol>
+<li>Verify claimant has less than 3 previous failed attempts on <code>itemId</code>.</li>
+<li>Execute vector validation rules based on <code>proofType</code> and <code>category</code>.</li>
+<li>If deterministic match (Roll Lock or Serial Hash), update claim status to <code>"APPROVED"</code> and item status to <code>"CLAIM_APPROVED"</code>.</li>
+<li>Generate signed cryptographic QR token for Safe Zone verification.</li>
+<li>Record persistent audit ledger entry in <code>auditlogs</code> collection.</li>
+</ol>
+<h4 id="outputs_4">Outputs:</h4>
+<ul>
+<li>HTTP 200 OK with approval confirmation, or HTTP 403 / 429 error with security diagnostic logging.</li>
+</ul>
+<hr />
+<h3 id="46-fr-06-cryptographic-hmac-sha256-handover-qr-token-generation">4.6 FR-06: Cryptographic HMAC-SHA256 Handover QR Token Generation</h3>
+<h4 id="description_5">Description:</h4>
+<p>Generates a tamper-proof, time-bounded dynamic QR verification code once a claim is approved.</p>
+<h4 id="inputs_5">Inputs:</h4>
+<ul>
+<li><code>itemId</code>, <code>claimantEmail</code>, <code>finderEmail</code>.</li>
+</ul>
+<h4 id="processing_5">Processing:</h4>
+<ol>
+<li>Server constructs payload:<br />
+<code>json
+   {
+     "itemId": "6ab3e7be6d0e128caa016374",
+     "claimant": "2105128@kiit.ac.in",
+     "issuedAt": 1790180000,
+     "expiresAt": 1790266400
+   }</code></li>
+<li>Computes HMAC-SHA256 signature using <code>NEXTAUTH_SECRET</code>:<br />
+   $$\text{Signature} = \text{HMAC-SHA256}(\text{Payload}, \text{SecretKey})$$</li>
+<li>Encodes payload and signature into a compact QR payload string.</li>
+</ol>
+<h4 id="outputs_5">Outputs:</h4>
+<ul>
+<li>Rendered vector QR code in claimant's portal view.</li>
+</ul>
+<hr />
+<h3 id="47-fr-07-in-browser-webrtc-optical-qr-verification-checkpoint-processing">4.7 FR-07: In-Browser WebRTC Optical QR Verification &amp; Checkpoint Processing</h3>
+<h4 id="description_6">Description:</h4>
+<p>Enables campus security staff or finders to scan and validate handover QR passes.</p>
+<h4 id="inputs_6">Inputs:</h4>
+<ul>
+<li>Live video stream from camera scanning QR code OR manual token entry at <code>/scan</code>.</li>
+</ul>
+<h4 id="processing_6">Processing:</h4>
+<ol>
+<li>In-browser ZXing/jsQR engine decodes payload from video frame.</li>
+<li>Client submits decoded token to <code>POST /api/items/:id/handover</code>.</li>
+<li>Server executes validation:</li>
+<li>Re-computes HMAC-SHA256 signature and verifies match (prevents tampering).</li>
+<li>Verifies <code>expiresAt &gt; Date.now()</code> (prevents replay of expired passes).</li>
+<li>Verifies item in database is currently in <code>"CLAIM_APPROVED"</code> state.</li>
+<li>If valid, updates item status to <code>"RETURNED"</code>.</li>
+</ol>
+<h4 id="outputs_6">Outputs:</h4>
+<ul>
+<li>Screen visual confirmation (Green Checkmark, "Handover Verified!"), vibrating haptic feedback on mobile, and item closure.</li>
+</ul>
+<hr />
+<h3 id="48-fr-08-immutable-audit-logging-handover-chain-of-custody">4.8 FR-08: Immutable Audit Logging &amp; Handover Chain-of-Custody</h3>
+<h4 id="description_7">Description:</h4>
+<p>Records an immutable chronological ledger of all lifecycle events for accountability and anti-theft investigation.</p>
+<h4 id="inputs_7">Inputs:</h4>
+<ul>
+<li>Action type, <code>itemId</code>, <code>actorEmail</code>, <code>ipAddress</code>, metadata.</li>
+</ul>
+<h4 id="processing_7">Processing:</h4>
+<ol>
+<li>On each critical event (<code>ITEM_CREATED</code>, <code>CLAIM_FILED</code>, <code>CLAIM_APPROVED</code>, <code>HANDOVER_COMPLETED</code>), the server creates a new document in <code>auditlogs</code> collection.</li>
+<li>The collection has write-only restrictions (no updates or deletes permitted).</li>
+</ol>
+<h4 id="outputs_7">Outputs:</h4>
+<ul>
+<li>Persistent audit record available to campus administrators.</li>
+</ul>
+<hr />
+<h1 id="5-non-functional-requirements">5. Non-Functional Requirements</h1>
+<h3 id="51-performance-requirements">5.1 Performance Requirements</h3>
+<ol>
+<li><strong>API Response Latency:</strong> The 95th percentile ($P_{95}$) response time for <code>GET /api/items</code> <strong>SHALL</strong> be less than <strong>200 milliseconds</strong> under standard network conditions.</li>
+<li><strong>Database Connection Reuse:</strong> The system <strong>SHALL</strong> maintain a cached singleton Mongoose connection pool across serverless invocations to prevent exhausting the 500-connection limit on MongoDB Atlas free tiers.</li>
+<li><strong>Asset Delivery Latency:</strong> Photographs delivered via Cloudinary CDN <strong>SHALL</strong> have initial load times under <strong>500 milliseconds</strong> via automatic WebP formatting and edge caching.</li>
+</ol>
+<h3 id="52-safety-requirements">5.2 Safety Requirements</h3>
+<ol>
+<li><strong>Idempotent Handover Execution:</strong> Scanning a QR pass multiple times <strong>SHALL NOT</strong> create duplicate audit logs or corrupt item status. Once marked <code>"RETURNED"</code>, the token is permanently invalidated.</li>
+<li><strong>Graceful Network Degradation:</strong> If the client loses network connectivity during QR scanning, the camera stream <strong>SHALL</strong> display an informative offline notification rather than crashing.</li>
+</ol>
+<h3 id="53-security-requirements">5.3 Security Requirements</h3>
+<ol>
+<li><strong>Authentication Enforcement:</strong> All mutation routes (<code>POST /api/items</code>, <code>POST /api/items/:id/claim</code>, <code>POST /api/items/:id/handover</code>) <strong>SHALL</strong> require a valid, signed JWT session cookie.</li>
+<li><strong>NoSQL Injection Prevention:</strong> All database queries <strong>SHALL</strong> use parameterized Mongoose model queries with strict typecasting, preventing MongoDB operator injection (<code>$gt</code>, <code>$where</code>).</li>
+<li><strong>Cross-Site Scripting (XSS) Mitigation:</strong> All user inputs rendered in the DOM <strong>SHALL</strong> be auto-escaped via React's JSX virtual DOM sanitization engine.</li>
+<li><strong>Environment Isolation:</strong> All production secrets (<code>GOOGLE_CLIENT_SECRET</code>, <code>CLOUDINARY_API_SECRET</code>, <code>MONGODB_URI</code>) <strong>SHALL</strong> be stored exclusively in server environment variables and excluded from source control (<code>.gitignore</code>).</li>
+</ol>
+<h4 id="531-anti-fraud-ownership-threat-model-mitigations">5.3.1 Anti-Fraud Ownership Threat Model &amp; Mitigations</h4>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Threat Vector ID</th>
+<th style="text-align: left;">Threat Description &amp; Attack Scenario</th>
+<th style="text-align: left;">Traditional Lost &amp; Found Flaw</th>
+<th style="text-align: left;">KIIT-Find Zero-Trust Mitigation Protocol</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>THREAT-01</strong></td>
+<td style="text-align: left;"><strong>Visual Eavesdropping &amp; Description Parrot</strong><br/>Attacker reads item title/photo details (e.g., "Black Dell charger found at Campus 6") and parrots back description to claim ownership.</td>
+<td style="text-align: left;">Relies on subjective description matching by finder. Attacker describes what they saw in photo.</td>
+<td style="text-align: left;"><strong>Deterministic Hash Matching &amp; Permanent PII Blur:</strong> Sensitive identifiers are blurred in catalog. Claim requires pre-loss invoice upload or exact serial match, rendering public text useless.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>THREAT-02</strong></td>
+<td style="text-align: left;"><strong>Finder-Claimant Collusion &amp; Subjective Bias</strong><br/>Dishonest finder approves claim submitted by their friend to fraudulently claim high-value item (laptop, earbuds).</td>
+<td style="text-align: left;">Finder has sole discretionary authority to approve or deny claims.</td>
+<td style="text-align: left;"><strong>Elimination of Discretionary Handover:</strong> For electronics, the system mandates a physical unlock challenge at an institutional Safe Zone checkpoint. Both parties must execute a dual-scan QR protocol before the Campus Security Officer.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>THREAT-03</strong></td>
+<td style="text-align: left;"><strong>Brute-Force Challenge Guessing</strong><br/>Attacker repeatedly submits common answers to secret challenge questions (e.g. "Sticker: Apple, Nike, Marvel").</td>
+<td style="text-align: left;">No rate-limiting; attackers can script automated submissions.</td>
+<td style="text-align: left;"><strong>Adaptive Rate Limiting &amp; Account Lockout:</strong> Maximum 3 failed attempts per identity. Exceeding threshold triggers HTTP 429 lockout, audit ledger alert, and account flag under KIIT Disciplinary Statute 14.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>THREAT-04</strong></td>
+<td style="text-align: left;"><strong>Student Identity Impersonation</strong><br/>Attacker attempts to claim another student's lost KIIT Smart ID Card to misuse library/exam privileges.</td>
+<td style="text-align: left;">Finder handovers card without verifying official roll number.</td>
+<td style="text-align: left;"><strong>Cryptographic Institutional Roll Lock:</strong> The API extracts the claimant roll from their <code>@kiit.ac.in</code> OAuth token. If claimant roll does not match the target card roll, claim is rejected with HTTP 403 Forbidden.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>THREAT-05</strong></td>
+<td style="text-align: left;"><strong>Plaintext Serial Leakage</strong><br/>Storing hardware serial numbers in database allows insider database leaks or scraping.</td>
+<td style="text-align: left;">Plaintext database fields visible in query inspector or admin dump.</td>
+<td style="text-align: left;"><strong>Zero-Knowledge SHA-256 Hashing:</strong> Hardware serial numbers are hashed at ingestion with SHA-256 (<code>hardwareIdentifierHash</code>). Server compares <code>SHA256(claimant_input) === stored_hash</code> without storing plaintext.</td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>THREAT-06</strong></td>
+<td style="text-align: left;"><strong>Catalog Flooding &amp; Frivolous/Phantom Listings</strong><br/>Malicious student or automated bot posts dozens of fake listings for no reason to clutter the catalog or grief security.</td>
+<td style="text-align: left;">Open listing permissions with no rate limit, no quota, and no peer moderation.</td>
+<td style="text-align: left;"><strong>Concurrency Quota &amp; Community Auto-Quarantine:</strong> Active listings capped at 3 per student; 5-min cooldown window; duplicate detection; non-anonymous <code>@kiit.ac.in</code> audit trail under Statute 14; $\ge 3$ community flags trigger automatic quarantine and delisting.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-privacy-regulatory-compliance-dpdp-act-2023">5.4 Privacy &amp; Regulatory Compliance (DPDP Act 2023)</h3>
+<p>In compliance with the <strong>Digital Personal Data Protection (DPDP) Act, 2023 (Government of India)</strong>:<br />
+1. <strong>PII Minimization on Public Feeds:</strong> For reported KIIT Smart ID cards, the student's full name and roll number <strong>SHALL NOT</strong> be indexed publicly in raw search text.<br />
+2. <strong>Identity Masking:</strong> Only the designated Safe Zone Security Officer and approved claimant receive contact access during verified physical exchange.</p>
+<h3 id="55-software-quality-attributes">5.5 Software Quality Attributes</h3>
+<ul>
+<li><strong>Reliability:</strong> The platform achieves fault-tolerant database connectivity using a 3-shard MongoDB Atlas replica set with automated primary node failover.</li>
+<li><strong>Availability:</strong> Target uptime of <strong>99.9%</strong> leveraging serverless edge deployment across distributed availability zones.</li>
+<li><strong>Maintainability:</strong> Written in strict TypeScript with modular separation of concerns:</li>
+<li>Database Models: <code>/src/models/</code></li>
+<li>Utility Functions: <code>/src/lib/</code></li>
+<li>React UI Components: <code>/src/components/</code></li>
+<li>Serverless API Routes: <code>/src/app/api/</code></li>
+<li><strong>Portability:</strong> Progressive Web Application (PWA) responsiveness operating identically across iOS, Android, Windows, and macOS without platform-specific binaries.</li>
+</ul>
+<hr />
+<h1 id="6-data-models-schema-specifications">6. Data Models &amp; Schema Specifications</h1>
+<h3 id="61-database-schema-bson-data-dictionary">6.1 Database Schema &amp; BSON Data Dictionary</h3>
+<h4 id="collection-1-items">Collection 1: <code>items</code></h4>
+<p>Stores all reported lost and found campus property.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">BSON Data Type</th>
+<th style="text-align: left;">Constraints</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>_id</code></td>
+<td style="text-align: left;"><code>ObjectId</code></td>
+<td style="text-align: left;">Primary Key, Auto</td>
+<td style="text-align: left;">Unique 12-byte BSON identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>title</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required, Trimmed</td>
+<td style="text-align: left;">Short descriptive title (e.g. "Casio fx-991CW")</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>description</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">In-depth description of appearance and condition</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>itemType</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Enum: <code>["LOST", "FOUND"]</code></td>
+<td style="text-align: left;">Category indicator</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>category</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Enum (8 categories)</td>
+<td style="text-align: left;">Item category classification</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>campusId</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required (e.g. <code>"campus-15"</code>)</td>
+<td style="text-align: left;">Standardized KIIT campus code</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>campusName</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Full campus name</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>specificLocation</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Micro-location landmark within campus</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>imageUrls</code></td>
+<td style="text-align: left;"><code>Array&lt;String&gt;</code></td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Array of secure Cloudinary CDN URLs</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Enum (see 6.3)</td>
+<td style="text-align: left;">Default: <code>"ACTIVE"</code></td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>secretChallengeQuestion</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Question verifying genuine ownership</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>secretAnswerHash</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Normalized hash of correct answer</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>contactEmail</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required, <code>@kiit.ac.in</code></td>
+<td style="text-align: left;">Email of reporter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>contactName</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Name of reporter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>reporterRollNumber</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">7-digit student roll number or "Staff"</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>reporterHostel</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Enum (<code>KP-1</code> to <code>QC-12</code>)</td>
+<td style="text-align: left;">Hostel residence of reporter</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>claimedBy</code></td>
+<td style="text-align: left;"><code>Object</code></td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Subdocument containing claimant details</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>createdAt</code></td>
+<td style="text-align: left;"><code>Date</code></td>
+<td style="text-align: left;">Timestamp, Indexed</td>
+<td style="text-align: left;">Timestamp of creation</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>updatedAt</code></td>
+<td style="text-align: left;"><code>Date</code></td>
+<td style="text-align: left;">Timestamp</td>
+<td style="text-align: left;">Timestamp of last modification</td>
+</tr>
+</tbody>
+</table>
+<h4 id="collection-2-claims">Collection 2: <code>claims</code></h4>
+<p>Stores claim requests filed against items.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">BSON Data Type</th>
+<th style="text-align: left;">Constraints</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>_id</code></td>
+<td style="text-align: left;"><code>ObjectId</code></td>
+<td style="text-align: left;">Primary Key, Auto</td>
+<td style="text-align: left;">Unique claim identifier</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>itemId</code></td>
+<td style="text-align: left;"><code>ObjectId</code></td>
+<td style="text-align: left;">Foreign Key $\to$ <code>items._id</code></td>
+<td style="text-align: left;">Associated item reference</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>claimantEmail</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required, <code>@kiit.ac.in</code></td>
+<td style="text-align: left;">Email of claimant</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>claimantName</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Full name of claimant</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>claimantRollNumber</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Roll number of claimant</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>challengeAnswer</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Required</td>
+<td style="text-align: left;">Submitted response to challenge</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>status</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Enum: <code>["PENDING", "APPROVED", "REJECTED", "COMPLETED"]</code></td>
+<td style="text-align: left;">Current status of claim</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>createdAt</code></td>
+<td style="text-align: left;"><code>Date</code></td>
+<td style="text-align: left;">Timestamp</td>
+<td style="text-align: left;">Timestamp of claim submission</td>
+</tr>
+</tbody>
+</table>
+<h4 id="collection-3-auditlogs">Collection 3: <code>auditlogs</code></h4>
+<p>Immutable ledger tracking all state mutations.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Field Name</th>
+<th style="text-align: left;">BSON Data Type</th>
+<th style="text-align: left;">Constraints</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><code>_id</code></td>
+<td style="text-align: left;"><code>ObjectId</code></td>
+<td style="text-align: left;">Primary Key, Auto</td>
+<td style="text-align: left;">Unique audit log entry ID</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>itemId</code></td>
+<td style="text-align: left;"><code>ObjectId</code></td>
+<td style="text-align: left;">Foreign Key $\to$ <code>items._id</code></td>
+<td style="text-align: left;">Item subject to action</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>action</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Enum: <code>["CREATED", "CLAIMED", "VERIFIED", "RETURNED"]</code></td>
+<td style="text-align: left;">Action executed</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>performedBy</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Email identifier</td>
+<td style="text-align: left;">User initiating the action</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>details</code></td>
+<td style="text-align: left;"><code>String</code></td>
+<td style="text-align: left;">Optional</td>
+<td style="text-align: left;">Contextual notes / checkpoint name</td>
+</tr>
+<tr>
+<td style="text-align: left;"><code>timestamp</code></td>
+<td style="text-align: left;"><code>Date</code></td>
+<td style="text-align: left;">Default: <code>Date.now</code></td>
+<td style="text-align: left;">Precise UTC event timestamp</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h3 id="62-entity-relationship-specification">6.2 Entity-Relationship Specification</h3>
+<pre class="mermaid">erDiagram
+    USERS ||--o{ ITEMS : &quot;reports&quot;
+    USERS ||--o{ CLAIMS : &quot;submits&quot;
+    ITEMS ||--o{ CLAIMS : &quot;associated with&quot;
+    ITEMS ||--o{ AUDIT_LOGS : &quot;generates&quot;
+
+    USERS {
+        string email PK &quot;Ends with @kiit.ac.in&quot;
+        string name
+        string rollNumber &quot;7-digit institutional roll&quot;
+        string hostel &quot;KP/QC residence&quot;
+        string role &quot;STUDENT | SECURITY | ADMIN&quot;
+    }
+
+    ITEMS {
+        ObjectId id PK
+        string title
+        string description
+        string itemType &quot;LOST | FOUND&quot;
+        string category &quot;ID | ELECTRONICS | KEYS...&quot;
+        string campusId &quot;campus-1 to campus-25&quot;
+        string specificLocation &quot;Landmark description&quot;
+        string imageUrls &quot;Cloudinary CDN URLs&quot;
+        string status &quot;ACTIVE | CLAIM_PENDING | CLAIM_APPROVED | RETURNED&quot;
+        string secretChallengeQuestion
+        string secretAnswerHash
+        string contactEmail FK
+    }
+
+    CLAIMS {
+        ObjectId id PK
+        ObjectId itemId FK
+        string claimantEmail FK
+        string challengeAnswer
+        string status &quot;PENDING | APPROVED | REJECTED | COMPLETED&quot;
+        date createdAt
+    }
+
+    AUDIT_LOGS {
+        ObjectId id PK
+        ObjectId itemId FK
+        string action &quot;CREATED | CLAIMED | VERIFIED | RETURNED&quot;
+        string performedBy FK
+        datetime timestamp
+    }
+</pre>
+<hr />
+<h3 id="63-item-lifecycle-state-transition-specification">6.3 Item Lifecycle State Transition Specification</h3>
+<pre class="mermaid">stateDiagram-v2
+    [*] --&gt; ACTIVE: Item Reported (FR-02)
+    ACTIVE --&gt; CLAIM_PENDING: Challenge Answer Submitted (FR-05)
+    CLAIM_PENDING --&gt; ACTIVE: Finder Rejects Claim Answer
+    CLAIM_PENDING --&gt; CLAIM_APPROVED: Challenge Answer Verified (FR-05)
+    CLAIM_APPROVED --&gt; RETURNED: QR Handover Scanned at Safe Zone (FR-06, FR-07)
+    RETURNED --&gt; ARCHIVED: 30-Day Auto Archive
+    ARCHIVED --&gt; [*]
+</pre>
+<ul>
+<li><strong><code>ACTIVE</code>:</strong> Item is listed in the catalog and open for exploration or ownership challenges.</li>
+<li><strong><code>CLAIM_PENDING</code>:</strong> An answer has been submitted; item temporarily locks additional claims pending review.</li>
+<li><strong><code>CLAIM_APPROVED</code>:</strong> Challenge answer confirmed; dynamic HMAC QR code generated for handover.</li>
+<li><strong><code>RETURNED</code>:</strong> Physical verification executed at campus security checkpoint; item transaction closed.</li>
+</ul>
+<hr />
+<h1 id="7-requirements-traceability-matrix-rtm">7. Requirements Traceability Matrix (RTM)</h1>
+<p>The following matrix establishes bidirectional traceability between user needs, functional requirements, database schema entities, and verification test cases:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Req ID</th>
+<th style="text-align: left;">Functional Requirement Description</th>
+<th style="text-align: left;">Related Database Entity</th>
+<th style="text-align: left;">Implementation Module</th>
+<th style="text-align: left;">Verification Test Case</th>
+<th style="text-align: left;">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>FR-01</strong></td>
+<td style="text-align: left;">Institutional Google OAuth with <code>@kiit.ac.in</code> domain restriction and roll number parsing</td>
+<td style="text-align: left;"><code>users</code> session</td>
+<td style="text-align: left;"><a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/lib/auth.ts"><code>src/lib/auth.ts</code></a></td>
+<td style="text-align: left;">TC-AUTH-01: Non-KIIT email rejected; TC-AUTH-02: Roll number parsed</td>
+<td style="text-align: left;"><strong>Verified Live</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FR-02</strong></td>
+<td style="text-align: left;">Item reporting with micro-spatial campus tagging and categorization</td>
+<td style="text-align: left;"><code>items</code> collection</td>
+<td style="text-align: left;"><a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/app/api/items/route.ts"><code>src/app/api/items/route.ts</code></a>, <a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/app/report/page.tsx"><code>src/app/report/page.tsx</code></a></td>
+<td style="text-align: left;">TC-ITEM-01: Valid submission writes to MongoDB; TC-ITEM-02: Required field validation</td>
+<td style="text-align: left;"><strong>Verified Live</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FR-03</strong></td>
+<td style="text-align: left;">Cloudinary CDN media ingestion and WebP responsive optimization</td>
+<td style="text-align: left;"><code>items.imageUrls</code></td>
+<td style="text-align: left;"><a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/lib/cloudinary.ts"><code>src/lib/cloudinary.ts</code></a>, <a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/app/api/upload/route.ts"><code>src/app/api/upload/route.ts</code></a></td>
+<td style="text-align: left;">TC-MEDIA-01: Image upload returns HTTPS CDN URL</td>
+<td style="text-align: left;"><strong>Verified Live</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FR-04</strong></td>
+<td style="text-align: left;">Catalog discovery with multi-faceted campus, category, and text search</td>
+<td style="text-align: left;"><code>items</code> collection</td>
+<td style="text-align: left;"><a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/app/browse/page.tsx"><code>src/app/browse/page.tsx</code></a>, <code>GET /api/items</code></td>
+<td style="text-align: left;">TC-CAT-01: Filter by Campus 15 returns matching subset; TC-CAT-02: Text search</td>
+<td style="text-align: left;"><strong>Verified Live</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FR-05</strong></td>
+<td style="text-align: left;">Double-blind challenge question verification preventing fraudulent claims</td>
+<td style="text-align: left;"><code>items.secretAnswerHash</code>, <code>claims</code></td>
+<td style="text-align: left;"><a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/components/DoubleBlindChallengeModal.tsx"><code>src/components/DoubleBlindChallengeModal.tsx</code></a>, <code>/api/items/:id/claim</code></td>
+<td style="text-align: left;">TC-VERIF-01: Correct answer pre-approves claim; TC-VERIF-02: Wrong answer rejected</td>
+<td style="text-align: left;"><strong>Verified Live</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FR-06</strong></td>
+<td style="text-align: left;">Cryptographic HMAC-SHA256 time-bounded dynamic QR pass generation</td>
+<td style="text-align: left;"><code>claims.qrToken</code></td>
+<td style="text-align: left;"><a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/lib/qr.ts"><code>src/lib/qr.ts</code></a>, <a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/components/QrCodeModal.tsx"><code>src/components/QrCodeModal.tsx</code></a></td>
+<td style="text-align: left;">TC-QR-01: Valid signature generated; TC-QR-02: Tampered payload rejected</td>
+<td style="text-align: left;"><strong>Verified Live</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FR-07</strong></td>
+<td style="text-align: left;">Optical WebRTC QR scanner and physical security checkpoint handover execution</td>
+<td style="text-align: left;"><code>items.status</code></td>
+<td style="text-align: left;"><a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/app/scan/page.tsx"><code>src/app/scan/page.tsx</code></a>, <code>/api/items/:id/handover</code></td>
+<td style="text-align: left;">TC-SCAN-01: QR scan transitions item to <code>RETURNED</code></td>
+<td style="text-align: left;"><strong>Verified Live</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>FR-08</strong></td>
+<td style="text-align: left;">Immutable audit logging of item lifecycle events</td>
+<td style="text-align: left;"><code>auditlogs</code> collection</td>
+<td style="text-align: left;"><a href="file:///c:/Users/KIIT/Downloads/SE%20Prompt/src/models/AuditLog.ts"><code>src/models/AuditLog.ts</code></a></td>
+<td style="text-align: left;">TC-AUDIT-01: State changes persist immutable timestamped audit log</td>
+<td style="text-align: left;"><strong>Verified Live</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1 id="8-appendix-academic-acknowledgements">8. Appendix &amp; Academic Acknowledgements</h1>
+<h3 id="81-academic-context">8.1 Academic Context</h3>
+<p>This Software Requirements Specification was engineered as part of the formal curriculum for <strong>Software Engineering (CS3043 / CS2002)</strong> under the guidance of <strong>Dr. Raghunath Dey</strong>, Assistant Professor (II), School of Computer Engineering, KIIT Deemed to be University, Bhubaneswar.</p>
+<h3 id="82-declaration">8.2 Declaration</h3>
+<p>I hereby declare that this specification represents an authentic, engineered software solution designed to solve the real-world communication and fraud challenges of lost and found recovery across the campuses of KIIT University.</p>
+<p><strong>Student Signature:</strong><br />
+<em>Pratyush Sharma</em><br />
+Roll No: <strong>24051871</strong> | Section: <strong>SE-CS2</strong><br />
+School of Computer Engineering, KIIT Deemed to be University<br />
+Date: October 13, 2026</p>
+      </div>
+
+    </article>
+  </main>
+
+</body>
+</html>
